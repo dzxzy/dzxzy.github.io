@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>欢迎来到【蛋仔小鄒呀】的个人网站</title>
-    <!-- 使用 Simple Icons CDN 以显示各大平台 Logo，图标选择更多也更稳定 -->
+    <!-- 使用 Simple Icons CDN 以显示各大平台 Logo -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/simple-icons@1.3.0/simple-icons.css">
     <style>
         * {
@@ -33,7 +33,26 @@
             border-left: 4px solid #0366d6;
             padding-left: 1rem;
         }
-        /* 社交链接样式 - 带 Logo 图标 */
+        /* 新增：个人介绍区域样式 */
+        .intro {
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-left: 5px solid #0366d6;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #1f2d3d;
+        }
+        .intro p {
+            margin-bottom: 0.5rem;
+        }
+        .intro .highlight {
+            font-weight: 600;
+            color: #0366d6;
+        }
+        /* 社交链接样式 */
         .social-links {
             background: white;
             padding: 1rem 1.5rem;
@@ -67,14 +86,13 @@
         .social-icon i {
             font-size: 1.2rem;
         }
-        /* 各个平台品牌的颜色（鼠标悬停时显示） */
         .social-icon.bilibili:hover { background: #00a1d6; color: white; }
         .social-icon.douyin:hover { background: #000000; color: white; }
         .social-icon.kuaishou:hover { background: #ff5a1f; color: white; }
         .social-icon.xiaohongshu:hover { background: #fe6c61; color: white; }
         .social-icon.lofter:hover { background: #3890d4; color: white; }
         .social-icon.netease:hover { background: #c20c0c; color: white; }
-        /* 视频网格样式（与之前相同） */
+        /* 视频网格样式 */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -156,7 +174,19 @@
 <body>
 <div class="container">
     <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画视频素材库</h1>
-    <div class="sub"> 适合剪辑 · 来源请标注出处！！！ · 支持预览和下载（资源的加载和下载可能比较缓慢，因为网站在外网……）</div>
+
+    <!-- ========= 新增个人介绍区域 ========= -->
+    <div class="intro">
+        <p>✨ <span class="highlight">大家好，我是【蛋仔小鄒呀】！</span></p>
+        <p>🎮 一名热爱《蛋仔派对》的玩家，也是赛季开头动画的整理分享者。<br>
+        📹 所有视频素材均从官方赛季动画中提取，适合二创、剪辑或收藏。<br>
+        💡 <strong>免费使用，但请务必标注出处！！！</strong> —— 你的支持是我持续更新的动力！<br>
+        🚀 S30【元气零食】即将上线，我会第一时间上传高清片头，记得常来看看～</p>
+        <p>📩 合作或建议：可以在任意社交平台私信我，或通过下面链接找到我。</p>
+    </div>
+    <!-- ========= 个人介绍结束 ========= -->
+
+    <div class="sub">适合剪辑 · 来源请标注出处！！！ · 支持预览和下载（资源的加载和下载可能比较缓慢，因为网站在外网……）</div>
 
     <!-- 社交链接区域 - 带 Logo 图标 -->
     <div class="social-links">
@@ -191,161 +221,40 @@
 </div>
 
 <script>
-    // ============================================================
-    // 🎯 视频数据列表 ———— 你只需要在这里添加/修改视频信息即可！
-    // ============================================================
+    // 视频数据列表（保持原有内容不变）
     const videoList = [
-        {
-            title: "怪奇工厂",
-            description: "暂无介绍",
-            fileName: "S01-怪奇工厂.mp4"
-        },
-        {
-            title: "S02-惊奇游乐园",
-            description: "暂无介绍",
-            fileName: "S02-惊奇游乐园.mp4"
-        },
-        {
-            title: "S03-疯狂马戏团",
-            description: "暂无介绍",
-            fileName: "S03-疯狂马戏团"
-        },
-        {
-            title: "S04-汪汪向前冲",
-            description: "我要用速度战胜一切",
-            fileName: "S04-汪汪向前冲.mp4"
-        },
-        {
-            title: "S05-糖果甜心",
-            description: "暂无介绍",
-            fileName: "S05-糖果甜心.mp4"
-        },
-        {
-            title: "S06-蛋糕蜜语",
-            description: "传说,在一个甜蜜的午后……",
-            fileName: "S06-蛋糕蜜语.mp4"
-        },
-        {
-            title: "S07-音乐星企划",
-            description: "准备好让心跳加速了吗！",
-            fileName: "S07-音乐星企划.mp4"
-        },
-        {
-            title: "S08-精灵之声",
-            description: "自从曜星离开后，我以为，世界上不会再有音乐了……",
-            fileName: "S08-精灵之声.mp4"
-        },
-        {
-            title: "S09-勇闯龙蛋岛",
-            description: "暂无介绍",
-            fileName: "S09-勇闯龙蛋岛.mp4"
-        },
-        {
-            title: "S10-太空奇遇",
-            description: "暂无介绍",
-            fileName: "S10-太空奇遇.mp4"
-        },
-        {
-            title: "S11-梦幻星遇",
-            description: "那些深满内心的恐惧，总会以梦的形式再次出现……",
-            fileName: "S11-梦幻星遇.mp4"
-        },
-        {
-            title: "S12-寻秘狂欢",
-            description: "欢迎来到狂欢节",
-            fileName: "S12-寻秘狂欢.mp4"
-        },
-        {
-            title: "S13-午夜魅影",
-            description: "午夜剧院，欢迎所有迷路的灵魂……",
-            fileName: "S13-午夜魅影.mp4"
-        },
-        {
-            title: "S14-寻光冰雪",
-            description: "又梦见了冰原的冬日……",
-            fileName: "S14-寻光冰雪.mp4"
-        },
-        {
-            title: "S15-玩具历险",
-            description: "怀揣着梦想而来的小蛋仔，请许下你的愿望……",
-            fileName: "S15-玩具历险.mp4"
-        },
-        {
-            title: "S16-潮玩大作战",
-            description: "这些被改造的玩具，最后都去了哪里……",
-            fileName: "S16-潮玩大作战.mp4"
-        },
-        {
-            title: "S17-宝船拍卖夜",
-            description: "载满了珍宝的游船，现在已为你靠岸……",
-            fileName: "S17-宝船拍卖夜.mp4"
-        },
-        {
-            title: "S18-深海逐金宴",
-            description: "几乎所有的罪恶，都来源于全能的黄金……",
-            fileName: "S18-深海逐金宴.mp4"
-        },
-        {
-            title: "S19-圆月哥特",
-            description: "十五天后，我会被那些家伙撕碎……",
-            fileName: "S19-圆月哥特.mp4"
-        },
-        {
-            title: "S20-龙与剑之诗",
-            description: "我重生了……",
-            fileName: "S20-龙与剑之诗.mp4"
-        },
-        {
-            title: "S21-时之回响",
-            description: "时针，指向二十一点前……",
-            fileName: "S21-时之回响.mp4"
-        },
-        {
-            title: "S22-金字塔传奇",
-            description: "不知从何时开始，神明抛弃了我们……",
-            fileName: "S22-金字塔传奇.mp4"
-        },
-        {
-            title: "S23-绘梦校园",
-            description: "平静的校园里，藏着多少秘密……",
-            fileName: "S23-绘梦校园.mp4"
-        },
-        {
-            title: "S24-蜜糖海迷踪",
-            description: "传说，在一个甜蜜的午后……*2",
-            fileName: "S24-蜜糖海迷踪.mp4"
-        },
-        {
-            title: "S25-博物馆狂想",
-            description: "好漂亮的王冠……（呃啊，我的屁股！）",
-            fileName: "S25-博物馆狂想.mp4"
-        },
-        {
-            title: "S26-国宝归乡",
-            description: "时间，是顽固的错觉……",
-            fileName: "S26-国宝归乡.mp4"
-        },
-        {
-            title: "S27-织梦寻星",
-            description: "欢迎光临，尊敬的客人",
-            fileName: "S27-织梦寻星.mp4"
-        },
-        {
-            title: "S28-奇迹大马戏",
-            description: "爸爸说，当天空落下第一片雪花，他就会回家。",
-            fileName: "S28-奇迹大马戏.mp4"
-        },
-        {
-            title: "S29-心动魔法",
-            description: "魔法少女，变身！",
-            fileName: "S29-心动魔法.mp4"
-        },
-        
-        // ---------- 继续添加更多视频 ----------
-        // 格式：{ title: "视频标题", description: "简短描述", fileName: "文件名.mp4" }
+        { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
+        { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
+        { title: "S03-疯狂马戏团", description: "暂无介绍", fileName: "S03-疯狂马戏团" },
+        { title: "S04-汪汪向前冲", description: "我要用速度战胜一切", fileName: "S04-汪汪向前冲.mp4" },
+        { title: "S05-糖果甜心", description: "暂无介绍", fileName: "S05-糖果甜心.mp4" },
+        { title: "S06-蛋糕蜜语", description: "传说,在一个甜蜜的午后……", fileName: "S06-蛋糕蜜语.mp4" },
+        { title: "S07-音乐星企划", description: "准备好让心跳加速了吗！", fileName: "S07-音乐星企划.mp4" },
+        { title: "S08-精灵之声", description: "自从曜星离开后，我以为，世界上不会再有音乐了……", fileName: "S08-精灵之声.mp4" },
+        { title: "S09-勇闯龙蛋岛", description: "暂无介绍", fileName: "S09-勇闯龙蛋岛.mp4" },
+        { title: "S10-太空奇遇", description: "暂无介绍", fileName: "S10-太空奇遇.mp4" },
+        { title: "S11-梦幻星遇", description: "那些深满内心的恐惧，总会以梦的形式再次出现……", fileName: "S11-梦幻星遇.mp4" },
+        { title: "S12-寻秘狂欢", description: "欢迎来到狂欢节", fileName: "S12-寻秘狂欢.mp4" },
+        { title: "S13-午夜魅影", description: "午夜剧院，欢迎所有迷路的灵魂……", fileName: "S13-午夜魅影.mp4" },
+        { title: "S14-寻光冰雪", description: "又梦见了冰原的冬日……", fileName: "S14-寻光冰雪.mp4" },
+        { title: "S15-玩具历险", description: "怀揣着梦想而来的小蛋仔，请许下你的愿望……", fileName: "S15-玩具历险.mp4" },
+        { title: "S16-潮玩大作战", description: "这些被改造的玩具，最后都去了哪里……", fileName: "S16-潮玩大作战.mp4" },
+        { title: "S17-宝船拍卖夜", description: "载满了珍宝的游船，现在已为你靠岸……", fileName: "S17-宝船拍卖夜.mp4" },
+        { title: "S18-深海逐金宴", description: "几乎所有的罪恶，都来源于全能的黄金……", fileName: "S18-深海逐金宴.mp4" },
+        { title: "S19-圆月哥特", description: "十五天后，我会被那些家伙撕碎……", fileName: "S19-圆月哥特.mp4" },
+        { title: "S20-龙与剑之诗", description: "我重生了……", fileName: "S20-龙与剑之诗.mp4" },
+        { title: "S21-时之回响", description: "时针，指向二十一点前……", fileName: "S21-时之回响.mp4" },
+        { title: "S22-金字塔传奇", description: "不知从何时开始，神明抛弃了我们……", fileName: "S22-金字塔传奇.mp4" },
+        { title: "S23-绘梦校园", description: "平静的校园里，藏着多少秘密……", fileName: "S23-绘梦校园.mp4" },
+        { title: "S24-蜜糖海迷踪", description: "传说，在一个甜蜜的午后……*2", fileName: "S24-蜜糖海迷踪.mp4" },
+        { title: "S25-博物馆狂想", description: "好漂亮的王冠……（呃啊，我的屁股！）", fileName: "S25-博物馆狂想.mp4" },
+        { title: "S26-国宝归乡", description: "时间，是顽固的错觉……", fileName: "S26-国宝归乡.mp4" },
+        { title: "S27-织梦寻星", description: "欢迎光临，尊敬的客人", fileName: "S27-织梦寻星.mp4" },
+        { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
+        { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" }
     ];
 
-    const VIDEO_BASE_PATH = "videos/";   // 视频文件夹路径
+    const VIDEO_BASE_PATH = "videos/";
 
     function renderVideos() {
         const container = document.getElementById('videoContainer');
