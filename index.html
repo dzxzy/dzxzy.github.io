@@ -33,7 +33,7 @@
             border-left: 4px solid #0366d6;
             padding-left: 1rem;
         }
-        /* 新增：个人介绍区域样式 */
+        /* 个人介绍区域样式 */
         .intro {
             background: #e8f0fe;
             border-radius: 20px;
@@ -175,7 +175,7 @@
 <div class="container">
     <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画视频素材库</h1>
 
-    <!-- ========= 新增个人介绍区域 ========= -->
+    <!-- 个人介绍区域 -->
     <div class="intro">
         <p>✨ <span class="highlight">大家好，我是【蛋仔小鄒呀】！</span></p>
         <p>🎮 一名热爱《蛋仔派对》的玩家，也是赛季开头动画的整理分享者。<br>
@@ -184,9 +184,8 @@
         🚀 S30【元气零食】即将上线，我会第一时间上传高清片头，记得常来看看～</p>
         <p>📩 合作或建议：可以在任意社交平台私信我，或通过下面链接找到我。</p>
     </div>
-    <!-- ========= 个人介绍结束 ========= -->
 
-    <div class="sub">适合剪辑 · 来源请标注出处！！！ · 支持预览和下载（资源的加载和下载可能比较缓慢，因为网站在外网……）</div>
+    <div class="sub">适合剪辑 · 来源请标注出处！！！ · 支持预览和下载（滚动到视频附近才会开始加载，避免卡顿）</div>
 
     <!-- 社交链接区域 - 带 Logo 图标 -->
     <div class="social-links">
@@ -221,7 +220,7 @@
 </div>
 
 <script>
-    // 视频数据列表（保持原有内容不变）
+    // 视频数据列表（完全保留原有内容）
     const videoList = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
@@ -252,10 +251,12 @@
         { title: "S27-织梦寻星", description: "欢迎光临，尊敬的客人", fileName: "S27-织梦寻星.mp4" },
         { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
         { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" }
+        { title: "S30-元气零食", description: "热量在沸腾，美味在尖叫！", fileName: "S30-元气零食.mp4" }
     ];
 
     const VIDEO_BASE_PATH = "videos/";
 
+    // 渲染所有视频卡片（不加载真实视频，只放占位）
     function renderVideos() {
         const container = document.getElementById('videoContainer');
         if (!videoList.length) {
@@ -267,10 +268,11 @@
             const videoUrl = VIDEO_BASE_PATH + v.fileName;
             const safeTitle = escapeHtml(v.title);
             const safeDesc = escapeHtml(v.description);
+            // 关键：video 标签没有 src，source 的 src 也留空，使用 data-src 保存真实地址
             html += `
-                <div class="video-card">
-                    <video controls preload="metadata">
-                        <source src="${videoUrl}" type="video/mp4">
+                <div class="video-card" data-video-url="${videoUrl}">
+                    <video controls preload="none" poster="">
+                        <source data-src="${videoUrl}" type="video/mp4">
                         您的浏览器不支持 video 标签。
                     </video>
                     <div class="video-info">
@@ -296,7 +298,39 @@
         });
     }
 
+    // 懒加载：使用 Intersection Observer，当视频卡片进入可视区域时加载视频
+    function initLazyLoading() {
+        const videoCards = document.querySelectorAll('.video-card');
+        if (!videoCards.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const videoEl = card.querySelector('video');
+                    const sourceEl = videoEl.querySelector('source');
+                    const dataSrc = sourceEl.getAttribute('data-src');
+                    if (dataSrc && !videoEl.src) {
+                        // 将 data-src 赋值给 source 的 src，并让 video 加载
+                        sourceEl.setAttribute('src', dataSrc);
+                        videoEl.load();  // 开始加载视频
+                        // 加载完成后可将 preload 设为 metadata（可选，但不必）
+                        videoEl.preload = 'metadata';
+                        // 移除 data-src 属性，避免重复加载
+                        sourceEl.removeAttribute('data-src');
+                    }
+                    // 一旦开始加载，就不再观察这个卡片
+                    observer.unobserve(card);
+                }
+            });
+        }, { rootMargin: "200px" }); // 提前200px开始加载，保证滚动到附近时已准备就绪
+
+        videoCards.forEach(card => observer.observe(card));
+    }
+
     renderVideos();
+    // 等待 DOM 渲染完成后再绑定观察器
+    setTimeout(initLazyLoading, 100);
 </script>
 </body>
 </html>
