@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频库 - 蛋仔派对赛季动画素材</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/simple-icons@1.3.0/simple-icons.css">
+    <style>
+        /* 复用原视频网格样式，略作调整 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+            color: #1f2d3d;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .header-bar h1 {
+            font-size: 1.6rem;
+            color: #0366d6;
+        }
+        .back-link {
+            background: #e2e8f0;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #1f2d3d;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link:hover {
+            background: #cbd5e0;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        video {
+            width: 100%;
+            background: #000;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+        .video-info {
+            padding: 1rem;
+        }
+        .video-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .video-desc {
+            font-size: 0.85rem;
+            color: #5a6874;
+            margin-bottom: 1rem;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0366d6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background: #024ea0;
+        }
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.8rem;
+            border-top: 1px solid #e9ecef;
+            padding-top: 1.5rem;
+        }
+        @media (max-width: 640px) {
+            .video-grid { grid-template-columns: 1fr; }
+            body { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header-bar">
+        <h1>🎬 全部赛季动画素材库</h1>
+        <a href="index.html" class="back-link">← 返回主页</a>
+    </div>
+    <div class="sub" style="margin-bottom: 1.5rem; color: #4a5568;">滚动到视频附近会自动加载，点击下载按钮保存原画质</div>
+
+    <div id="videoContainer" class="video-grid">
+        <div style="text-align: center; grid-column: 1/-1;">加载素材中...</div>
+    </div>
+    <footer>所有视频可直接预览或点击下载 | 持续更新中</footer>
+</div>
+
+<script>
+    // 视频数据（与你原来的完全一致）
+    const videoList = [
+        { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
+        { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
+        { title: "S03-疯狂马戏团", description: "暂无介绍", fileName: "S03-疯狂马戏团" },
+        { title: "S04-汪汪向前冲", description: "我要用速度战胜一切", fileName: "S04-汪汪向前冲.mp4" },
+        { title: "S05-糖果甜心", description: "暂无介绍", fileName: "S05-糖果甜心.mp4" },
+        { title: "S06-蛋糕蜜语", description: "传说,在一个甜蜜的午后……", fileName: "S06-蛋糕蜜语.mp4" },
+        { title: "S07-音乐星企划", description: "准备好让心跳加速了吗！", fileName: "S07-音乐星企划.mp4" },
+        { title: "S08-精灵之声", description: "自从曜星离开后，我以为，世界上不会再有音乐了……", fileName: "S08-精灵之声.mp4" },
+        { title: "S09-勇闯龙蛋岛", description: "暂无介绍", fileName: "S09-勇闯龙蛋岛.mp4" },
+        { title: "S10-太空奇遇", description: "暂无介绍", fileName: "S10-太空奇遇.mp4" },
+        { title: "S11-梦幻星遇", description: "那些深满内心的恐惧，总会以梦的形式再次出现……", fileName: "S11-梦幻星遇.mp4" },
+        { title: "S12-寻秘狂欢", description: "欢迎来到狂欢节", fileName: "S12-寻秘狂欢.mp4" },
+        { title: "S13-午夜魅影", description: "午夜剧院，欢迎所有迷路的灵魂……", fileName: "S13-午夜魅影.mp4" },
+        { title: "S14-寻光冰雪", description: "又梦见了冰原的冬日……", fileName: "S14-寻光冰雪.mp4" },
+        { title: "S15-玩具历险", description: "怀揣着梦想而来的小蛋仔，请许下你的愿望……", fileName: "S15-玩具历险.mp4" },
+        { title: "S16-潮玩大作战", description: "这些被改造的玩具，最后都去了哪里……", fileName: "S16-潮玩大作战.mp4" },
+        { title: "S17-宝船拍卖夜", description: "载满了珍宝的游船，现在已为你靠岸……", fileName: "S17-宝船拍卖夜.mp4" },
+        { title: "S18-深海逐金宴", description: "几乎所有的罪恶，都来源于全能的黄金……", fileName: "S18-深海逐金宴.mp4" },
+        { title: "S19-圆月哥特", description: "十五天后，我会被那些家伙撕碎……", fileName: "S19-圆月哥特.mp4" },
+        { title: "S20-龙与剑之诗", description: "我重生了……", fileName: "S20-龙与剑之诗.mp4" },
+        { title: "S21-时之回响", description: "时针，指向二十一点前……", fileName: "S21-时之回响.mp4" },
+        { title: "S22-金字塔传奇", description: "不知从何时开始，神明抛弃了我们……", fileName: "S22-金字塔传奇.mp4" },
+        { title: "S23-绘梦校园", description: "平静的校园里，藏着多少秘密……", fileName: "S23-绘梦校园.mp4" },
+        { title: "S24-蜜糖海迷踪", description: "传说，在一个甜蜜的午后……*2", fileName: "S24-蜜糖海迷踪.mp4" },
+        { title: "S25-博物馆狂想", description: "好漂亮的王冠……（呃啊，我的屁股！）", fileName: "S25-博物馆狂想.mp4" },
+        { title: "S26-国宝归乡", description: "时间，是顽固的错觉……", fileName: "S26-国宝归乡.mp4" },
+        { title: "S27-织梦寻星", description: "欢迎光临，尊敬的客人", fileName: "S27-织梦寻星.mp4" },
+        { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
+        { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" }
+    ];
+
+    const VIDEO_BASE_PATH = "videos/";
+
+    function renderVideos() {
+        const container = document.getElementById('videoContainer');
+        if (!videoList.length) {
+            container.innerHTML = '<div style="text-align:center;">暂无素材</div>';
+            return;
+        }
+        let html = '';
+        for (let v of videoList) {
+            const videoUrl = VIDEO_BASE_PATH + v.fileName;
+            const safeTitle = escapeHtml(v.title);
+            const safeDesc = escapeHtml(v.description);
+            html += `
+                <div class="video-card" data-video-url="${videoUrl}">
+                    <video controls preload="none" poster="">
+                        <source data-src="${videoUrl}" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                    <div class="video-info">
+                        <div class="video-title">${safeTitle}</div>
+                        <div class="video-desc">${safeDesc}</div>
+                        <a href="${videoUrl}" download class="download-btn">⬇️ 下载视频</a>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function initLazyLoading() {
+        const videoCards = document.querySelectorAll('.video-card');
+        if (!videoCards.length) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const videoEl = card.querySelector('video');
+                    const sourceEl = videoEl.querySelector('source');
+                    const dataSrc = sourceEl.getAttribute('data-src');
+                    if (dataSrc && !videoEl.src) {
+                        sourceEl.setAttribute('src', dataSrc);
+                        videoEl.load();
+                        videoEl.preload = 'metadata';
+                        sourceEl.removeAttribute('data-src');
+                    }
+                    observer.unobserve(card);
+                }
+            });
+        }, { rootMargin: "200px" });
+        videoCards.forEach(card => observer.observe(card));
+    }
+
+    renderVideos();
+    setTimeout(initLazyLoading, 100);
+</script>
+</body>
+</html>
