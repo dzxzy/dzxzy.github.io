@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎来到【蛋仔小鄒呀】的个人网站</title>
-    <!-- 使用 Simple Icons CDN 以显示各大平台 Logo -->
+    <title>蛋仔小鄢呀 | 个人素材站</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/simple-icons@1.3.0/simple-icons.css">
     <style>
         * {
@@ -33,7 +32,6 @@
             border-left: 4px solid #0366d6;
             padding-left: 1rem;
         }
-        /* 个人介绍区域样式 */
         .intro {
             background: #e8f0fe;
             border-radius: 20px;
@@ -43,7 +41,6 @@
             border-left: 5px solid #0366d6;
             font-size: 1rem;
             line-height: 1.5;
-            color: #1f2d3d;
         }
         .intro p {
             margin-bottom: 0.5rem;
@@ -52,7 +49,6 @@
             font-weight: 600;
             color: #0366d6;
         }
-        /* 社交链接样式 */
         .social-links {
             background: white;
             padding: 1rem 1.5rem;
@@ -72,7 +68,6 @@
         .social-icon {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
             background: #f0f2f5;
             padding: 8px 18px;
@@ -81,7 +76,6 @@
             color: #1f2d3d;
             font-weight: 500;
             transition: all 0.2s ease;
-            font-size: 0.95rem;
         }
         .social-icon i {
             font-size: 1.2rem;
@@ -92,62 +86,26 @@
         .social-icon.xiaohongshu:hover { background: #fe6c61; color: white; }
         .social-icon.lofter:hover { background: #3890d4; color: white; }
         .social-icon.netease:hover { background: #c20c0c; color: white; }
-        /* 视频网格样式 */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.8rem;
+        /* 入口按钮样式 */
+        .entry-button {
+            text-align: center;
+            margin: 2rem 0;
         }
-        .video-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-        }
-        video {
-            width: 100%;
-            background: #000;
-            display: block;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-        }
-        .video-info {
-            padding: 1rem;
-        }
-        .video-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-        }
-        .video-desc {
-            font-size: 0.85rem;
-            color: #5a6874;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .btn-video {
+            display: inline-block;
             background: #0366d6;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 1rem 2rem;
+            border-radius: 60px;
             text-decoration: none;
-            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.2s;
         }
-        .download-btn:hover {
+        .btn-video:hover {
             background: #024ea0;
+            transform: scale(1.02);
         }
         footer {
             margin-top: 3rem;
@@ -158,26 +116,17 @@
             padding-top: 2rem;
         }
         @media (max-width: 640px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            body {
-                padding: 12px;
-            }
-            .social-icon {
-                padding: 6px 14px;
-                font-size: 0.85rem;
-            }
+            body { padding: 12px; }
+            .btn-video { font-size: 1rem; padding: 0.8rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画视频素材库</h1>
+    <h1>🎬 【蛋仔小鄢呀】蛋仔派对赛季开头动画素材库</h1>
 
-    <!-- 个人介绍区域 -->
     <div class="intro">
-        <p>✨ <span class="highlight">大家好，我是【蛋仔小鄒呀】！</span></p>
+        <p>✨ <span class="highlight">大家好，我是【蛋仔小鄢呀】！</span></p>
         <p>🎮 一名热爱《蛋仔派对》的玩家，也是赛季开头动画的整理分享者。<br>
         📹 所有视频素材均从官方赛季动画中提取，适合二创、剪辑或收藏。<br>
         💡 <strong>免费使用，但请务必标注出处！！！</strong> —— 你的支持是我持续更新的动力！<br>
@@ -185,152 +134,26 @@
         <p>📩 合作或建议：可以在任意社交平台私信我，或通过下面链接找到我。</p>
     </div>
 
-    <div class="sub">适合剪辑 · 来源请标注出处！！！ · 支持预览和下载（滚动到视频附近才会开始加载，避免卡顿）</div>
+    <div class="sub">点击下方按钮进入视频库，所有视频支持预览和下载（滚动加载，不卡顿）</div>
 
-    <!-- 社交链接区域 - 带 Logo 图标 -->
+    <!-- 进入视频库的醒目按钮 -->
+    <div class="entry-button">
+        <a href="videos.html" class="btn-video">🎥 进入视频库 → 浏览全部素材</a>
+    </div>
+
     <div class="social-links">
         <span>📱 关注我：</span>
-        <a href="https://b23.tv/Y9D2tR9" class="social-icon bilibili" target="_blank">
-            <i class="si si-bilibili"></i> BiliBili
-        </a>
-        <a href="https://v.douyin.com/YuEr0aR3RSM/ 2@5.com :5pm" class="social-icon douyin" target="_blank">
-            <i class="si si-tiktok"></i> 抖音
-        </a>
-        <a href="https://v.kuaishou.com/KG1pc49y" class="social-icon kuaishou" target="_blank">
-            <i class="si si-kuaishou"></i> 快手
-        </a>
-        <a href="https://xhslink.com/m/2PO9N97jXhn" class="social-icon xiaohongshu" target="_blank">
-            <i class="si si-xiaohongshu"></i> 小红书
-        </a>
-        <a href="https://xz1127205258.lofter.com" class="social-icon lofter" target="_blank">
-            <i class="si si-lofter"></i> LOFTER
-        </a>
-        <a href="https://y.music.163.com/m/user?id=7808133486" class="social-icon netease" target="_blank">
-            <i class="si si-neteasecloudmusic"></i> 网易云音乐
-        </a>
+        <a href="https://b23.tv/Y9D2tR9" class="social-icon bilibili" target="_blank"><i class="si si-bilibili"></i> BiliBili</a>
+        <a href="https://v.douyin.com/YuEr0aR3RSM/" class="social-icon douyin" target="_blank"><i class="si si-tiktok"></i> 抖音</a>
+        <a href="https://v.kuaishou.com/KG1pc49y" class="social-icon kuaishou" target="_blank"><i class="si si-kuaishou"></i> 快手</a>
+        <a href="https://xhslink.com/m/2PO9N97jXhn" class="social-icon xiaohongshu" target="_blank"><i class="si si-xiaohongshu"></i> 小红书</a>
+        <a href="https://xz1127205258.lofter.com" class="social-icon lofter" target="_blank"><i class="si si-lofter"></i> LOFTER</a>
+        <a href="https://y.music.163.com/m/user?id=7808133486" class="social-icon netease" target="_blank"><i class="si si-neteasecloudmusic"></i> 网易云音乐</a>
     </div>
 
-    <!-- 视频列表容器 -->
-    <div id="videoContainer" class="video-grid">
-        <div style="text-align: center; grid-column: 1/-1;">加载素材中...</div>
-    </div>
     <footer>
-        📦 所有视频可直接预览或点击下载 | 持续更新中，欢迎收藏
+        📦 所有视频已单独放在视频库页面，点击上方按钮即可访问 | 持续更新
     </footer>
 </div>
-
-<script>
-    // 视频数据列表（完全保留原有内容）
-    const videoList = [
-        { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
-        { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
-        { title: "S03-疯狂马戏团", description: "暂无介绍", fileName: "S03-疯狂马戏团" },
-        { title: "S04-汪汪向前冲", description: "我要用速度战胜一切", fileName: "S04-汪汪向前冲.mp4" },
-        { title: "S05-糖果甜心", description: "暂无介绍", fileName: "S05-糖果甜心.mp4" },
-        { title: "S06-蛋糕蜜语", description: "传说,在一个甜蜜的午后……", fileName: "S06-蛋糕蜜语.mp4" },
-        { title: "S07-音乐星企划", description: "准备好让心跳加速了吗！", fileName: "S07-音乐星企划.mp4" },
-        { title: "S08-精灵之声", description: "自从曜星离开后，我以为，世界上不会再有音乐了……", fileName: "S08-精灵之声.mp4" },
-        { title: "S09-勇闯龙蛋岛", description: "暂无介绍", fileName: "S09-勇闯龙蛋岛.mp4" },
-        { title: "S10-太空奇遇", description: "暂无介绍", fileName: "S10-太空奇遇.mp4" },
-        { title: "S11-梦幻星遇", description: "那些深满内心的恐惧，总会以梦的形式再次出现……", fileName: "S11-梦幻星遇.mp4" },
-        { title: "S12-寻秘狂欢", description: "欢迎来到狂欢节", fileName: "S12-寻秘狂欢.mp4" },
-        { title: "S13-午夜魅影", description: "午夜剧院，欢迎所有迷路的灵魂……", fileName: "S13-午夜魅影.mp4" },
-        { title: "S14-寻光冰雪", description: "又梦见了冰原的冬日……", fileName: "S14-寻光冰雪.mp4" },
-        { title: "S15-玩具历险", description: "怀揣着梦想而来的小蛋仔，请许下你的愿望……", fileName: "S15-玩具历险.mp4" },
-        { title: "S16-潮玩大作战", description: "这些被改造的玩具，最后都去了哪里……", fileName: "S16-潮玩大作战.mp4" },
-        { title: "S17-宝船拍卖夜", description: "载满了珍宝的游船，现在已为你靠岸……", fileName: "S17-宝船拍卖夜.mp4" },
-        { title: "S18-深海逐金宴", description: "几乎所有的罪恶，都来源于全能的黄金……", fileName: "S18-深海逐金宴.mp4" },
-        { title: "S19-圆月哥特", description: "十五天后，我会被那些家伙撕碎……", fileName: "S19-圆月哥特.mp4" },
-        { title: "S20-龙与剑之诗", description: "我重生了……", fileName: "S20-龙与剑之诗.mp4" },
-        { title: "S21-时之回响", description: "时针，指向二十一点前……", fileName: "S21-时之回响.mp4" },
-        { title: "S22-金字塔传奇", description: "不知从何时开始，神明抛弃了我们……", fileName: "S22-金字塔传奇.mp4" },
-        { title: "S23-绘梦校园", description: "平静的校园里，藏着多少秘密……", fileName: "S23-绘梦校园.mp4" },
-        { title: "S24-蜜糖海迷踪", description: "传说，在一个甜蜜的午后……*2", fileName: "S24-蜜糖海迷踪.mp4" },
-        { title: "S25-博物馆狂想", description: "好漂亮的王冠……（呃啊，我的屁股！）", fileName: "S25-博物馆狂想.mp4" },
-        { title: "S26-国宝归乡", description: "时间，是顽固的错觉……", fileName: "S26-国宝归乡.mp4" },
-        { title: "S27-织梦寻星", description: "欢迎光临，尊敬的客人", fileName: "S27-织梦寻星.mp4" },
-        { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
-        { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" }
-        { title: "S30-元气零食", description: "热量在沸腾，美味在尖叫！", fileName: "S30-元气零食.mp4" }
-    ];
-
-    const VIDEO_BASE_PATH = "videos/";
-
-    // 渲染所有视频卡片（不加载真实视频，只放占位）
-    function renderVideos() {
-        const container = document.getElementById('videoContainer');
-        if (!videoList.length) {
-            container.innerHTML = '<div style="grid-column:1/-1; text-align:center;">暂无素材，稍后回来～</div>';
-            return;
-        }
-        let html = '';
-        for (let v of videoList) {
-            const videoUrl = VIDEO_BASE_PATH + v.fileName;
-            const safeTitle = escapeHtml(v.title);
-            const safeDesc = escapeHtml(v.description);
-            // 关键：video 标签没有 src，source 的 src 也留空，使用 data-src 保存真实地址
-            html += `
-                <div class="video-card" data-video-url="${videoUrl}">
-                    <video controls preload="none" poster="">
-                        <source data-src="${videoUrl}" type="video/mp4">
-                        您的浏览器不支持 video 标签。
-                    </video>
-                    <div class="video-info">
-                        <div class="video-title">${safeTitle}</div>
-                        <div class="video-desc">${safeDesc}</div>
-                        <a href="${videoUrl}" download class="download-btn">
-                            ⬇️ 下载视频
-                        </a>
-                    </div>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    // 懒加载：使用 Intersection Observer，当视频卡片进入可视区域时加载视频
-    function initLazyLoading() {
-        const videoCards = document.querySelectorAll('.video-card');
-        if (!videoCards.length) return;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const card = entry.target;
-                    const videoEl = card.querySelector('video');
-                    const sourceEl = videoEl.querySelector('source');
-                    const dataSrc = sourceEl.getAttribute('data-src');
-                    if (dataSrc && !videoEl.src) {
-                        // 将 data-src 赋值给 source 的 src，并让 video 加载
-                        sourceEl.setAttribute('src', dataSrc);
-                        videoEl.load();  // 开始加载视频
-                        // 加载完成后可将 preload 设为 metadata（可选，但不必）
-                        videoEl.preload = 'metadata';
-                        // 移除 data-src 属性，避免重复加载
-                        sourceEl.removeAttribute('data-src');
-                    }
-                    // 一旦开始加载，就不再观察这个卡片
-                    observer.unobserve(card);
-                }
-            });
-        }, { rootMargin: "200px" }); // 提前200px开始加载，保证滚动到附近时已准备就绪
-
-        videoCards.forEach(card => observer.observe(card));
-    }
-
-    renderVideos();
-    // 等待 DOM 渲染完成后再绑定观察器
-    setTimeout(initLazyLoading, 100);
-</script>
 </body>
 </html>
