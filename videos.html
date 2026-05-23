@@ -12,7 +12,6 @@
         }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            /* 背景图片路径已改为 assets/bg.jpg，请确保你的图片文件名是 bg.jpg */
             background: url('assets/bg.jpg') center center / cover no-repeat fixed;
             background-color: #0a0f1a;
             padding: 20px;
@@ -76,14 +75,6 @@
         .search-input:focus {
             border-color: #ffd966;
             background: rgba(40,60,90,0.9);
-        }
-        .sub-badge {
-            background: rgba(10,20,35,0.7);
-            backdrop-filter: blur(8px);
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 1.5rem;
         }
         .video-grid {
             display: grid;
@@ -181,12 +172,13 @@
 <div class="container">
     <div class="header-bar">
         <h1>🎬 全部赛季动画素材库</h1>
-        <a href="index.html" class="back-link">← 返回主页</a>
+        <!-- 返回主页链接，使用绝对路径/或完整URL加快跳转 -->
+        <a href="/" class="back-link">← 返回主页</a>
     </div>
     <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索视频标题 (如: 龙与剑、元气零食)">
     </div>
-    <div class="sub-badge">🌟 滚动到视频附近自动加载，每个卡片进入视口都会播放动画</div>
+    <!-- 已删除提示文字 -->
     <div id="videoContainer" class="video-grid">
         <div style="text-align:center; padding:2rem;">加载素材中...</div>
     </div>
