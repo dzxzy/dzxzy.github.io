@@ -2,158 +2,475 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蛋仔小鄒呀 | 个人素材站</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/simple-icons@1.3.0/simple-icons.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>蛋仔小鄒呀 | 蛋仔派对素材站</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #f8f9fa;
-            padding: 20px;
-            color: #1f2d3d;
+            /* 背景图片：请将 'your-background.jpg' 改成你上传到 assets 文件夹里的图片文件名 */
+            background: url('assets/your-background.jpg') center center / cover no-repeat fixed;
+            background-color: #0a0f1a;
+            color: #eef2ff;
+            overflow: hidden;
+            height: 100vh;
         }
+
+        .scroll-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
         .container {
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
         }
-        h1 {
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .title-section h1 {
             font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #0366d6;
+            margin-bottom: 1rem;
+            color: #ffd966;
+            animation: fadeUp 0.6s ease-out;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
-        .sub {
-            color: #4a5568;
-            margin-bottom: 2rem;
-            border-left: 4px solid #0366d6;
-            padding-left: 1rem;
+
+        .intro-card {
+            background: rgba(30, 40, 60, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 32px;
+            padding: 1.8rem 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            animation: fadeLeft 0.6s ease-out 0.1s both;
+            transition: transform 0.2s;
         }
-        .intro {
-            background: #e8f0fe;
-            border-radius: 20px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border-left: 5px solid #0366d6;
-            font-size: 1rem;
+        .intro-card:hover {
+            transform: translateY(-3px);
+            background: rgba(40, 55, 80, 0.65);
+        }
+        .intro-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffdf99;
+            margin-bottom: 1rem;
+        }
+        .intro-text p {
+            margin-bottom: 0.75rem;
             line-height: 1.5;
         }
-        .intro p {
-            margin-bottom: 0.5rem;
-        }
-        .intro .highlight {
-            font-weight: 600;
-            color: #0366d6;
-        }
-        .social-links {
-            background: white;
-            padding: 1rem 1.5rem;
+        .intro-highlight {
+            background: rgba(255,215,0,0.15);
             border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 0.6rem 1.2rem;
+            display: inline-block;
+            border-left: 3px solid #ffd966;
+            margin-top: 0.5rem;
+        }
+
+        .hot-section {
+            margin-top: 2rem;
+            animation: fadeUp 0.6s ease-out 0.2s both;
+        }
+        .hot-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffd966;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-        }
-        .social-links span {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-right: 0.5rem;
-        }
-        .social-icon {
-            display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #f0f2f5;
-            padding: 8px 18px;
-            border-radius: 40px;
-            text-decoration: none;
-            color: #1f2d3d;
-            font-weight: 500;
-            transition: all 0.2s ease;
         }
-        .social-icon i {
-            font-size: 1.2rem;
+        .hot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
         }
-        .social-icon.bilibili:hover { background: #00a1d6; color: white; }
-        .social-icon.douyin:hover { background: #000000; color: white; }
-        .social-icon.kuaishou:hover { background: #ff5a1f; color: white; }
-        .social-icon.xiaohongshu:hover { background: #fe6c61; color: white; }
-        .social-icon.lofter:hover { background: #3890d4; color: white; }
-        .social-icon.netease:hover { background: #c20c0c; color: white; }
-        /* 入口按钮样式 */
-        .entry-button {
+        .hot-item {
+            background: rgba(20,30,50,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 0.8rem;
             text-align: center;
-            margin: 2rem 0;
-        }
-        .btn-video {
-            display: inline-block;
-            background: #0366d6;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 1rem 2rem;
-            border-radius: 60px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,215,0,0.2);
             transition: all 0.2s;
         }
+        .hot-item:hover {
+            transform: translateY(-3px);
+            background: rgba(50,70,100,0.8);
+            border-color: #ffd966;
+        }
+        .hot-item .title {
+            font-weight: bold;
+            margin: 0.5rem 0 0.2rem;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 28px;
+            padding: 0.8rem 1.2rem;
+            text-align: center;
+            flex: 1;
+            backdrop-filter: blur(4px);
+        }
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ffd966;
+        }
+
+        .social-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #ffd966;
+            animation: fadeUp 0.6s ease-out;
+        }
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.6s ease-out 0.15s both;
+        }
+        .social-card {
+            background: rgba(30,45,70,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-decoration: none;
+            color: #eef2ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            cursor: default;
+        }
+        .social-card img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        .social-card span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .social-card:hover {
+            background: rgba(60,80,110,0.9);
+            transform: translateY(-4px);
+        }
+
+        .qrcode-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 8px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .qrcode-popup img {
+            width: 120px;
+            height: 120px;
+            display: block;
+        }
+        .social-card:hover .qrcode-popup {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .playlist-card {
+            background: rgba(30,45,70,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            border: 1px solid rgba(255,215,0,0.4);
+            transition: transform 0.2s;
+            animation: fadeUp 0.6s ease-out 0.3s both;
+        }
+        .playlist-card:hover {
+            transform: translateY(-3px);
+            background: rgba(50,70,100,0.85);
+        }
+        .playlist-cover {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .playlist-info {
+            flex: 1;
+            text-align: left;
+        }
+        .playlist-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ffd966;
+        }
+        .playlist-info p {
+            color: #cddcff;
+            margin-bottom: 0.8rem;
+        }
+        .playlist-link {
+            background: #2a5f8a;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+        }
+        .playlist-link:hover { background: #3a7faa; }
+
+        .btn-video {
+            display: inline-block;
+            background: linear-gradient(135deg, #2a5f8a, #1e3a5f);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,215,0,0.5);
+            margin-top: 0.5rem;
+        }
         .btn-video:hover {
-            background: #024ea0;
+            background: linear-gradient(135deg, #3a7faa, #2a4a6f);
             transform: scale(1.02);
         }
-        footer {
-            margin-top: 3rem;
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
-            color: #6c757d;
-            font-size: 0.8rem;
-            border-top: 1px solid #e9ecef;
-            padding-top: 2rem;
+            color: rgba(255,215,0,0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 40px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.3s;
         }
+        .scroll-hint i {
+            display: block;
+            font-size: 1.5rem;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%,100%{ transform: translateY(0); }
+            50%{ transform: translateY(8px); }
+        }
+
         @media (max-width: 640px) {
-            body { padding: 12px; }
-            .btn-video { font-size: 1rem; padding: 0.8rem 1.5rem; }
+            .social-grid { grid-template-columns: 1fr; }
+            .hot-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; }
+            .playlist-card { flex-direction: column; text-align: center; }
+            .playlist-info { text-align: center; }
+            .scroll-hint { font-size: 0.7rem; white-space: nowrap; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画素材库</h1>
+<div class="scroll-container" id="scrollContainer">
+    <!-- 第一屏 -->
+    <section class="section">
+        <div class="container title-section">
+            <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画素材库</h1>
+            <div class="intro-card">
+                <div class="intro-header">🎉 <span>嗨，我是蛋仔小鄒呀！</span></div>
+                <div class="intro-text">
+                    <p>🎮 深度《蛋仔派对》玩家 · 赛季动画收藏家<br>📹 所有素材提取自官方赛季片头，适合二创、剪辑、收藏<br>💡 <strong>免费使用，但请务必标注出处</strong> —— 你的支持是我更新的动力<br>🚀 S30【元气零食】已上线，后续赛季第一时间跟进<br>📩 合作建议通过下方社交平台私信我～</p>
+                </div>
+                <div class="intro-highlight">⚡ “每个动画都值得被看见，每个创作者都该有好素材”</div>
+            </div>
+            <div class="hot-section">
+                <div class="hot-title">🔥 本周热门素材</div>
+                <div class="hot-grid">
+                    <div class="hot-item"><div>🎬</div><div class="title">S20 龙与剑之诗</div><div class="desc">恢弘史诗，剪辑首选</div></div>
+                    <div class="hot-item"><div>🎬</div><div class="title">S30 元气零食</div><div class="desc">最新赛季，活力满满</div></div>
+                    <div class="hot-item"><div>🎬</div><div class="title">S08 精灵之声</div><div class="desc">空灵治愈，氛围感满分</div></div>
+                </div>
+                <div class="stats">
+                    <div class="stat-card"><div class="stat-number">30+</div><div>赛季动画</div></div>
+                    <div class="stat-card"><div class="stat-number">100%</div><div>免费商用</div></div>
+                    <div class="stat-card"><div class="stat-number">随时更新</div><div>新赛季即传</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="intro">
-        <p>✨ <span class="highlight">大家好，我是【蛋仔小鄒呀】！</span></p>
-        <p>🎮 一名热爱《蛋仔派对》的玩家，冷门主播一枚。<br>
-        📹 所有视频素材均为本人通过特殊渠道获得，适合二创、剪辑或收藏。<br>
-        💡 <strong>免费使用，但请务必标注出处！！！</strong> —— 你的支持是我持续更新的动力！<br>
-        🚀 都看到这儿了，还不赶紧关注主播一手～</p>
-        <p>📩 合作或建议：邮箱📮：1127205258@qq.com 也可以在任意社交平台私信我，或通过下面链接找到我。</p>
-    </div>
+    <!-- 第二屏 -->
+    <section class="section">
+        <div class="container social-section">
+            <h2>📱 找到我 & 我的歌单</h2>
+            <div class="social-grid">
+                <div class="social-card" data-url="https://b23.tv/Y9D2tR9">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg?sanitize=true" alt="B站">
+                    <span>BiliBili</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+                <div class="social-card" data-url="https://v.douyin.com/YuEr0aR3RSM/">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg?sanitize=true" alt="抖音">
+                    <span>抖音</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+                <div class="social-card" data-url="https://v.kuaishou.com/KG1pc49y">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg?sanitize=true" alt="快手">
+                    <span>快手</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+                <div class="social-card" data-url="https://xhslink.com/m/2PO9N97jXhn">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg?sanitize=true" alt="小红书">
+                    <span>小红书</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+                <div class="social-card" data-url="https://xz1127205258.lofter.com">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg?sanitize=true" alt="LOFTER">
+                    <span>LOFTER</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+                <div class="social-card" data-url="https://y.music.163.com/m/user?id=7808133486">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/napster.svg?sanitize=true" alt="网易云音乐">
+                    <span>网易云音乐</span>
+                    <div class="qrcode-popup"></div>
+                </div>
+            </div>
 
-    <div class="sub">点击下方按钮进入视频库，所有视频支持预览和下载（滚动加载，不卡顿）</div>
+            <div class="playlist-card" id="playlistCard">
+                <img class="playlist-cover" id="playlistCover" src="https://p1.music.126.net/.../....jpg" alt="歌单封面">
+                <div class="playlist-info">
+                    <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
+                    <p id="playlistDesc">此歌单包含了蛋仔从1赛季以来的所有大厅背景音乐。</p>
+                    <a href="#" id="playlistLink" class="playlist-link" target="_blank">🎧 去网易云听歌</a>
+                </div>
+            </div>
 
-    <!-- 进入视频库的醒目按钮 -->
-    <div class="entry-button">
-        <a href="videos.html" class="btn-video">🎥 进入视频库 → 浏览全部素材</a>
-    </div>
-
-    <div class="social-links">
-        <span>📱 关注我：</span>
-        <a href="https://b23.tv/Y9D2tR9" class="social-icon bilibili" target="_blank"><i class="si si-bilibili"></i> BiliBili</a>
-        <a href="https://v.douyin.com/YuEr0aR3RSM/" class="social-icon douyin" target="_blank"><i class="si si-tiktok"></i> 抖音</a>
-        <a href="https://v.kuaishou.com/KG1pc49y" class="social-icon kuaishou" target="_blank"><i class="si si-kuaishou"></i> 快手</a>
-        <a href="https://xhslink.com/m/2PO9N97jXhn" class="social-icon xiaohongshu" target="_blank"><i class="si si-xiaohongshu"></i> 小红书</a>
-        <a href="https://xz1127205258.lofter.com" class="social-icon lofter" target="_blank"><i class="si si-lofter"></i> LOFTER</a>
-        <a href="https://y.music.163.com/m/user?id=7808133486" class="social-icon netease" target="_blank"><i class="si si-neteasecloudmusic"></i> 网易云音乐</a>
-    </div>
-
-    <footer>
-        📦 所有视频已单独放在视频库页面，点击上方按钮即可访问 | 持续更新（感谢您的来访）
-    </footer>
+            <a href="videos.html" class="btn-video">🎥 进入视频库 → 浏览全部素材</a>
+        </div>
+    </section>
 </div>
+
+<div class="scroll-hint" id="scrollHint">
+    <i>👇</i> 往下滑查看更多惊喜
+</div>
+
+<script>
+    const container = document.getElementById('scrollContainer');
+    let isScrolling = false;
+    container.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (isScrolling) return;
+        const delta = e.deltaY > 0 ? 1 : -1;
+        const sections = document.querySelectorAll('.section');
+        let targetSection = null;
+        for (let i = 0; i < sections.length; i++) {
+            const rect = sections[i].getBoundingClientRect();
+            if (rect.top >= -50 && rect.top <= window.innerHeight / 2) {
+                let nextIndex = i + delta;
+                if (nextIndex >= 0 && nextIndex < sections.length) targetSection = sections[nextIndex];
+                break;
+            }
+        }
+        if (targetSection) {
+            isScrolling = true;
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => { isScrolling = false; }, 800);
+        } else {
+            setTimeout(() => { isScrolling = false; }, 200);
+        }
+    }, { passive: false });
+
+    const scrollHint = document.getElementById('scrollHint');
+    const sectionsObs = document.querySelectorAll('.section');
+    const observerHint = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.target === sectionsObs[0]) {
+                scrollHint.style.opacity = entry.isIntersecting ? '1' : '0';
+                scrollHint.style.visibility = entry.isIntersecting ? 'visible' : 'hidden';
+            }
+        });
+    }, { threshold: 0.5 });
+    observerHint.observe(sectionsObs[0]);
+
+    document.querySelectorAll('.social-card').forEach(card => {
+        const url = card.getAttribute('data-url');
+        if (!url) return;
+        const qrContainer = card.querySelector('.qrcode-popup');
+        if (qrContainer) {
+            const qrImg = document.createElement('img');
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(url)}`;
+            qrImg.alt = '二维码';
+            qrContainer.appendChild(qrImg);
+        }
+    });
+
+    const playlistId = "10006957310";
+    const coverUrl = "https://p1.music.126.net/.../....jpg";
+    const playlistTitle = "🎵 蛋仔派对部分赛季大厅音乐";
+    const playlistDesc = "此歌单包含了蛋仔从1赛季以来的所有大厅背景音乐。";
+    const playlistLink = `https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=`;
+    if (coverUrl && !coverUrl.includes("...")) {
+        document.getElementById('playlistCover').src = coverUrl;
+    } else {
+        document.getElementById('playlistCover').src = "https://via.placeholder.com/200x200?text=Music+Playlist";
+    }
+    document.getElementById('playlistTitle').innerText = playlistTitle;
+    document.getElementById('playlistDesc').innerText = playlistDesc;
+    document.getElementById('playlistLink').href = playlistLink;
+</script>
 </body>
 </html>
