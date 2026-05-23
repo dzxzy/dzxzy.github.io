@@ -134,7 +134,6 @@
             color: #cddcff;
         }
 
-        /* 新设计的统计卡片 */
         .stats-new {
             display: flex;
             justify-content: space-between;
@@ -170,7 +169,6 @@
             color: #cddcff;
         }
 
-        /* 新增使用小贴士 */
         .tips-section {
             margin-top: 1.5rem;
             background: rgba(0,0,0,0.3);
@@ -242,7 +240,6 @@
             transform: translateY(-4px);
         }
 
-        /* 二维码放在卡片底部 */
         .qrcode-popup {
             position: absolute;
             bottom: 0;
@@ -365,7 +362,6 @@
             50%{ transform: translateY(8px); }
         }
 
-        /* 模态框样式（类似小红书播放界面） */
         .modal {
             display: none;
             position: fixed;
@@ -442,7 +438,6 @@
                         <div class="desc">空灵治愈，氛围感满分</div>
                     </div>
                 </div>
-                <!-- 新设计的统计卡片 -->
                 <div class="stats-new">
                     <div class="stat-new-card">
                         <div class="stat-icon">🎞️</div>
@@ -460,7 +455,6 @@
                         <div class="stat-label">新赛季即更新</div>
                     </div>
                 </div>
-                <!-- 新增使用小贴士 -->
                 <div class="tips-section">
                     <div class="tips-title">✨ 使用小贴士</div>
                     <div class="tips-list">
@@ -512,8 +506,8 @@
             </div>
 
             <div class="playlist-card" id="playlistCard">
-                <!-- 歌单封面图片：请上传到 assets 文件夹，并修改下面 src 为 assets/你的图片文件名.jpg -->
-                <img class="playlist-cover" id="playlistCover" src="assets/playlist-cover.jpg" alt="歌单封面">
+                <!-- 歌单封面图片：使用你上传的 assets/gdtx.jpg -->
+                <img class="playlist-cover" id="playlistCover" src="assets/gdtx.jpg" alt="歌单封面">
                 <div class="playlist-info">
                     <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
                     <p id="playlistDesc">此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。</p>
@@ -530,7 +524,7 @@
     <i>👇</i> 往下滑查看更多惊喜
 </div>
 
-<!-- 模态框（视频播放弹窗） -->
+<!-- 模态框 -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
@@ -539,7 +533,6 @@
 </div>
 
 <script>
-    // 滚轮一滚一屏
     const container = document.getElementById('scrollContainer');
     let isScrolling = false;
     container.addEventListener('wheel', function(e) {
@@ -565,7 +558,6 @@
         }
     }, { passive: false });
 
-    // 底部提示只在第一屏显示
     const scrollHint = document.getElementById('scrollHint');
     const sectionsObs = document.querySelectorAll('.section');
     const observerHint = new IntersectionObserver((entries) => {
@@ -578,7 +570,6 @@
     }, { threshold: 0.5 });
     observerHint.observe(sectionsObs[0]);
 
-    // 为每个社交卡片生成二维码（放在底部）
     document.querySelectorAll('.social-card').forEach(card => {
         const url = card.getAttribute('data-url');
         if (!url) return;
@@ -591,7 +582,6 @@
         }
     });
 
-    // 热门素材点击弹窗播放视频
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeModal = document.querySelector('.modal-close');
@@ -620,10 +610,9 @@
         }
     });
 
-    // 歌单信息（使用你的歌单链接）
+    // 歌单信息
     const playlistId = "10006957310";
-    // 如果你上传了歌单封面到 assets 文件夹，请修改下面路径，例如 assets/my-cover.jpg
-    const coverUrl = "assets/playlist-cover.jpg";
+    const coverUrl = "assets/gdtx.jpg";
     const playlistTitle = "🎵 蛋仔派对部分赛季大厅音乐";
     const playlistDesc = "此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。";
     const playlistLink = `https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=`;
