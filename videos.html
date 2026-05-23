@@ -12,9 +12,9 @@
         }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            /* 更强的渐变背景：径向+线性叠加，深色区域对比明显 */
-            background: radial-gradient(circle at 20% 30%, #2a3a50, #0a0f1a 70%);
-            background-attachment: fixed;
+            /* 背景图片：请将 'your-background.jpg' 改成你上传到 assets 文件夹里的图片文件名 */
+            background: url('assets/your-background.jpg') center center / cover no-repeat fixed;
+            background-color: #0a0f1a;
             padding: 20px;
             color: #eef2ff;
             min-height: 100vh;
@@ -23,7 +23,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* 头部毛玻璃 */
         .header-bar {
             display: flex;
             justify-content: space-between;
@@ -53,7 +52,6 @@
         .back-link:hover {
             background: rgba(255,215,0,0.3);
         }
-        /* 搜索框样式 */
         .search-bar {
             margin-bottom: 1.5rem;
             display: flex;
@@ -101,13 +99,10 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.4);
             transition: transform 0.35s ease, box-shadow 0.35s;
             border: 1px solid rgba(255,215,0,0.25);
-            /* 初始状态透明 + 下移 */
             opacity: 0;
             transform: translateY(60px) scale(0.96);
-            /* 动画过渡属性，用于每次添加 .animate-in 类 */
             transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.5s ease;
         }
-        /* 动画触发类 */
         .video-card.animate-in {
             opacity: 1 !important;
             transform: translateY(0) scale(1) !important;
@@ -199,7 +194,6 @@
 </div>
 
 <script>
-    // 视频数据（包含所有赛季）
     const videoList = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
@@ -246,7 +240,6 @@
         });
     }
 
-    // 渲染视频列表（根据搜索关键词过滤）
     function renderVideos() {
         const container = document.getElementById('videoContainer');
         const filteredList = videoList.filter(v => 
@@ -279,21 +272,17 @@
             `;
         }
         container.innerHTML = html;
-        // 重新绑定懒加载和动画观察器
         initLazyLoadAndAnimation();
     }
 
-    // 懒加载视频 + 每次进入视口都播放动画
     function initLazyLoadAndAnimation() {
         const cards = document.querySelectorAll('.video-card');
         if (!cards.length) return;
 
-        // 使用 IntersectionObserver 同时处理视频加载和动画触发
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const card = entry.target;
                 if (entry.isIntersecting) {
-                    // 1. 视频懒加载（仅未加载过的）
                     const videoEl = card.querySelector('video');
                     const sourceEl = videoEl?.querySelector('source');
                     const dataSrc = sourceEl?.getAttribute('data-src');
@@ -303,35 +292,28 @@
                         videoEl.preload = 'metadata';
                         sourceEl.removeAttribute('data-src');
                     }
-                    // 2. 每次进入视口都播放动画
-                    // 先移除已有的 animate-in 类，强制重绘后再添加
                     if (card.classList.contains('animate-in')) {
                         card.classList.remove('animate-in');
-                        // 强制重绘小技巧
                         void card.offsetWidth;
                     }
                     card.classList.add('animate-in');
                 } else {
-                    // 可选：离开视口后是否移除动画类？不移除也没关系，但为了下次进入再次触发，可以移除
-                    // 这样每次重新进入都会重新触发动画
                     if (card.classList.contains('animate-in')) {
                         card.classList.remove('animate-in');
                     }
                 }
             });
-        }, { rootMargin: "100px", threshold: 0.1 }); // 提前100px触发，且阈值0.1即可
+        }, { rootMargin: "100px", threshold: 0.1 });
 
         cards.forEach(card => observer.observe(card));
     }
 
-    // 搜索输入监听
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function(e) {
         currentFilterText = e.target.value;
-        renderVideos(); // 重新渲染会清空现有卡片，并重新绑定观察器
+        renderVideos();
     });
 
-    // 初始渲染
     renderVideos();
 </script>
 </body>
