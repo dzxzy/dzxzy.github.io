@@ -13,7 +13,6 @@
 
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            /* 背景图片路径已改为 assets/bg.jpg，请确保你的图片文件名是 bg.jpg */
             background: url('assets/bg.jpg') center center / cover no-repeat fixed;
             background-color: #0a0f1a;
             color: #eef2ff;
@@ -119,6 +118,7 @@
             text-align: center;
             border: 1px solid rgba(255,215,0,0.2);
             transition: all 0.2s;
+            cursor: pointer;
         }
         .hot-item:hover {
             transform: translateY(-3px);
@@ -129,25 +129,73 @@
             font-weight: bold;
             margin: 0.5rem 0 0.2rem;
         }
-        .stats {
+        .hot-item .desc {
+            font-size: 0.75rem;
+            color: #cddcff;
+        }
+
+        /* 新设计的统计卡片 */
+        .stats-new {
             display: flex;
             justify-content: space-between;
             margin-top: 1.5rem;
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .stat-card {
-            background: rgba(0,0,0,0.3);
+        .stat-new-card {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
             border-radius: 28px;
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1rem;
             text-align: center;
             flex: 1;
-            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,215,0,0.3);
+            transition: 0.2s;
+        }
+        .stat-new-card:hover {
+            transform: translateY(-2px);
+            background: rgba(50,70,100,0.6);
+        }
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
         }
         .stat-number {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ffd966;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #cddcff;
+        }
+
+        /* 新增使用小贴士 */
+        .tips-section {
+            margin-top: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 24px;
+            padding: 1rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        .tips-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffd966;
+            margin-bottom: 0.5rem;
+        }
+        .tips-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #cddcff;
+        }
+        .tips-list span {
+            background: rgba(255,215,0,0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
         }
 
         .social-section h2 {
@@ -194,11 +242,12 @@
             transform: translateY(-4px);
         }
 
+        /* 二维码放在卡片底部 */
         .qrcode-popup {
             position: absolute;
-            top: 50%;
+            bottom: 0;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%) translateY(100%);
             background: white;
             padding: 8px;
             border-radius: 16px;
@@ -208,15 +257,17 @@
             transition: 0.2s;
             z-index: 20;
             pointer-events: none;
-        }
-        .qrcode-popup img {
-            width: 120px;
-            height: 120px;
-            display: block;
+            margin-bottom: -10px;
         }
         .social-card:hover .qrcode-popup {
             opacity: 1;
             visibility: visible;
+            transform: translateX(-50%) translateY(calc(100% - 10px));
+        }
+        .qrcode-popup img {
+            width: 100px;
+            height: 100px;
+            display: block;
         }
 
         .playlist-card {
@@ -314,13 +365,48 @@
             50%{ transform: translateY(8px); }
         }
 
+        /* 模态框样式（类似小红书播放界面） */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #1a1f2e;
+            border-radius: 24px;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
+        .modal-video {
+            width: 100%;
+            border-radius: 16px;
+        }
+
         @media (max-width: 640px) {
             .social-grid { grid-template-columns: 1fr; }
             .hot-grid { grid-template-columns: 1fr; }
-            .stats { flex-direction: column; }
+            .stats-new { flex-direction: column; }
             .playlist-card { flex-direction: column; text-align: center; }
             .playlist-info { text-align: center; }
             .scroll-hint { font-size: 0.7rem; white-space: nowrap; }
+            .modal-content { width: 95%; padding: 10px; }
         }
     </style>
 </head>
@@ -340,14 +426,49 @@
             <div class="hot-section">
                 <div class="hot-title">🔥 本周热门素材</div>
                 <div class="hot-grid">
-                    <div class="hot-item"><div>🎬</div><div class="title">S20 龙与剑之诗</div><div class="desc">恢弘史诗，剪辑首选</div></div>
-                    <div class="hot-item"><div>🎬</div><div class="title">S30 元气零食</div><div class="desc">最新赛季，活力满满</div></div>
-                    <div class="hot-item"><div>🎬</div><div class="title">S08 精灵之声</div><div class="desc">空灵治愈，氛围感满分</div></div>
+                    <div class="hot-item" data-video="S20-龙与剑之诗.mp4" data-title="S20 龙与剑之诗">
+                        <div>🎬</div>
+                        <div class="title">S20 龙与剑之诗</div>
+                        <div class="desc">恢弘史诗，剪辑首选</div>
+                    </div>
+                    <div class="hot-item" data-video="S30-元气零食.mp4" data-title="S30 元气零食">
+                        <div>🎬</div>
+                        <div class="title">S30 元气零食</div>
+                        <div class="desc">最新赛季，活力满满</div>
+                    </div>
+                    <div class="hot-item" data-video="S08-精灵之声.mp4" data-title="S08 精灵之声">
+                        <div>🎬</div>
+                        <div class="title">S08 精灵之声</div>
+                        <div class="desc">空灵治愈，氛围感满分</div>
+                    </div>
                 </div>
-                <div class="stats">
-                    <div class="stat-card"><div class="stat-number">30+</div><div>赛季动画</div></div>
-                    <div class="stat-card"><div class="stat-number">100%</div><div>免费商用</div></div>
-                    <div class="stat-card"><div class="stat-number">随时更新</div><div>新赛季即传</div></div>
+                <!-- 新设计的统计卡片 -->
+                <div class="stats-new">
+                    <div class="stat-new-card">
+                        <div class="stat-icon">🎞️</div>
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">赛季动画总数</div>
+                    </div>
+                    <div class="stat-new-card">
+                        <div class="stat-icon">💸</div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">永久免费商用</div>
+                    </div>
+                    <div class="stat-new-card">
+                        <div class="stat-icon">🔄</div>
+                        <div class="stat-number">实时</div>
+                        <div class="stat-label">新赛季即更新</div>
+                    </div>
+                </div>
+                <!-- 新增使用小贴士 -->
+                <div class="tips-section">
+                    <div class="tips-title">✨ 使用小贴士</div>
+                    <div class="tips-list">
+                        <span>📥 点击下载按钮保存原画质</span>
+                        <span>🔍 视频库支持搜索标题</span>
+                        <span>🎥 点击热门素材可在线预览</span>
+                        <span>📱 悬停社交卡片显示二维码</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -391,7 +512,8 @@
             </div>
 
             <div class="playlist-card" id="playlistCard">
-                <img class="playlist-cover" id="playlistCover" src="https://p1.music.126.net/.../....jpg" alt="歌单封面">
+                <!-- 歌单封面图片：请上传到 assets 文件夹，并修改下面 src 为 assets/你的图片文件名.jpg -->
+                <img class="playlist-cover" id="playlistCover" src="assets/playlist-cover.jpg" alt="歌单封面">
                 <div class="playlist-info">
                     <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
                     <p id="playlistDesc">此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。</p>
@@ -408,7 +530,16 @@
     <i>👇</i> 往下滑查看更多惊喜
 </div>
 
+<!-- 模态框（视频播放弹窗） -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <video id="modalVideo" class="modal-video" controls autoplay></video>
+    </div>
+</div>
+
 <script>
+    // 滚轮一滚一屏
     const container = document.getElementById('scrollContainer');
     let isScrolling = false;
     container.addEventListener('wheel', function(e) {
@@ -434,6 +565,7 @@
         }
     }, { passive: false });
 
+    // 底部提示只在第一屏显示
     const scrollHint = document.getElementById('scrollHint');
     const sectionsObs = document.querySelectorAll('.section');
     const observerHint = new IntersectionObserver((entries) => {
@@ -446,28 +578,56 @@
     }, { threshold: 0.5 });
     observerHint.observe(sectionsObs[0]);
 
+    // 为每个社交卡片生成二维码（放在底部）
     document.querySelectorAll('.social-card').forEach(card => {
         const url = card.getAttribute('data-url');
         if (!url) return;
         const qrContainer = card.querySelector('.qrcode-popup');
         if (qrContainer) {
             const qrImg = document.createElement('img');
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(url)}`;
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(url)}`;
             qrImg.alt = '二维码';
             qrContainer.appendChild(qrImg);
         }
     });
 
+    // 热门素材点击弹窗播放视频
+    const modal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const closeModal = document.querySelector('.modal-close');
+    const hotItems = document.querySelectorAll('.hot-item');
+    hotItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const videoFile = item.getAttribute('data-video');
+            if (videoFile) {
+                const videoUrl = `videos/${videoFile}`;
+                modalVideo.src = videoUrl;
+                modal.style.display = 'flex';
+                modalVideo.play();
+            }
+        });
+    });
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        modalVideo.pause();
+        modalVideo.src = '';
+    });
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modalVideo.pause();
+            modalVideo.src = '';
+        }
+    });
+
+    // 歌单信息（使用你的歌单链接）
     const playlistId = "10006957310";
-    const coverUrl = "https://p1.music.126.net/.../....jpg";
+    // 如果你上传了歌单封面到 assets 文件夹，请修改下面路径，例如 assets/my-cover.jpg
+    const coverUrl = "assets/playlist-cover.jpg";
     const playlistTitle = "🎵 蛋仔派对部分赛季大厅音乐";
     const playlistDesc = "此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。";
     const playlistLink = `https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=`;
-    if (coverUrl && !coverUrl.includes("...")) {
-        document.getElementById('playlistCover').src = coverUrl;
-    } else {
-        document.getElementById('playlistCover').src = "https://via.placeholder.com/200x200?text=Music+Playlist";
-    }
+    document.getElementById('playlistCover').src = coverUrl;
     document.getElementById('playlistTitle').innerText = playlistTitle;
     document.getElementById('playlistDesc').innerText = playlistDesc;
     document.getElementById('playlistLink').href = playlistLink;
