@@ -13,8 +13,8 @@
 
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            /* 背景图片：请将 'your-background.jpg' 改成你上传到 assets 文件夹里的图片文件名 */
-            background: url('assets/your-background.jpg') center center / cover no-repeat fixed;
+            /* 背景图片路径已改为 assets/bg.jpg，请确保你的图片文件名是 bg.jpg */
+            background: url('assets/bg.jpg') center center / cover no-repeat fixed;
             background-color: #0a0f1a;
             color: #eef2ff;
             overflow: hidden;
@@ -394,7 +394,7 @@
                 <img class="playlist-cover" id="playlistCover" src="https://p1.music.126.net/.../....jpg" alt="歌单封面">
                 <div class="playlist-info">
                     <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
-                    <p id="playlistDesc">此歌单包含了蛋仔从1赛季以来的所有大厅背景音乐。</p>
+                    <p id="playlistDesc">此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。</p>
                     <a href="#" id="playlistLink" class="playlist-link" target="_blank">🎧 去网易云听歌</a>
                 </div>
             </div>
@@ -461,7 +461,7 @@
     const playlistId = "10006957310";
     const coverUrl = "https://p1.music.126.net/.../....jpg";
     const playlistTitle = "🎵 蛋仔派对部分赛季大厅音乐";
-    const playlistDesc = "此歌单包含了蛋仔从1赛季以来的所有大厅背景音乐。";
+    const playlistDesc = "此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。";
     const playlistLink = `https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=`;
     if (coverUrl && !coverUrl.includes("...")) {
         document.getElementById('playlistCover').src = coverUrl;
