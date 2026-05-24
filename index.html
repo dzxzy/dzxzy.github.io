@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>蛋仔小鄒呀 | 蛋仔派对素材站</title>
+    <title>蛋仔小鄒呀 | 个人网站</title>
+    <!-- 预加载背景图片，确保优先加载 -->
+    <link rel="preload" as="image" href="assets/bg.jpg">
     <style>
         * {
             margin: 0;
@@ -84,20 +86,13 @@
             margin-bottom: 0.75rem;
             line-height: 1.5;
         }
-        .intro-highlight {
-            background: rgba(255,215,0,0.15);
-            border-radius: 20px;
-            padding: 0.6rem 1.2rem;
-            display: inline-block;
-            border-left: 3px solid #ffd966;
-            margin-top: 0.5rem;
-        }
 
-        .hot-section {
+        /* 精选素材推荐 */
+        .feature-section {
             margin-top: 2rem;
             animation: fadeUp 0.6s ease-out 0.2s both;
         }
-        .hot-title {
+        .feature-title {
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: #ffd966;
@@ -105,12 +100,13 @@
             align-items: center;
             gap: 8px;
         }
-        .hot-grid {
+        .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .hot-item {
+        .feature-item {
             background: rgba(20,30,50,0.6);
             backdrop-filter: blur(8px);
             border-radius: 24px;
@@ -120,24 +116,94 @@
             transition: all 0.2s;
             cursor: pointer;
         }
-        .hot-item:hover {
+        .feature-item:hover {
             transform: translateY(-3px);
             background: rgba(50,70,100,0.8);
             border-color: #ffd966;
         }
-        .hot-item .title {
+        .feature-item .title {
             font-weight: bold;
             margin: 0.5rem 0 0.2rem;
         }
-        .hot-item .desc {
+        .feature-item .desc {
             font-size: 0.75rem;
             color: #cddcff;
+        }
+
+        /* 歌单卡片 */
+        .playlist-card {
+            background: rgba(30,45,70,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1rem;
+            margin: 1rem 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid rgba(255,215,0,0.4);
+            transition: transform 0.2s;
+        }
+        .playlist-card:hover {
+            transform: translateY(-3px);
+            background: rgba(50,70,100,0.85);
+        }
+        .playlist-cover {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .playlist-info {
+            flex: 1;
+            text-align: left;
+        }
+        .playlist-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: #ffd966;
+        }
+        .playlist-info p {
+            font-size: 0.85rem;
+            color: #cddcff;
+            margin-bottom: 0.5rem;
+        }
+        .playlist-link {
+            background: #2a5f8a;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        .btn-video {
+            display: inline-block;
+            background: linear-gradient(135deg, #2a5f8a, #1e3a5f);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,215,0,0.5);
+            text-align: center;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        .btn-video:hover {
+            background: linear-gradient(135deg, #3a7faa, #2a4a6f);
+            transform: scale(1.02);
         }
 
         .stats-new {
             display: flex;
             justify-content: space-between;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             gap: 1rem;
             flex-wrap: wrap;
         }
@@ -145,57 +211,25 @@
             background: rgba(0,0,0,0.4);
             backdrop-filter: blur(8px);
             border-radius: 28px;
-            padding: 0.8rem 1rem;
+            padding: 0.6rem 0.8rem;
             text-align: center;
             flex: 1;
             border: 1px solid rgba(255,215,0,0.3);
-            transition: 0.2s;
-        }
-        .stat-new-card:hover {
-            transform: translateY(-2px);
-            background: rgba(50,70,100,0.6);
         }
         .stat-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.2rem;
+            font-size: 1.5rem;
         }
         .stat-number {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #ffd966;
         }
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #cddcff;
         }
 
-        .tips-section {
-            margin-top: 1.5rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 24px;
-            padding: 1rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,215,0,0.2);
-        }
-        .tips-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #ffd966;
-            margin-bottom: 0.5rem;
-        }
-        .tips-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.8rem;
-            color: #cddcff;
-        }
-        .tips-list span {
-            background: rgba(255,215,0,0.15);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-        }
-
+        /* 第二屏：社交卡片（可点击跳转，二维码悬浮） */
         .social-section h2 {
             font-size: 1.8rem;
             margin-bottom: 2rem;
@@ -210,6 +244,7 @@
             animation: fadeUp 0.6s ease-out 0.15s both;
         }
         .social-card {
+            display: block;
             background: rgba(30,45,70,0.7);
             backdrop-filter: blur(12px);
             border-radius: 28px;
@@ -219,32 +254,32 @@
             border: 1px solid rgba(255,255,255,0.2);
             text-decoration: none;
             color: #eef2ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
             position: relative;
-            cursor: default;
+            overflow: visible;
+            cursor: pointer;
         }
         .social-card img {
             width: 48px;
             height: 48px;
             object-fit: contain;
+            margin-bottom: 0.5rem;
         }
         .social-card span {
             font-size: 1rem;
             font-weight: 500;
+            display: block;
         }
         .social-card:hover {
             background: rgba(60,80,110,0.9);
             transform: translateY(-4px);
         }
 
+        /* 二维码悬浮在卡片上方，不拦截点击 */
         .qrcode-popup {
             position: absolute;
-            bottom: 0;
+            bottom: 100%;
             left: 50%;
-            transform: translateX(-50%) translateY(100%);
+            transform: translateX(-50%) translateY(-10px);
             background: white;
             padding: 8px;
             border-radius: 16px;
@@ -252,86 +287,19 @@
             opacity: 0;
             visibility: hidden;
             transition: 0.2s;
-            z-index: 20;
+            z-index: 1000;
             pointer-events: none;
-            margin-bottom: -10px;
+            margin-bottom: 8px;
         }
         .social-card:hover .qrcode-popup {
             opacity: 1;
             visibility: visible;
-            transform: translateX(-50%) translateY(calc(100% - 10px));
+            transform: translateX(-50%) translateY(-5px);
         }
         .qrcode-popup img {
             width: 100px;
             height: 100px;
             display: block;
-        }
-
-        .playlist-card {
-            background: rgba(30,45,70,0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 1.2rem;
-            margin: 1.5rem 0 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
-            border: 1px solid rgba(255,215,0,0.4);
-            transition: transform 0.2s;
-            animation: fadeUp 0.6s ease-out 0.3s both;
-        }
-        .playlist-card:hover {
-            transform: translateY(-3px);
-            background: rgba(50,70,100,0.85);
-        }
-        .playlist-cover {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            object-fit: cover;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .playlist-info {
-            flex: 1;
-            text-align: left;
-        }
-        .playlist-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #ffd966;
-        }
-        .playlist-info p {
-            color: #cddcff;
-            margin-bottom: 0.8rem;
-        }
-        .playlist-link {
-            background: #2a5f8a;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-        }
-        .playlist-link:hover { background: #3a7faa; }
-
-        .btn-video {
-            display: inline-block;
-            background: linear-gradient(135deg, #2a5f8a, #1e3a5f);
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 0.9rem 2rem;
-            border-radius: 60px;
-            text-decoration: none;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
-            transition: all 0.3s;
-            border: 1px solid rgba(255,215,0,0.5);
-            margin-top: 0.5rem;
-        }
-        .btn-video:hover {
-            background: linear-gradient(135deg, #3a7faa, #2a4a6f);
-            transform: scale(1.02);
         }
 
         .scroll-hint {
@@ -362,6 +330,7 @@
             50%{ transform: translateY(8px); }
         }
 
+        /* 模态框 */
         .modal {
             display: none;
             position: fixed;
@@ -370,7 +339,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.9);
-            z-index: 1000;
+            z-index: 2000;
             justify-content: center;
             align-items: center;
         }
@@ -397,12 +366,13 @@
 
         @media (max-width: 640px) {
             .social-grid { grid-template-columns: 1fr; }
-            .hot-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
             .stats-new { flex-direction: column; }
             .playlist-card { flex-direction: column; text-align: center; }
             .playlist-info { text-align: center; }
             .scroll-hint { font-size: 0.7rem; white-space: nowrap; }
             .modal-content { width: 95%; padding: 10px; }
+            .qrcode-popup img { width: 80px; height: 80px; }
         }
     </style>
 </head>
@@ -411,111 +381,112 @@
     <!-- 第一屏 -->
     <section class="section">
         <div class="container title-section">
-            <h1>🎬 【蛋仔小鄒呀】蛋仔派对赛季开头动画素材库</h1>
+            <h1>🎬 欢迎来到【蛋仔小鄒呀】的个人网站</h1>
             <div class="intro-card">
                 <div class="intro-header">🎉 <span>嗨，我是蛋仔小鄒呀！</span></div>
                 <div class="intro-text">
-                    <p>🎮 深度《蛋仔派对》玩家 · 赛季动画收藏家<br>📹 所有素材提取自官方赛季片头，适合二创、剪辑、收藏<br>💡 <strong>免费使用，但请务必标注出处</strong> —— 你的支持是我更新的动力<br>🚀 S30【元气零食】已上线，后续赛季第一时间跟进<br>📩 合作建议通过下方社交平台私信我～</p>
+                    <p>🎮 《蛋仔派对》S11玩家<br>
+                    📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏<br>
+                    💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力<br>
+                    🚀 这个网站暂时没有隐藏彩蛋~<br>
+                    📩 合作建议：邮箱1127205258@qq.com📮，也可通过下方社交平台找到我～</p>
                 </div>
-                <div class="intro-highlight">⚡ “每个动画都值得被看见，每个创作者都该有好素材”</div>
             </div>
-            <div class="hot-section">
-                <div class="hot-title">🔥 本周热门素材</div>
-                <div class="hot-grid">
-                    <div class="hot-item" data-video="S20-龙与剑之诗.mp4" data-title="S20 龙与剑之诗">
+
+            <!-- 精选素材推荐（S7、S11、S30） -->
+            <div class="feature-section">
+                <div class="feature-title">🔥 精选素材推荐</div>
+                <div class="feature-grid">
+                    <div class="feature-item" data-video="S07-音乐星企划.mp4" data-title="S07-音乐星企划">
                         <div>🎬</div>
-                        <div class="title">S20 龙与剑之诗</div>
-                        <div class="desc">恢弘史诗，剪辑首选</div>
+                        <div class="title">S07 音乐星企划</div>
+                        <div class="desc">准备好让心跳加速了吗！</div>
                     </div>
-                    <div class="hot-item" data-video="S30-元气零食.mp4" data-title="S30 元气零食">
+                    <div class="feature-item" data-video="S11-梦幻星遇.mp4" data-title="S11-梦幻星遇">
+                        <div>🎬</div>
+                        <div class="title">S11 梦幻星遇</div>
+                        <div class="desc">那些深满内心的恐惧，总会以梦的形式再次出现……</div>
+                    </div>
+                    <div class="feature-item" data-video="S30-元气零食.mp4" data-title="S30-元气零食">
                         <div>🎬</div>
                         <div class="title">S30 元气零食</div>
-                        <div class="desc">最新赛季，活力满满</div>
-                    </div>
-                    <div class="hot-item" data-video="S08-精灵之声.mp4" data-title="S08 精灵之声">
-                        <div>🎬</div>
-                        <div class="title">S08 精灵之声</div>
-                        <div class="desc">空灵治愈，氛围感满分</div>
+                        <div class="desc">热量在沸腾，美味在尖叫！</div>
                     </div>
                 </div>
+
+                <!-- 推荐歌单卡片 -->
+                <div class="playlist-card" id="playlistCard">
+                    <img class="playlist-cover" id="playlistCover" src="assets/gdtx.jpg" alt="歌单封面">
+                    <div class="playlist-info">
+                        <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
+                        <p id="playlistDesc">此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。</p>
+                        <a href="#" id="playlistLink" class="playlist-link" target="_blank">🎧 去网易云听歌</a>
+                    </div>
+                </div>
+
+                <!-- 进入视频库按钮 -->
+                <div style="text-align: center;">
+                    <a href="videos.html" class="btn-video">🎥 进入视频库 → 浏览全部素材</a>
+                </div>
+
+                <!-- 统计卡片 -->
                 <div class="stats-new">
                     <div class="stat-new-card">
-                        <div class="stat-icon">🎞️</div>
-                        <div class="stat-number">30+</div>
-                        <div class="stat-label">赛季动画总数</div>
+                        <div class="stat-icon">🎬</div>
+                        <div class="stat-number">高清原画</div>
+                        <div class="stat-label">每部皆4K</div>
                     </div>
                     <div class="stat-new-card">
-                        <div class="stat-icon">💸</div>
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">永久免费商用</div>
+                        <div class="stat-icon">💎</div>
+                        <div class="stat-number">永久免费</div>
+                        <div class="stat-label">无需付费</div>
                     </div>
                     <div class="stat-new-card">
-                        <div class="stat-icon">🔄</div>
-                        <div class="stat-number">实时</div>
-                        <div class="stat-label">新赛季即更新</div>
-                    </div>
-                </div>
-                <div class="tips-section">
-                    <div class="tips-title">✨ 使用小贴士</div>
-                    <div class="tips-list">
-                        <span>📥 点击下载按钮保存原画质</span>
-                        <span>🔍 视频库支持搜索标题</span>
-                        <span>🎥 点击热门素材可在线预览</span>
-                        <span>📱 悬停社交卡片显示二维码</span>
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-number">实时更新</div>
+                        <div class="stat-label">新赛季即传</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 第二屏 -->
+    <!-- 第二屏：社交卡片（可点击跳转） -->
     <section class="section">
         <div class="container social-section">
-            <h2>📱 找到我 & 我的歌单</h2>
+            <h2>📱 找到我</h2>
             <div class="social-grid">
-                <div class="social-card" data-url="https://b23.tv/Y9D2tR9">
+                <a href="https://b23.tv/Y9D2tR9" class="social-card" target="_blank" data-url="https://b23.tv/Y9D2tR9">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg?sanitize=true" alt="B站">
                     <span>BiliBili</span>
                     <div class="qrcode-popup"></div>
-                </div>
-                <div class="social-card" data-url="https://v.douyin.com/YuEr0aR3RSM/">
+                </a>
+                <a href="https://v.douyin.com/YuEr0aR3RSM/" class="social-card" target="_blank" data-url="https://v.douyin.com/YuEr0aR3RSM/">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg?sanitize=true" alt="抖音">
                     <span>抖音</span>
                     <div class="qrcode-popup"></div>
-                </div>
-                <div class="social-card" data-url="https://v.kuaishou.com/KG1pc49y">
+                </a>
+                <a href="https://v.kuaishou.com/KG1pc49y" class="social-card" target="_blank" data-url="https://v.kuaishou.com/KG1pc49y">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg?sanitize=true" alt="快手">
                     <span>快手</span>
                     <div class="qrcode-popup"></div>
-                </div>
-                <div class="social-card" data-url="https://xhslink.com/m/2PO9N97jXhn">
+                </a>
+                <a href="https://xhslink.com/m/2PO9N97jXhn" class="social-card" target="_blank" data-url="https://xhslink.com/m/2PO9N97jXhn">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg?sanitize=true" alt="小红书">
                     <span>小红书</span>
                     <div class="qrcode-popup"></div>
-                </div>
-                <div class="social-card" data-url="https://xz1127205258.lofter.com">
+                </a>
+                <a href="https://xz1127205258.lofter.com" class="social-card" target="_blank" data-url="https://xz1127205258.lofter.com">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg?sanitize=true" alt="LOFTER">
                     <span>LOFTER</span>
                     <div class="qrcode-popup"></div>
-                </div>
-                <div class="social-card" data-url="https://y.music.163.com/m/user?id=7808133486">
+                </a>
+                <a href="https://y.music.163.com/m/user?id=7808133486" class="social-card" target="_blank" data-url="https://y.music.163.com/m/user?id=7808133486">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/napster.svg?sanitize=true" alt="网易云音乐">
                     <span>网易云音乐</span>
                     <div class="qrcode-popup"></div>
-                </div>
+                </a>
             </div>
-
-            <div class="playlist-card" id="playlistCard">
-                <!-- 歌单封面图片：使用你上传的 assets/gdtx.jpg -->
-                <img class="playlist-cover" id="playlistCover" src="assets/gdtx.jpg" alt="歌单封面">
-                <div class="playlist-info">
-                    <h3 id="playlistTitle">🎵 蛋仔派对部分赛季大厅音乐</h3>
-                    <p id="playlistDesc">此歌单包含了蛋仔从一赛季以来的所有大厅背景音乐。</p>
-                    <a href="#" id="playlistLink" class="playlist-link" target="_blank">🎧 去网易云听歌</a>
-                </div>
-            </div>
-
-            <a href="videos.html" class="btn-video">🎥 进入视频库 → 浏览全部素材</a>
         </div>
     </section>
 </div>
@@ -533,6 +504,7 @@
 </div>
 
 <script>
+    // 滚轮一滚一屏
     const container = document.getElementById('scrollContainer');
     let isScrolling = false;
     container.addEventListener('wheel', function(e) {
@@ -558,6 +530,7 @@
         }
     }, { passive: false });
 
+    // 底部提示只在第一屏显示
     const scrollHint = document.getElementById('scrollHint');
     const sectionsObs = document.querySelectorAll('.section');
     const observerHint = new IntersectionObserver((entries) => {
@@ -570,6 +543,7 @@
     }, { threshold: 0.5 });
     observerHint.observe(sectionsObs[0]);
 
+    // 为每个社交卡片生成二维码（仅用于悬浮显示，不影响点击跳转）
     document.querySelectorAll('.social-card').forEach(card => {
         const url = card.getAttribute('data-url');
         if (!url) return;
@@ -582,11 +556,12 @@
         }
     });
 
+    // 精选素材点击弹窗
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeModal = document.querySelector('.modal-close');
-    const hotItems = document.querySelectorAll('.hot-item');
-    hotItems.forEach(item => {
+    const featureItems = document.querySelectorAll('.feature-item');
+    featureItems.forEach(item => {
         item.addEventListener('click', () => {
             const videoFile = item.getAttribute('data-video');
             if (videoFile) {
