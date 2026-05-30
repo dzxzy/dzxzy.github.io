@@ -23,7 +23,7 @@
             --title-color: #ffd966;
         }
         body.light {
-            background: #f0f2f5;  /* 纯色背景，不显示图片 */
+            background: #f0f2f5;
             --card-bg: rgba(245, 245, 255, 0.85);
             --card-border: rgba(100, 100, 150, 0.4);
             --text-color: #1f2d3d;
@@ -85,9 +85,6 @@
             0% { opacity: 0; transform: translateX(-60px); }
             100% { opacity: 1; transform: translateX(0); }
         }
-        .animate-card {
-            animation: floatUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-        }
         .hero {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -103,7 +100,6 @@
             opacity: 0.9;
             animation: floatUp 0.7s ease-out 0.1s both;
         }
-        /* 精选素材网格 */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -137,7 +133,6 @@
             font-size: 0.8rem;
             opacity: 0.8;
         }
-        /* 入口大卡片（查看更多赛季动画） */
         .entry-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -167,7 +162,6 @@
         .entry-card p {
             font-size: 1rem;
         }
-        /* 歌单卡片 */
         .playlist-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -204,7 +198,6 @@
             font-size: 0.85rem;
             display: inline-block;
         }
-        /* 个人介绍卡片（第二屏） */
         .intro-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -224,7 +217,6 @@
             margin-bottom: 0.5rem;
             line-height: 1.5;
         }
-        /* 社交卡片 */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -278,7 +270,6 @@
             width: 80px;
             height: 80px;
         }
-        /* 版权浮层 */
         .copyright-float {
             position: fixed;
             bottom: 80px;
@@ -324,14 +315,12 @@
 <body>
 <div class="theme-switch" id="themeToggle">🌙 黑夜</div>
 <div class="scroll-container" id="scrollContainer">
-    <!-- 第一屏 -->
     <section class="section">
         <div class="container">
             <div class="hero">
                 <h1>🎬 蛋仔派对 · 赛季动画素材库</h1>
                 <p>免费 · 高清 · 持续更新</p>
             </div>
-            <!-- 精选素材推荐 -->
             <div class="feature-grid">
                 <div class="feature-item" data-video="S07-音乐星企划.mp4">
                     <div>🎬</div>
@@ -349,13 +338,11 @@
                     <div class="desc">热量在沸腾，美味在尖叫！</div>
                 </div>
             </div>
-            <!-- 入口大卡片（查看更多赛季动画） -->
             <div class="entry-card" id="goToVideoLib">
                 <img src="assets/entry-icon.png" alt="素材库" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ffd966\'%3E%3Cpath d=\'M8 5v14l11-7z\'/%3E%3C/svg%3E'">
                 <h2>🎥 查看更多赛季动画</h2>
                 <p>点击进入完整视频库，支持搜索、预览和下载</p>
             </div>
-            <!-- 歌单卡片 -->
             <div class="playlist-card">
                 <img class="playlist-cover" id="playlistCover" src="assets/gdtx.jpg" alt="歌单封面">
                 <div class="playlist-info">
@@ -367,7 +354,6 @@
         </div>
     </section>
 
-    <!-- 第二屏：社交 + 个人介绍 -->
     <section class="section" id="secondScreen">
         <div class="container">
             <h2 style="text-align:center; margin-bottom:1.5rem;">📱 找到我</h2>
@@ -409,8 +395,8 @@
                     <p>🎮 《蛋仔派对》S11玩家</p>
                     <p>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏</p>
                     <p>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力</p>
-                    <p>🚀 这个网站暂时没有隐藏彩蛋~</p>
-                    <p>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～</p>
+                    <p>🚀 这个网站可能会有彩蛋？？？</p>
+                    <p>📩 合作建议：邮箱1127205258@qq.com📮，也可通过下方社交平台找到我～</p>
                 </div>
             </div>
         </div>
@@ -421,7 +407,6 @@
     <span class="circle-c">©</span> 网站所有
 </div>
 
-<!-- 模态框 -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
@@ -505,20 +490,28 @@
 </style>
 
 <script>
-    // 日夜模式切换
+    // 日夜模式初始化与切换
     const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-        if (document.body.classList.contains('dark')) {
+    function setTheme(theme) {
+        if (theme === 'light') {
             document.body.classList.remove('dark');
             document.body.classList.add('light');
             themeToggle.innerHTML = '☀️ 白天';
+            localStorage.setItem('theme', 'light');
         } else {
             document.body.classList.remove('light');
             document.body.classList.add('dark');
             themeToggle.innerHTML = '🌙 黑夜';
+            localStorage.setItem('theme', 'dark');
         }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') setTheme('light');
+    else setTheme('dark');
+    themeToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('dark')) setTheme('light');
+        else setTheme('dark');
     });
-    document.body.classList.add('dark');
 
     // 滚轮一滚一屏
     const container = document.getElementById('scrollContainer');
@@ -546,7 +539,7 @@
         }
     }, { passive: false });
 
-    // 第二屏底部出现版权浮层
+    // 版权浮层
     const copyrightFloat = document.getElementById('copyrightFloat');
     const secondScreen = document.getElementById('secondScreen');
     const observerCopyright = new IntersectionObserver((entries) => {
@@ -560,7 +553,7 @@
     }, { threshold: 0.1 });
     observerCopyright.observe(secondScreen);
 
-    // 入口卡片跳转
+    // 跳转视频库
     document.getElementById('goToVideoLib').addEventListener('click', () => {
         window.location.href = 'videos.html';
     });
