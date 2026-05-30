@@ -6,18 +6,34 @@
     <title>蛋仔派对赛季动画视频库 | 蛋仔小鄒呀</title>
     <link rel="preload" as="image" href="assets/bg.jpg">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-url: url('assets/bg.jpg');
+            --card-bg: rgba(30,45,70,0.7);
+            --text-color: #eef2ff;
+            --title-color: #ffd966;
+            --border-color: rgba(255,215,0,0.3);
+        }
+        body.dark {
+            background: var(--bg-url) center center / cover no-repeat fixed;
+            background-color: #0a0f1a;
+            --card-bg: rgba(30,45,70,0.7);
+            --text-color: #eef2ff;
+            --title-color: #ffd966;
+            --border-color: rgba(255,215,0,0.3);
+        }
+        body.light {
+            background: #f0f2f5;
+            --card-bg: rgba(245,245,255,0.85);
+            --text-color: #1f2d3d;
+            --title-color: #0366d6;
+            --border-color: rgba(100,100,150,0.4);
         }
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: url('assets/bg.jpg') center center / cover no-repeat fixed;
-            background-color: #0a0f1a;
+            font-family: system-ui, sans-serif;
+            color: var(--text-color);
             padding: 20px;
-            color: #eef2ff;
             min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
         .container {
             max-width: 1200px;
@@ -30,27 +46,29 @@
             flex-wrap: wrap;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            background: rgba(20, 30, 55, 0.65);
+            background: rgba(20,30,55,0.65);
             backdrop-filter: blur(16px);
             border-radius: 60px;
             padding: 0.8rem 1.8rem;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid var(--border-color);
         }
-        .header-bar h1 {
-            font-size: 1.6rem;
-            color: #ffd966;
-        }
+        .header-bar h1 { font-size: 1.6rem; color: #ffd966; }
         .back-link {
             background: rgba(255,255,255,0.1);
             padding: 0.4rem 1.2rem;
             border-radius: 40px;
             text-decoration: none;
-            color: #eef2ff;
-            font-weight: 500;
-            transition: 0.2s;
+            color: var(--text-color);
         }
-        .back-link:hover {
-            background: rgba(255,215,0,0.3);
+        .theme-switch {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            transition: 0.2s;
         }
         .search-bar {
             margin-bottom: 1.5rem;
@@ -62,20 +80,12 @@
             max-width: 400px;
             background: rgba(30,45,70,0.8);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,215,0,0.4);
+            border: 1px solid var(--border-color);
             border-radius: 60px;
             padding: 0.7rem 1.2rem;
             font-size: 1rem;
-            color: #eef2ff;
+            color: var(--text-color);
             outline: none;
-            transition: 0.2s;
-        }
-        .search-input::placeholder {
-            color: #b0c4ff;
-        }
-        .search-input:focus {
-            border-color: #ffd966;
-            background: rgba(40,60,90,0.9);
         }
         .video-grid {
             display: grid;
@@ -84,79 +94,84 @@
             margin-top: 0.5rem;
         }
         .video-card {
-            background: rgba(30,45,70,0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
-            transition: transform 0.35s ease, box-shadow 0.35s;
-            border: 1px solid rgba(255,215,0,0.25);
-            opacity: 0;
-            transform: translateY(60px) scale(0.96);
-            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.5s ease;
             cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: transform 0.5s, opacity 0.5s;
+            border: 1px solid var(--border-color);
         }
         .video-card.animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
+            opacity: 1;
+            transform: translateY(0);
         }
         .video-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 25px 35px rgba(0,0,0,0.5);
-            background: rgba(50,70,100,0.85);
-            border-color: rgba(255,215,0,0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.4);
         }
-        video {
+        .video-card video {
             width: 100%;
+            aspect-ratio: 16/9;
             background: #000;
-            display: block;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            pointer-events: none; /* 点击卡片时触发弹窗，而不是播放控件 */
+            pointer-events: none;
         }
         .video-info {
             padding: 1rem;
         }
         .video-title {
-            font-weight: 700;
+            font-weight: bold;
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: #ffefc0;
+            color: var(--title-color);
         }
         .video-desc {
             font-size: 0.85rem;
             color: #c0d0ff;
-            margin-bottom: 1rem;
+            margin: 0.5rem 0;
         }
         .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-block;
             background: #2a5f8a;
             color: white;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 40px;
-            font-size: 0.85rem;
             text-decoration: none;
-            transition: background 0.2s;
-            pointer-events: auto; /* 下载按钮可独立点击 */
+            font-size: 0.8rem;
+            pointer-events: auto;
         }
-        .download-btn:hover {
-            background: #3a7faa;
+        .easter-egg {
+            background: rgba(40,60,90,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-left: 5px solid #ffd966;
         }
-        footer {
-            margin-top: 2.5rem;
-            text-align: center;
-            color: #8b9ac0;
-            border-top: 1px solid rgba(255,215,0,0.2);
-            padding-top: 1.5rem;
+        .easter-egg img {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+        .easter-egg .info h4 {
+            font-size: 1.1rem;
+            color: #ffd966;
         }
         .no-result {
             text-align: center;
-            grid-column: 1 / -1;
             padding: 2rem;
-            font-size: 1.2rem;
-            color: #ffd966;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
         }
         .modal {
             display: none;
@@ -165,43 +180,57 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
         .modal-content {
-            background: #1a1f2e;
-            border-radius: 24px;
-            max-width: 800px;
+            background: rgba(30,45,70,0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            max-width: 1000px;
             width: 90%;
             padding: 20px;
             position: relative;
+            border: 1px solid var(--border-color);
         }
         .modal-close {
             position: absolute;
-            top: 10px;
+            top: 12px;
             right: 20px;
             font-size: 28px;
             cursor: pointer;
             color: white;
+            z-index: 10;
+        }
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .modal-video-container {
+            flex: 2;
+            min-width: 250px;
         }
         .modal-video {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 20px;
+            background: #000;
+        }
+        .modal-info {
+            flex: 1;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 1rem;
+        }
+        .modal-info h3 {
+            color: #ffd966;
+            margin-bottom: 0.5rem;
         }
         @media (max-width: 640px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            .header-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-            .search-input {
-                max-width: 100%;
-            }
-            .modal-content { width: 95%; padding: 10px; }
+            .modal-body { flex-direction: column; }
+            .easter-egg { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -209,27 +238,59 @@
 <div class="container">
     <div class="header-bar">
         <h1>🎬 蛋仔派对赛季动画视频库</h1>
-        <a href="/" class="back-link">← 返回主页</a>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="theme-switch" id="themeToggle">🌙 黑夜</div>
+            <a href="/" class="back-link">← 返回主页</a>
+        </div>
     </div>
     <div class="search-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索视频标题 (如: 龙与剑、元气零食)">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索视频标题">
     </div>
-    <div id="videoContainer" class="video-grid">
-        <div style="text-align:center; padding:2rem;">加载素材中...</div>
-    </div>
-    <footer>所有视频可直接预览或点击下载 | 持续更新中</footer>
+    <div id="videoContainer" class="video-grid"></div>
+    <footer>所有视频可预览下载 | 搜索特定关键词有惊喜</footer>
 </div>
 
-<!-- 模态框 -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <video id="modalVideo" class="modal-video" controls autoplay></video>
+        <div class="modal-body">
+            <div class="modal-video-container">
+                <video id="modalVideo" class="modal-video" controls></video>
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    const videoList = [
+    // 日夜模式（与主站逻辑一致，使用localStorage同步）
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(theme) {
+        if (theme === 'light') {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+            themeToggle.innerHTML = '☀️ 白天';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+            themeToggle.innerHTML = '🌙 黑夜';
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') setTheme('light');
+    else setTheme('dark');
+    themeToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('dark')) setTheme('light');
+        else setTheme('dark');
+    });
+
+    // 视频数据
+    const normalVideos = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
         { title: "S03-疯狂马戏团", description: "暂无介绍", fileName: "S03-疯狂马戏团.mp4" },
@@ -262,46 +323,61 @@
         { title: "S30-元气零食", description: "热量在沸腾，美味在尖叫！", fileName: "S30-元气零食.mp4" }
     ];
 
+    const easterEggs = [
+        { keyword: "一周年", title: "🎂 蛋仔派对一周年", content: "蛋仔派对一周年大合照", img: "assets/yzn.jpg" },
+        { keyword: "二周年", title: "🎂 蛋仔派对二周年", content: "蛋仔派对二周年庆典", img: "assets/ezn.jpg" },
+        { keyword: "三周年", title: "🎂 蛋仔派对三周年", content: "蛋仔派对三周年狂欢", img: "assets/szn.jpg" }
+    ];
+
     const VIDEO_BASE_PATH = "videos/";
     let currentFilterText = "";
 
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+        return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
     }
 
-    function renderVideos() {
+    function renderContent() {
         const container = document.getElementById('videoContainer');
-        const filteredList = videoList.filter(v => 
-            v.title.toLowerCase().includes(currentFilterText.toLowerCase()) ||
-            v.description.toLowerCase().includes(currentFilterText.toLowerCase())
-        );
-
-        if (filteredList.length === 0) {
-            container.innerHTML = '<div class="no-result">😭 没有找到相关视频，试试其他关键词吧</div>';
+        const keyword = currentFilterText.toLowerCase().trim();
+        const matchedEaster = easterEggs.filter(egg => egg.keyword === keyword);
+        if (matchedEaster.length > 0) {
+            let html = '<div style="grid-column:1/-1;">';
+            matchedEaster.forEach(egg => {
+                html += `
+                    <div class="easter-egg">
+                        <img src="${egg.img}" alt="彩蛋图片" onerror="this.src='https://via.placeholder.com/80?text=Image'">
+                        <div class="info">
+                            <h4>${escapeHtml(egg.title)}</h4>
+                            <p>${escapeHtml(egg.content)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
             return;
         }
 
+        const filtered = normalVideos.filter(v => 
+            v.title.toLowerCase().includes(keyword) || v.description.toLowerCase().includes(keyword)
+        );
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="no-result">😭 没有找到相关视频</div>';
+            return;
+        }
         let html = '';
-        for (let v of filteredList) {
+        for (let v of filtered) {
             const videoUrl = VIDEO_BASE_PATH + v.fileName;
-            const safeTitle = escapeHtml(v.title);
-            const safeDesc = escapeHtml(v.description);
             html += `
-                <div class="video-card" data-video-url="${videoUrl}" data-title="${safeTitle}">
-                    <video controls preload="none" poster="">
+                <div class="video-card" data-video-url="${videoUrl}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}">
+                    <video preload="none" poster="">
                         <source data-src="${videoUrl}" type="video/mp4">
-                        您的浏览器不支持 video 标签。
                     </video>
                     <div class="video-info">
-                        <div class="video-title">${safeTitle}</div>
-                        <div class="video-desc">${safeDesc}</div>
-                        <a href="${videoUrl}" download class="download-btn">⬇️ 下载视频</a>
+                        <div class="video-title">${escapeHtml(v.title)}</div>
+                        <div class="video-desc">${escapeHtml(v.description)}</div>
+                        <a href="${videoUrl}" download class="download-btn">⬇️ 下载</a>
                     </div>
                 </div>
             `;
@@ -314,11 +390,10 @@
     function initLazyLoadAndAnimation() {
         const cards = document.querySelectorAll('.video-card');
         if (!cards.length) return;
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const card = entry.target;
                 if (entry.isIntersecting) {
+                    const card = entry.target;
                     const videoEl = card.querySelector('video');
                     const sourceEl = videoEl?.querySelector('source');
                     const dataSrc = sourceEl?.getAttribute('data-src');
@@ -328,40 +403,38 @@
                         videoEl.preload = 'metadata';
                         sourceEl.removeAttribute('data-src');
                     }
-                    if (card.classList.contains('animate-in')) {
-                        card.classList.remove('animate-in');
-                        void card.offsetWidth;
+                    if (!card.classList.contains('animate-in')) {
+                        card.classList.add('animate-in');
                     }
-                    card.classList.add('animate-in');
-                } else {
-                    if (card.classList.contains('animate-in')) {
-                        card.classList.remove('animate-in');
-                    }
+                    observer.unobserve(card);
                 }
             });
-        }, { rootMargin: "100px", threshold: 0.1 });
-
+        }, { rootMargin: "100px" });
         cards.forEach(card => observer.observe(card));
     }
 
     function bindModalClick() {
         const modal = document.getElementById('videoModal');
         const modalVideo = document.getElementById('modalVideo');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
         const closeModal = document.querySelector('.modal-close');
         const cards = document.querySelectorAll('.video-card');
-        
         cards.forEach(card => {
             card.addEventListener('click', function(e) {
                 if (e.target.closest('.download-btn')) return;
                 const videoUrl = card.getAttribute('data-video-url');
+                const title = card.getAttribute('data-title');
+                const desc = card.getAttribute('data-desc');
                 if (videoUrl) {
                     modalVideo.src = videoUrl;
+                    modalTitle.innerText = title;
+                    modalDesc.innerText = desc;
                     modal.style.display = 'flex';
                     modalVideo.play();
                 }
             });
         });
-        
         if (!window.modalBound) {
             closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
@@ -382,10 +455,10 @@
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function(e) {
         currentFilterText = e.target.value;
-        renderVideos();
+        renderContent();
     });
 
-    renderVideos();
+    renderContent();
 </script>
 </body>
 </html>
