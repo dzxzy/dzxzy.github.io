@@ -104,8 +104,8 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 48px;  /* 加大选项间距，分散排版 */
-            margin: 0 auto; /* 居中 */
+            gap: 48px;
+            margin: 0 auto;
         }
         .nav-link {
             text-decoration: none;
@@ -428,11 +428,11 @@
             opacity: 0.8;
         }
 
-        /* 试运行弹窗 */
+        /* 试运行弹窗 - 右下角 */
         .trial-popup {
             position: fixed;
             bottom: 24px;
-            left: 24px;
+            right: 24px;
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border-radius: 24px;
@@ -508,6 +508,7 @@
             .modal-video { max-height: 50vh; }
             .nav-menu { gap: 24px; }
             .header { padding: 0 16px; }
+            .trial-popup { bottom: 16px; right: 16px; max-width: 280px; padding: 12px 16px; }
         }
     </style>
 </head>
@@ -556,7 +557,7 @@
     <div id="seasonPage" class="page">
         <h2 style="text-align:center; margin-bottom:24px;">🎬 全部赛季动画</h2>
         <div style="margin-bottom: 24px; text-align:center;">
-            <input type="text" id="seasonSearchInput" placeholder="🔍 搜索视频标题 或 彩蛋关键词「一周年、二周年、三周年」" style="width:100%; max-width:500px; padding:12px 20px; border-radius:60px; border:var(--card-border); background:var(--card-bg); color:var(--text-color);">
+            <input type="text" id="seasonSearchInput" placeholder="🔍 搜索视频标题" style="width:100%; max-width:500px; padding:12px 20px; border-radius:60px; border:var(--card-border); background:var(--card-bg); color:var(--text-color);">
         </div>
         <div id="videoContainer" class="season-grid"></div>
     </div>
@@ -661,7 +662,7 @@
         { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
         { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" },
         { title: "S30-元气零食", description: "热量在沸腾，美味在尖叫！", fileName: "S30-元气零食.mp4" },
-        { title: "S31-西湖寻缘", description: "烟雨江南，情定西湖", fileName: "S31-西湖寻缘.mp4" }
+        { title: "S31-西湖寻缘", description: "恩人，你到底在哪里？", fileName: "S31-西湖寻缘.mp4" }
     ];
     const easterEggs = [
         { keyword: "一周年", title: "🎂 蛋仔派对一周年", content: "蛋仔派对一周年大合照", img: "assets/yzn.jpg" },
