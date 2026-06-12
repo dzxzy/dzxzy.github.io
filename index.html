@@ -67,7 +67,7 @@
             object-fit: cover;
         }
 
-        /* 固定头部 */
+        /* 固定头部 - 头像和名字靠左最边缘 */
         .header-wrapper {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -81,13 +81,14 @@
             justify-content: space-between;
             align-items: center;
             height: 64px;
-            gap: 24px;
-            flex-wrap: wrap;
+            padding: 0 24px;
         }
         .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
+            margin-left: 0;
+            padding-left: 0;
         }
         .logo-area img {
             width: 40px;
@@ -103,8 +104,8 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 32px;
-            flex-wrap: wrap;
+            gap: 48px;  /* 加大选项间距，分散排版 */
+            margin: 0 auto; /* 居中 */
         }
         .nav-link {
             text-decoration: none;
@@ -130,6 +131,7 @@
             padding: 6px 14px;
             cursor: pointer;
             border: var(--card-border);
+            font-weight: 500;
         }
 
         /* 主内容区域 */
@@ -251,7 +253,7 @@
             margin-top: 10px;
         }
 
-        /* 音乐推荐卡片 - 阔气大排档样式（单独使用 .music-grid 或直接定义） */
+        /* 音乐推荐卡片 - 阔气大排档样式 */
         .music-grid {
             display: flex;
             flex-direction: column;
@@ -504,6 +506,8 @@
             .song-card .card-inner { flex-direction: column; text-align: center; }
             .modal-body { flex-direction: column; }
             .modal-video { max-height: 50vh; }
+            .nav-menu { gap: 24px; }
+            .header { padding: 0 16px; }
         }
     </style>
 </head>
@@ -514,21 +518,19 @@
 </div>
 
 <div class="header-wrapper">
-    <div class="container">
-        <div class="header">
-            <div class="logo-area">
-                <img src="assets/tx.jpg" alt="头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'">
-                <span class="logo-text">蛋仔小鄒呀</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a class="nav-link active" data-page="home">🏠 首页</a></li>
-                <li><a class="nav-link" data-page="season">🎬 赛季动画</a></li>
-                <li><a class="nav-link" data-page="music">🎵 音乐推荐</a></li>
-                <li><a class="nav-link" data-page="social">📱 互动交流</a></li>
-            </ul>
-            <div class="header-tools">
-                <div class="theme-switch" id="themeToggle">🌙 深色</div>
-            </div>
+    <div class="header">
+        <div class="logo-area">
+            <img src="assets/tx.jpg" alt="头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'">
+            <span class="logo-text">蛋仔小鄒呀</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a class="nav-link active" data-page="home">🏠 首页</a></li>
+            <li><a class="nav-link" data-page="season">🎬 赛季动画</a></li>
+            <li><a class="nav-link" data-page="music">🎵 音乐推荐</a></li>
+            <li><a class="nav-link" data-page="social">📱 互动交流</a></li>
+        </ul>
+        <div class="header-tools">
+            <div class="theme-switch" id="themeToggle">夜晚</div>
         </div>
     </div>
 </div>
@@ -563,7 +565,10 @@
     <div id="musicPage" class="page">
         <h2 style="text-align:center; margin-bottom:32px;">🎵 推荐歌单</h2>
         <div id="musicGrid" class="music-grid"></div>
-        <p style="text-align:center; margin:32px 0; color:var(--title-color);">更多歌单正在加入中，敬请期待。</p>
+        <p style="text-align:center; margin:32px 0; color:var(--title-color);">
+            更多歌单正在加入中，敬请期待。<br>
+            以上所推荐歌单来源均来自于网易云音乐。
+        </p>
     </div>
 
     <!-- 互动交流页面 -->
@@ -897,12 +902,12 @@
         if (theme === 'light') {
             document.body.classList.remove('dark');
             document.body.classList.add('light');
-            themeToggle.innerHTML = '🌙 深色';
+            themeToggle.innerHTML = '白天';
             localStorage.setItem('theme', 'light');
         } else {
             document.body.classList.remove('light');
             document.body.classList.add('dark');
-            themeToggle.innerHTML = '☀️ 浅色';
+            themeToggle.innerHTML = '夜晚';
             localStorage.setItem('theme', 'dark');
         }
     }
