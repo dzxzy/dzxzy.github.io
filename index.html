@@ -54,6 +54,19 @@
             padding: 0 24px;
         }
 
+        /* 顶部通栏图片 */
+        .top-banner {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .top-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
         /* 固定头部 */
         .header-wrapper {
             background: var(--card-bg);
@@ -193,35 +206,109 @@
             color: #1f2d3d;
         }
 
-        /* 卡片网格通用 */
+        /* 卡片网格通用 - 采用Flex布局，项目拉伸，宽度自适应且统一 */
         .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
             margin: 32px 0;
         }
-        .video-card, .song-card {
+        .song-card {
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            border-radius: 24px;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: var(--card-border);
+            width: 100%;
+            padding: 32px;
+        }
+        .song-card:hover {
+            transform: translateY(-5px);
+        }
+        .song-card .card-inner {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .song-card .card-cover {
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            object-fit: cover;
+            box-shadow: var(--shadow-md);
+            flex-shrink: 0;
+        }
+        .song-card .card-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        .song-card .card-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--title-color);
+        }
+        .song-card .card-desc {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .song-card .download-btn {
+            display: inline-block;
+            background: #2a5f8a;
+            padding: 8px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .song-card .download-btn:hover {
+            background: #3a7faa;
+        }
+
+        /* 视频卡片样式 */
+        .video-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s;
             border: var(--card-border);
+            width: 100%;
         }
-        .video-card:hover, .song-card:hover { transform: translateY(-5px); }
-        .video-card video { width: 100%; aspect-ratio: 16/9; background: #000; pointer-events: none; }
-        .card-info { padding: 12px; }
-        .card-title { font-weight: bold; margin-bottom: 6px; }
-        .download-btn {
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            pointer-events: none;
+            display: block;
+        }
+        .video-card .card-info {
+            padding: 20px;
+        }
+        .video-card .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .video-card .download-btn {
             display: inline-block;
             background: #2a5f8a;
-            padding: 4px 12px;
+            padding: 6px 20px;
             border-radius: 40px;
             text-decoration: none;
             color: white;
-            font-size: 0.8rem;
-            margin-top: 8px;
+            font-size: 0.9rem;
+            margin-top: 12px;
         }
         .easter-egg {
             background: rgba(40,60,90,0.9);
@@ -231,6 +318,7 @@
             gap: 20px;
             align-items: center;
             margin-bottom: 24px;
+            grid-column: 1 / -1;
         }
         .easter-egg img { width: 120px; height: 120px; border-radius: 20px; object-fit: cover; }
 
@@ -267,13 +355,22 @@
             margin: 32px 0;
             border: var(--card-border);
         }
-        /* 全局底部栏（社交+版权） */
-        .global-footer {
+        /* 底部浮层（滚动到底部时滑入） */
+        .footer-float {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-top: var(--card-border);
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 12px 0;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            z-index: 150;
+        }
+        .footer-float.show {
+            transform: translateY(0);
         }
         .footer-content {
             max-width: 1300px;
@@ -326,10 +423,6 @@
         .footer-copyright {
             font-size: 0.85rem;
             opacity: 0.8;
-        }
-        @media (max-width: 768px) {
-            .footer-content { flex-direction: column; text-align: center; }
-            .footer-social { justify-content: center; }
         }
 
         /* 右侧固定按钮 */
@@ -387,9 +480,22 @@
             width: 90%;
             padding: 24px;
         }
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-social { justify-content: center; }
+            .latest-video-btn { bottom: 80px; padding: 6px 12px; }
+            .song-card .card-inner { flex-direction: column; text-align: center; }
+            .song-card .card-info { text-align: center; }
+            .song-card .card-title { font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body class="dark">
+<!-- 顶部通栏长图片 -->
+<div class="top-banner">
+    <img src="assets/ccllt.webp" alt="网站横幅" onerror="this.src='https://placehold.co/1920x200/2c3e50/ffd966?text=Banner'">
+</div>
+
 <div class="header-wrapper">
     <div class="container">
         <div class="header">
@@ -418,7 +524,7 @@
             <div class="site-name">蛋仔小鄒呀</div>
             <div class="site-domain">dzxzy.github.io</div>
             <div class="main-search">
-                <input type="text" id="mainSearchInput" placeholder="🔍 搜索赛季、角色...">
+                <input type="text" id="mainSearchInput" placeholder="该功能还在完善之中，请移步上方的赛季动画搜索。">
                 <div id="mainSearchResult" style="margin-top: 12px; font-size: 0.9rem;"></div>
             </div>
             <div class="hot-search" id="hotSearchContainer"></div>
@@ -438,19 +544,8 @@
 
     <!-- 音乐推荐页面 -->
     <div id="musicPage" class="page">
-        <h2 style="text-align:center; margin-bottom:24px;">🎵 推荐歌单</h2>
-        <div class="card-grid" id="musicGrid">
-            <div class="song-card">
-                <div style="padding:16px; display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
-                    <img src="assets/gdtx.jpg" alt="歌单封面" style="width:80px; height:80px; border-radius:20px; object-fit:cover;">
-                    <div style="flex:1;">
-                        <div class="card-title">蛋仔派对部分赛季大厅音乐</div>
-                        <div>包含从S1至今所有大厅背景音乐</div>
-                        <a href="https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=" target="_blank" class="download-btn" style="margin-top:8px; display:inline-block;">去网易云听歌 →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2 style="text-align:center; margin-bottom:32px;">🎵 推荐歌单</h2>
+        <div id="musicGrid" class="card-grid"></div>
         <p style="text-align:center; margin:32px 0; color:var(--title-color);">更多歌单正在加入中，敬请期待。</p>
     </div>
 
@@ -476,8 +571,8 @@
     </div>
 </div>
 
-<!-- 全局底部栏（社交+版权） -->
-<div class="global-footer">
+<!-- 底部浮层（滚动到底部时滑入） -->
+<div id="footerFloat" class="footer-float">
     <div class="footer-content">
         <div class="footer-social" id="footerSocial"></div>
         <div class="footer-copyright">网站所有 © 蛋仔小鄒呀</div>
@@ -578,14 +673,14 @@
         }
         const filtered = normalVideos.filter(v => v.title.toLowerCase().includes(keyword) || v.description.toLowerCase().includes(keyword));
         if (filtered.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:40px;">😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋</div>';
+            container.innerHTML = '<div style="text-align:center; padding:40px; grid-column:1/-1;">😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋</div>';
             return;
         }
         let html = '';
         for (let v of filtered) {
             const videoUrl = VIDEO_BASE_PATH + v.fileName;
             html += `<div class="video-card" data-video-url="${videoUrl}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}">
-                        <video preload="none"><source data-src="${videoUrl}" type="video/mp4"></video>
+                        <video preload="none" poster=""><source data-src="${videoUrl}" type="video/mp4"></video>
                         <div class="card-info">
                             <div class="card-title">${escapeHtml(v.title)}</div>
                             <div>${escapeHtml(v.description)}</div>
@@ -664,7 +759,7 @@
     });
     showPage('home');
 
-    // 热词搜索（S12, S14, S16, S20, S21, S31 全称）
+    // 热词搜索
     const hotTags = [
         "S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战",
         "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘"
@@ -677,13 +772,13 @@
         span.addEventListener('click', () => {
             document.getElementById('mainSearchInput').value = tag;
             const resultDiv = document.getElementById('mainSearchResult');
-            resultDiv.innerHTML = '<span style="color:var(--title-color);">🔍 该功能还在完善中，敬请期待</span>';
+            resultDiv.innerHTML = '<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';
             setTimeout(() => resultDiv.innerHTML = '', 2000);
         });
         hotContainer.appendChild(span);
     });
 
-    // 精选素材卡片（使用 S07, S11, S30 作为推荐）
+    // 精选素材卡片
     const features = [
         { video: "S07-音乐星企划.mp4", title: "S07 音乐星企划", desc: "准备好让心跳加速了吗！" },
         { video: "S11-梦幻星遇.mp4", title: "S11 梦幻星遇", desc: "那些深满内心的恐惧，总会以梦的形式再次出现……" },
@@ -706,7 +801,43 @@
         featureGrid.appendChild(div);
     });
 
-    // 全局底部社交栏（含二维码）
+    // 渲染音乐推荐页面（歌单卡片）
+    function renderMusicPage() {
+        const musicGrid = document.getElementById('musicGrid');
+        if (!musicGrid) return;
+        const playlists = [
+            {
+                cover: "assets/gdtx.jpg",
+                title: "蛋仔派对部分赛季大厅音乐",
+                description: "此歌单包含了从S1至今的部分赛季蛋仔岛音乐。",
+                link: "https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk="
+            },
+            {
+                cover: "assets/abyy.jpg",
+                title: "蛋仔派对艾比大陆背景音乐",
+                description: "追光而遇，沐光而行——艾比们祝你前行路上事事顺！",
+                link: "https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA="
+            }
+        ];
+        let html = '';
+        playlists.forEach(playlist => {
+            html += `
+                <div class="song-card">
+                    <div class="card-inner">
+                        <img class="card-cover" src="${playlist.cover}" alt="歌单封面" onerror="this.src='https://placehold.co/140x140/2c3e50/ffd966?text=Cover'">
+                        <div class="card-info">
+                            <div class="card-title">${escapeHtml(playlist.title)}</div>
+                            <div class="card-desc">${escapeHtml(playlist.description)}</div>
+                            <a href="${playlist.link}" target="_blank" class="download-btn">🎧 去网易云听歌 →</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        musicGrid.innerHTML = html;
+    }
+
+    // 全局底部社交栏
     const socialData = [
         { name: "BiliBili", url: "https://b23.tv/Y9D2tR9", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg" },
         { name: "抖音", url: "https://v.douyin.com/YuEr0aR3RSM/", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" },
@@ -729,6 +860,20 @@
         qrImg.style.height = '60px';
         qrDiv.appendChild(qrImg);
         footerSocial.appendChild(link);
+    });
+
+    // 底部浮层滚动监听
+    const footerFloat = document.getElementById('footerFloat');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        const nearBottom = (scrollTop + windowHeight >= docHeight - 100);
+        if (nearBottom) {
+            footerFloat.classList.add('show');
+        } else {
+            footerFloat.classList.remove('show');
+        }
     });
 
     // 试运行弹窗自动关闭
@@ -766,7 +911,7 @@
     const mainSearchInput = document.getElementById('mainSearchInput');
     const mainResultDiv = document.getElementById('mainSearchResult');
     mainSearchInput.addEventListener('input', () => {
-        mainResultDiv.innerHTML = '<span style="color:var(--title-color);">🔍 该功能还在完善中，敬请期待</span>';
+        mainResultDiv.innerHTML = '<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';
         setTimeout(() => mainResultDiv.innerHTML = '', 2000);
     });
 
@@ -789,8 +934,9 @@
         if (e.target === modal) closeModal();
     };
 
-    // 初次渲染赛季动画
+    // 初始化渲染
     renderSeasonVideos();
+    renderMusicPage();
 </script>
 </body>
 </html>
