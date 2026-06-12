@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>蛋仔小鄒呀 | 蛋仔派对素材库</title>
+    <title>蛋仔小鄒呀 | 个人公开网站</title>
     <link rel="preload" as="image" href="assets/bg.jpg">
     <style>
         * {
@@ -206,8 +206,53 @@
             color: #1f2d3d;
         }
 
-        /* 卡片网格通用 - 采用Flex布局，项目拉伸，宽度自适应且统一 */
-        .card-grid {
+        /* 赛季动画网格 - 多列布局 */
+        .season-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .video-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: var(--card-border);
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            pointer-events: none;
+            display: block;
+        }
+        .video-card .card-info {
+            padding: 16px;
+        }
+        .video-card .card-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .video-card .download-btn {
+            display: inline-block;
+            background: #2a5f8a;
+            padding: 6px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        /* 音乐推荐卡片 - 阔气大排档样式（单独使用 .music-grid 或直接定义） */
+        .music-grid {
             display: flex;
             flex-direction: column;
             gap: 40px;
@@ -265,50 +310,6 @@
             color: white;
             font-size: 1rem;
             font-weight: 500;
-            transition: background 0.2s;
-        }
-        .song-card .download-btn:hover {
-            background: #3a7faa;
-        }
-
-        /* 视频卡片样式 */
-        .video-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            border-radius: 32px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s;
-            border: var(--card-border);
-            width: 100%;
-        }
-        .video-card:hover {
-            transform: translateY(-5px);
-        }
-        .video-card video {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            pointer-events: none;
-            display: block;
-        }
-        .video-card .card-info {
-            padding: 20px;
-        }
-        .video-card .card-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-        .video-card .download-btn {
-            display: inline-block;
-            background: #2a5f8a;
-            padding: 6px 20px;
-            border-radius: 40px;
-            text-decoration: none;
-            color: white;
-            font-size: 0.9rem;
-            margin-top: 12px;
         }
         .easter-egg {
             background: rgba(40,60,90,0.9);
@@ -425,20 +426,7 @@
             opacity: 0.8;
         }
 
-        /* 右侧固定按钮 */
-        .latest-video-btn {
-            position: fixed;
-            right: 24px;
-            bottom: 100px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 40px;
-            padding: 10px 20px;
-            display: flex;
-            gap: 12px;
-            z-index: 200;
-            border: var(--card-border);
-        }
+        /* 试运行弹窗 */
         .trial-popup {
             position: fixed;
             bottom: 24px;
@@ -464,6 +452,8 @@
             font-size: 20px;
             line-height: 1;
         }
+
+        /* 模态框 - 适中大小 */
         .modal {
             display: none;
             position: fixed;
@@ -476,17 +466,44 @@
         .modal-content {
             background: var(--card-bg);
             border-radius: 32px;
-            max-width: 800px;
+            max-width: 900px;
             width: 90%;
             padding: 24px;
+            position: relative;
+        }
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .modal-video {
+            flex: 2;
+            min-width: 250px;
+            width: 100%;
+            border-radius: 20px;
+            max-height: 70vh;
+        }
+        .modal-info {
+            flex: 1;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 16px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            z-index: 10;
         }
         @media (max-width: 768px) {
             .footer-content { flex-direction: column; text-align: center; }
             .footer-social { justify-content: center; }
-            .latest-video-btn { bottom: 80px; padding: 6px 12px; }
             .song-card .card-inner { flex-direction: column; text-align: center; }
-            .song-card .card-info { text-align: center; }
-            .song-card .card-title { font-size: 1.3rem; }
+            .modal-body { flex-direction: column; }
+            .modal-video { max-height: 50vh; }
         }
     </style>
 </head>
@@ -533,19 +550,19 @@
         <div class="feature-grid" id="featureGrid"></div>
     </div>
 
-    <!-- 赛季动画页面 -->
+    <!-- 赛季动画页面 - 使用 season-grid 多列布局 -->
     <div id="seasonPage" class="page">
         <h2 style="text-align:center; margin-bottom:24px;">🎬 全部赛季动画</h2>
         <div style="margin-bottom: 24px; text-align:center;">
             <input type="text" id="seasonSearchInput" placeholder="🔍 搜索视频标题 或 彩蛋关键词「一周年、二周年、三周年」" style="width:100%; max-width:500px; padding:12px 20px; border-radius:60px; border:var(--card-border); background:var(--card-bg); color:var(--text-color);">
         </div>
-        <div id="videoContainer" class="card-grid"></div>
+        <div id="videoContainer" class="season-grid"></div>
     </div>
 
     <!-- 音乐推荐页面 -->
     <div id="musicPage" class="page">
         <h2 style="text-align:center; margin-bottom:32px;">🎵 推荐歌单</h2>
-        <div id="musicGrid" class="card-grid"></div>
+        <div id="musicGrid" class="music-grid"></div>
         <p style="text-align:center; margin:32px 0; color:var(--title-color);">更多歌单正在加入中，敬请期待。</p>
     </div>
 
@@ -579,13 +596,6 @@
     </div>
 </div>
 
-<!-- 右侧固定按钮 -->
-<div class="latest-video-btn">
-    <a href="#" target="_blank" id="latestBili">📺 B站最新</a>
-    <a href="#" target="_blank" id="latestDouyin">🎵 抖音最新</a>
-    <a href="#" target="_blank" id="latestKuaishou">📱 快手最新</a>
-</div>
-
 <!-- 试运行弹窗 -->
 <div id="trialPopup" class="trial-popup">
     <div class="popup-header">
@@ -602,10 +612,10 @@
 <!-- 视频播放模态框 -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
-        <span class="popup-close" style="float:right; font-size:28px; cursor:pointer;" onclick="closeModal()">&times;</span>
-        <div style="display:flex; flex-wrap:wrap; gap:20px;">
-            <video id="modalVideo" controls style="flex:2; width:100%; border-radius:20px;"></video>
-            <div style="flex:1; background:rgba(0,0,0,0.4); padding:16px; border-radius:20px;">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-body">
+            <video id="modalVideo" class="modal-video" controls></video>
+            <div class="modal-info">
                 <h3 id="modalTitle"></h3>
                 <p id="modalDesc"></p>
             </div>
@@ -658,7 +668,7 @@
 
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[m])); }
 
-    // 渲染赛季动画
+    // 渲染赛季动画（多列网格）
     function renderSeasonVideos() {
         const container = document.getElementById('videoContainer');
         const keyword = currentSeasonFilter.toLowerCase().trim();
@@ -801,7 +811,7 @@
         featureGrid.appendChild(div);
     });
 
-    // 渲染音乐推荐页面（歌单卡片）
+    // 渲染音乐推荐页面
     function renderMusicPage() {
         const musicGrid = document.getElementById('musicGrid');
         if (!musicGrid) return;
@@ -881,11 +891,6 @@
     window.closeTrialPopup = () => popup.classList.add('hide');
     setTimeout(() => popup.classList.add('hide'), 5000);
 
-    // 最新视频按钮链接（请替换为实际链接）
-    document.getElementById('latestBili').href = "https://space.bilibili.com/xxxxx/video";
-    document.getElementById('latestDouyin').href = "https://www.douyin.com/user/xxxxx";
-    document.getElementById('latestKuaishou').href = "https://www.kuaishou.com/profile/xxxxx";
-
     // 主题切换
     const themeToggle = document.getElementById('themeToggle');
     function setTheme(theme) {
@@ -934,7 +939,7 @@
         if (e.target === modal) closeModal();
     };
 
-    // 初始化渲染
+    // 初始化
     renderSeasonVideos();
     renderMusicPage();
 </script>
