@@ -112,7 +112,7 @@
         .news-content { flex: 1; }
         .season-grid, .encyclopedia-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 24px;
             margin: 32px 0;
         }
@@ -343,6 +343,11 @@
             background: var(--title-color);
             color: #1f2d3d;
         }
+        @media (max-width: 1200px) {
+            .season-grid, .encyclopedia-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         @media (max-width: 768px) {
             .footer-content { flex-direction: column; text-align: center; }
             .footer-left { justify-content: center; }
@@ -396,17 +401,18 @@
         <div class="news-section">
             <div class="news-title">📢 最新公告</div>
             <div class="news-list">
+                <!-- 公告已按日期倒序排列 -->
                 <div class="news-item" id="newsS31">
                     <span class="news-date">2026-06-13</span>
                     <span class="news-content">✨ S31-西湖寻缘PV上线！</span>
                 </div>
                 <div class="news-item">
-                    <span class="news-date">2026-06-10</span>
-                    <span class="news-content">🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单</span>
-                </div>
-                <div class="news-item">
                     <span class="news-date">2026-06-13</span>
                     <span class="news-content">📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">2026-06-10</span>
+                    <span class="news-content">🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单</span>
                 </div>
                 <div class="news-item">
                     <span class="news-date">2026-06-01</span>
@@ -856,8 +862,8 @@
         });
     }
 
-    // 热词搜索（首页）
-    const hotTags = ["S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战", "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘", "流火精灵舞舞", "Eve the Snowheart"];
+    // 首页热词搜索（仅保留赛季相关，无角色热词）
+    const hotTags = ["S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战", "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘"];
     const hotContainer = document.getElementById('hotSearchContainer');
     hotTags.forEach(tag => {
         const span = document.createElement('span');
@@ -872,7 +878,7 @@
         hotContainer.appendChild(span);
     });
 
-    // 蛋仔百科热门搜索词
+    // 蛋仔百科热门搜索词（包含流火精灵舞舞等）
     const encyHotTags = ["Rock and Roll", "梦幻星遇", "剧院首席露希", "道具师芙芙", "流火精灵舞舞"];
     const encyHotContainer = document.getElementById('encyHotSearch');
     if (encyHotContainer) {
