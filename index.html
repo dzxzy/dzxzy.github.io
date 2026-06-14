@@ -24,7 +24,7 @@
         .nav-link{text-decoration:none;font-weight:500;color:var(--text-color);transition:var(--transition);border-bottom:2px solid transparent;padding-bottom:4px;cursor:pointer}
         .nav-link:hover,.nav-link.active{color:var(--title-color);border-bottom-color:var(--title-color)}
         .header-tools{display:flex;align-items:center;gap:16px}
-        .theme-switch{background:rgba(0,0,0,0.2);border-radius:32px;padding:6px 14px;cursor:pointer;border:var(--card-border);font-weight:500}
+        .theme-switch,.lang-switch{background:rgba(0,0,0,0.2);border-radius:32px;padding:6px 14px;cursor:pointer;border:var(--card-border);font-weight:500}
         .main-content{flex:1;padding:40px 0}
         .page{display:none;animation:fadeIn .3s ease}
         .page.active-page{display:block}
@@ -35,7 +35,8 @@
         .site-domain{font-size:1rem;opacity:.8;margin-bottom:24px}
         .main-search{max-width:500px;margin:0 auto 20px}
         .main-search input{width:100%;padding:14px 24px;border-radius:60px;border:var(--card-border);background:var(--card-bg);color:var(--text-color);font-size:1rem;outline:none}
-        .hot-search{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px}
+        .hot-search{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px;align-items:center}
+        .hot-search-label{font-size:.85rem;font-weight:500;margin-right:4px;color:var(--title-color)}
         .hot-tag{background:rgba(128,128,128,0.2);padding:6px 16px;border-radius:40px;cursor:pointer;font-size:.85rem;transition:var(--transition)}
         .hot-tag:hover{background:var(--title-color);color:#1f2d3d}
         .news-section{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:32px;padding:24px;margin:40px 0;border:var(--card-border)}
@@ -95,7 +96,8 @@
         .modal-close{position:absolute;top:16px;right:24px;font-size:28px;cursor:pointer;color:#fff;z-index:10}
         .search-bar{margin-bottom:24px;text-align:center}
         .search-bar input{width:100%;max-width:400px;padding:12px 20px;border-radius:60px;border:var(--card-border);background:var(--card-bg);color:var(--text-color);font-size:1rem;outline:none}
-        .hot-search-encyclopedia{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px}
+        .hot-search-encyclopedia{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px;align-items:center}
+        .hot-search-label-ency{font-size:.8rem;font-weight:500;margin-right:4px;color:var(--title-color)}
         .hot-ency-tag{background:rgba(128,128,128,0.2);padding:4px 12px;border-radius:40px;cursor:pointer;font-size:.8rem;transition:var(--transition)}
         .hot-ency-tag:hover{background:var(--title-color);color:#1f2d3d}
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(280px,1fr))}}
@@ -104,23 +106,296 @@
 </head>
 <body class="light">
 <div class="top-banner"><img src="assets/ccllt.webp" alt="网站横幅" onerror="this.src='https://placehold.co/1920x200/2c3e50/ffd966?text=Banner'"></div>
-<div class="header-wrapper"><div class="header"><div class="logo-area"><img src="assets/tx.jpg" alt="头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'"><span class="logo-text">蛋仔小鄒呀</span></div><ul class="nav-menu"><li><a class="nav-link active" data-page="home">🏠 首页 🏠</a></li><li><a class="nav-link" data-page="season">🎬 蛋仔派对赛季动画PV 🎬</a></li><li><a class="nav-link" data-page="music">🎵 推荐歌单 🎵</a></li><li><a class="nav-link" data-page="encyclopedia">📖 蛋仔百科 📖</a></li><li><a class="nav-link" data-page="social">📱 互动交流 📱</a></li></ul><div class="header-tools"><div class="theme-switch" id="themeToggle">夜晚</div></div></div></div>
+<div class="header-wrapper"><div class="header"><div class="logo-area"><img src="assets/tx.jpg" alt="头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'"><span class="logo-text">蛋仔小鄒呀</span></div><ul class="nav-menu"><li><a class="nav-link active" data-page="home">🏠 首页 🏠</a></li><li><a class="nav-link" data-page="season">🎬 蛋仔派对赛季动画PV 🎬</a></li><li><a class="nav-link" data-page="music">🎵 推荐歌单 🎵</a></li><li><a class="nav-link" data-page="encyclopedia">📖 蛋仔百科 📖</a></li><li><a class="nav-link" data-page="social">📱 互动交流 📱</a></li></ul><div class="header-tools"><div class="lang-switch" id="langToggle">繁</div><div class="theme-switch" id="themeToggle">夜晚</div></div></div></div>
 <div class="main-content container">
     <div id="homePage" class="page active-page">
         <div class="hero-center"><img src="assets/tx.jpg" alt="蛋仔小鄒呀" class="avatar-large" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'"><div class="site-name">蛋仔小鄒呀</div><div class="site-domain">dzxzy.github.io</div><div class="main-search"><input type="text" id="mainSearchInput" placeholder="该功能还在完善之中，请移步上方的赛季动画搜索。"><div id="mainSearchResult" style="margin-top:12px;font-size:.9rem"></div></div><div class="hot-search" id="hotSearchContainer"></div></div>
-        <div class="news-section"><div class="news-title">📢 最新公告</div><div class="news-list"><div class="news-item" id="newsS31"><span class="news-date">2026-06-13</span><span class="news-content">✨ S31-西湖寻缘PV上线！</span></div><div class="news-item"><span class="news-date">2026-06-13</span><span class="news-content">📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）</span></div><div class="news-item"><span class="news-date">2026-06-10</span><span class="news-content">🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单</span></div><div class="news-item"><span class="news-date">2026-06-01</span><span class="news-content">✨ 网站开启试运行，部分功能持续优化中，感谢支持！</span></div></div></div>
+        <div class="news-section"><div class="news-title">📢 最新公告</div><div class="news-list" id="newsList"></div></div>
     </div>
     <div id="seasonPage" class="page"><h2 style="text-align:center;margin-bottom:24px;">🎬 蛋仔派对赛季动画PV 🎬</h2><div style="margin-bottom:24px;text-align:center;"><input type="text" id="seasonSearchInput" placeholder="🔍 请输入视频标题或简介" style="width:100%;max-width:500px;padding:12px 20px;border-radius:60px;border:var(--card-border);background:var(--card-bg);color:var(--text-color);"></div><div id="videoContainer" class="season-grid"></div></div>
-    <div id="musicPage" class="page"><h2 style="text-align:center;margin-bottom:32px;">🎵 推荐歌单 🎵</h2><div id="musicGrid" class="music-grid"></div><p style="text-align:center;margin:32px 0;color:var(--title-color);">更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。</p></div>
+    <div id="musicPage" class="page"><h2 style="text-align:center;margin-bottom:32px;">🎵 推荐歌单 🎵</h2><div id="musicGrid" class="music-grid"></div><p style="text-align:center;margin:32px 0;color:var(--title-color);" id="musicFooterNote">更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。</p></div>
     <div id="encyclopediaPage" class="page"><h2 style="text-align:center;margin-bottom:32px;">📖 蛋仔百科 📖</h2><div class="search-bar"><input type="text" id="encyclopediaSearch" placeholder="🔍 搜索赛季名或角色名"></div><div class="hot-search-encyclopedia" id="encyHotSearch"></div><div id="encyclopediaContainer" class="encyclopedia-grid"></div></div>
-    <div id="socialPage" class="page"><h2 style="text-align:center;">📱 互动交流 📱</h2><div class="intro-card"><div style="font-size:1.4rem;font-weight:bold;">🎉 关于作者</div><p>🎮 《蛋仔派对》S11玩家</p><p>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏</p><p>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力</p><p>🚀 这个网站可能会有彩蛋？？？</p><p>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～</p></div><div class="interact-section"><h3>💬 互动交流 · 素材推荐</h3><div style="max-width:600px;margin:0 auto;"><input type="text" id="commentInput" placeholder="该功能还在调试当中，敬请期待。" disabled style="width:100%;padding:12px;border-radius:40px;border:var(--card-border);background:var(--card-bg);"><button style="margin-top:12px;background:var(--title-color);border:none;border-radius:40px;padding:8px 24px;opacity:0.6;" disabled>📢 发布留言</button><div id="commentList" style="margin-top:24px;text-align:left;"></div></div></div></div>
+    <div id="socialPage" class="page"><h2 style="text-align:center;">📱 互动交流 📱</h2><div class="intro-card" id="aboutAuthor"><div style="font-size:1.4rem;font-weight:bold;">🎉 关于作者</div><div id="authorText"></div></div><div class="interact-section"><h3>💬 互动交流 · 素材推荐</h3><div style="max-width:600px;margin:0 auto;"><input type="text" id="commentInput" placeholder="该功能还在调试当中，敬请期待。" disabled style="width:100%;padding:12px;border-radius:40px;border:var(--card-border);background:var(--card-bg);"><button style="margin-top:12px;background:var(--title-color);border:none;border-radius:40px;padding:8px 24px;opacity:0.6;" disabled>📢 发布留言</button><div id="commentList" style="margin-top:24px;text-align:left;"></div></div></div></div>
 </div>
 <div id="footerFloat" class="footer-float"><div class="footer-content"><div class="footer-left"><span style="font-weight:500;">📱 找到我</span><div class="footer-social" id="footerSocial"></div></div><div class="footer-copyright">网站所有 © 蛋仔小鄒呀</div></div></div>
 <div id="trialPopup" class="trial-popup"><div class="popup-header"><strong>⚠️ 试运行公告</strong><span class="popup-close" onclick="closeTrialPopup()">✕</span></div><div style="font-size:.9rem;"><p>本网站目前处于试运行阶段，部分功能仍在完善中。</p><p>赛季动画及彩蛋搜索已可用，更多精彩内容即将上线，感谢您的支持！</p><p style="margin-top:8px;font-size:.8rem;">弹窗将在5秒后自动关闭</p></div></div>
 <div id="videoModal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeModal()">&times;</span><div class="modal-body"><video id="modalVideo" class="modal-video" controls></video><div class="modal-info"><h3 id="modalTitle"></h3><p id="modalDesc"></p></div></div></div></div>
 
 <script>
-    // ---------- 视频数据 ----------
+    // ---------- 简繁转换工具 ----------
+    const zhMap = {
+        '简': '簡', '繁': '繁', '体': '體', '中': '中', '文': '文',
+        '网': '網', '站': '站', '首': '首', '页': '頁', '关': '關', '于': '於',
+        '作': '作', '者': '者', '合': '合', '作': '作', '建': '建', '议': '議',
+        '邮': '郵', '箱': '箱', '社': '社', '交': '交', '平': '平', '台': '台',
+        '互': '互', '动': '動', '交': '交', '流': '流', '素': '素', '材': '材',
+        '推': '推', '荐': '薦', '留': '留', '言': '言', '调': '調', '试': '試',
+        '期': '期', '待': '待', '视': '視', '频': '頻', '标': '標', '题': '題',
+        '简': '簡', '介': '介', '搜': '搜', '索': '索', '赛': '賽', '季': '季',
+        '动': '動', '画': '畫', '推': '推', '荐': '薦', '歌': '歌', '单': '單',
+        '蛋': '蛋', '仔': '仔', '派': '派', '对': '對', '大': '大', '厅': '廳',
+        '音': '音', '乐': '樂', '更': '更', '多': '多', '正': '正', '在': '在',
+        '加': '加', '入': '入', '敬': '敬', '请': '請', '期': '期', '待': '待',
+        '以': '以', '上': '上', '所': '所', '来': '來', '源': '源', '均': '均',
+        '自': '自', '网': '網', '易': '易', '云': '雲', '音': '音', '乐': '樂',
+        '百': '百', '科': '科', '暂': '暫', '未': '未', '引': '引', '入': '入',
+        '查': '查', '看': '看', '下': '下', '载': '載', '点': '點', '击': '擊',
+        '进': '進', '入': '入', '全': '全', '部': '部', '支': '支', '持': '持',
+        '预': '預', '览': '覽', '和': '和', '下': '下', '载': '載', '该': '該',
+        '功': '功', '能': '能', '还': '還', '在': '在', '完': '完', '善': '善',
+        '请': '請', '移': '移', '步': '步', '上': '上', '方': '方', '的': '的',
+        '专': '專', '属': '屬', '每': '每', '部': '部', '皆': '皆', '无': '無',
+        '需': '需', '付': '付', '费': '費', '实': '實', '时': '時', '更': '更',
+        '新': '新', '即': '即', '传': '傳', '吧': '吧', '没': '沒', '有': '有',
+        '找': '找', '到': '到', '相': '相', '关': '關', '内': '內', '容': '容',
+        '试': '試', '试': '試', '运': '運', '行': '行'
+    };
+    function toTraditional(text) {
+        if (!text) return text;
+        return text.replace(/[一-龥]/g, ch => zhMap[ch] || ch);
+    }
+    function toSimplified(text) {
+        const tradMap = Object.fromEntries(Object.entries(zhMap).map(([k,v])=>[v,k]));
+        if (!text) return text;
+        return text.replace(/[一-龥]/g, ch => tradMap[ch] || ch);
+    }
+
+    let currentLang = 'zh-CN'; // 默认简体
+
+    // ---------- 多语言文本库 ----------
+    const texts = {
+        'zh-CN': {
+            siteTitle: '蛋仔小鄒呀 | 个人公开网站',
+            navHome: '🏠 首页 🏠',
+            navSeason: '🎬 蛋仔派对赛季动画PV 🎬',
+            navMusic: '🎵 推荐歌单 🎵',
+            navEncyclopedia: '📖 蛋仔百科 📖',
+            navSocial: '📱 互动交流 📱',
+            themeToggleNight: '夜晚',
+            themeToggleDay: '白天',
+            langToggle: '繁',
+            heroTitle: '蛋仔小鄒呀',
+            heroDomain: 'dzxzy.github.io',
+            mainSearchPlaceholder: '该功能还在完善之中，请移步上方的赛季动画搜索。',
+            mainSearchResult: '🔍 该功能还在完善中，请移步上方的赛季动画搜索。',
+            newsTitle: '📢 最新公告',
+            newsItems: [
+                { date: '2026-06-13', content: '✨ S31-西湖寻缘PV上线！' },
+                { date: '2026-06-13', content: '📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）' },
+                { date: '2026-06-10', content: '🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单' },
+                { date: '2026-06-01', content: '✨ 网站开启试运行，部分功能持续优化中，感谢支持！' }
+            ],
+            seasonTitle: '🎬 蛋仔派对赛季动画PV 🎬',
+            seasonSearchPlaceholder: '🔍 请输入视频标题或简介',
+            musicTitle: '🎵 推荐歌单 🎵',
+            musicFooterNote: '更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。',
+            encyclopediaTitle: '📖 蛋仔百科 📖',
+            encyclopediaSearchPlaceholder: '🔍 搜索赛季名或角色名',
+            socialTitle: '📱 互动交流 📱',
+            aboutAuthorTitle: '🎉 关于作者',
+            aboutAuthorText: '🎮 《蛋仔派对》S11玩家<br>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏<br>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力<br>🚀 这个网站可能会有彩蛋？？？<br>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～',
+            interactTitle: '💬 互动交流 · 素材推荐',
+            commentPlaceholder: '该功能还在调试当中，敬请期待。',
+            commentButton: '📢 发布留言',
+            footerLeft: '📱 找到我',
+            footerCopyright: '网站所有 © 蛋仔小鄒呀',
+            trialTitle: '⚠️ 试运行公告',
+            trialText: '本网站目前处于试运行阶段，部分功能仍在完善中。<br>赛季动画及彩蛋搜索已可用，更多精彩内容即将上线，感谢您的支持！',
+            trialAutoClose: '弹窗将在5秒后自动关闭',
+            downloadBtn: '⬇️ 下载',
+            musicListen: '🎧 去网易云听歌 →',
+            noVideoFound: '😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋',
+            noEncyclopediaFound: '😭 没有找到相关内容',
+            viewBaike: '查看百科',
+            notReady: '暂未引入'
+        },
+        'zh-TW': {
+            siteTitle: '蛋仔小鄒呀 | 個人公開網站',
+            navHome: '🏠 首頁 🏠',
+            navSeason: '🎬 蛋仔派對賽季動畫PV 🎬',
+            navMusic: '🎵 推薦歌單 🎵',
+            navEncyclopedia: '📖 蛋仔百科 📖',
+            navSocial: '📱 互動交流 📱',
+            themeToggleNight: '夜晚',
+            themeToggleDay: '白天',
+            langToggle: '简',
+            heroTitle: '蛋仔小鄒呀',
+            heroDomain: 'dzxzy.github.io',
+            mainSearchPlaceholder: '該功能還在完善之中，請移步上方的賽季動畫搜索。',
+            mainSearchResult: '🔍 該功能還在完善中，請移步上方的賽季動畫搜索。',
+            newsTitle: '📢 最新公告',
+            newsItems: [
+                { date: '2026-06-13', content: '✨ S31-西湖尋緣PV上線！' },
+                { date: '2026-06-13', content: '📖 新增蛋仔百科一欄。（部分功能仍在試運行中。）' },
+                { date: '2026-06-10', content: '🎵 歌單推薦新增「蛋仔派對艾比大陸背景音樂」歌單' },
+                { date: '2026-06-01', content: '✨ 網站開啟試運行，部分功能持續優化中，感謝支持！' }
+            ],
+            seasonTitle: '🎬 蛋仔派對賽季動畫PV 🎬',
+            seasonSearchPlaceholder: '🔍 請輸入視頻標題或簡介',
+            musicTitle: '🎵 推薦歌單 🎵',
+            musicFooterNote: '更多歌單正在加入中，敬請期待。<br>以上所推薦歌單來源均來自於網易雲音樂。',
+            encyclopediaTitle: '📖 蛋仔百科 📖',
+            encyclopediaSearchPlaceholder: '🔍 搜索賽季名或角色名',
+            socialTitle: '📱 互動交流 📱',
+            aboutAuthorTitle: '🎉 關於作者',
+            aboutAuthorText: '🎮 《蛋仔派對》S11玩家<br>📹 所有素材均通過特殊渠道獲得，可用作視頻二創、剪輯，也可用作收藏<br>💡 免費使用，但請務必標註出處 —— 你的支持是我更新的動力<br>🚀 這個網站可能會有彩蛋？？？<br>📩 合作建議：郵箱1127205258@qq.com📮，也可通過上方社交平台找到我～',
+            interactTitle: '💬 互動交流 · 素材推薦',
+            commentPlaceholder: '該功能還在調試當中，敬請期待。',
+            commentButton: '📢 發佈留言',
+            footerLeft: '📱 找到我',
+            footerCopyright: '網站所有 © 蛋仔小鄒呀',
+            trialTitle: '⚠️ 試運行公告',
+            trialText: '本網站目前處於試運行階段，部分功能仍在完善中。<br>賽季動畫及彩蛋搜索已可用，更多精彩內容即將上線，感謝您的支持！',
+            trialAutoClose: '彈窗將在5秒後自動關閉',
+            downloadBtn: '⬇️ 下載',
+            musicListen: '🎧 去網易雲聽歌 →',
+            noVideoFound: '😭 沒有找到相關視頻，試試「一週年」「二週年」「三週年」彩蛋',
+            noEncyclopediaFound: '😭 沒有找到相關內容',
+            viewBaike: '查看百科',
+            notReady: '暫未引入'
+        }
+    };
+
+    function applyLanguage() {
+        const t = texts[currentLang];
+        document.title = t.siteTitle;
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+        if (navLinks.length >= 5) {
+            navLinks[0].innerHTML = t.navHome;
+            navLinks[1].innerHTML = t.navSeason;
+            navLinks[2].innerHTML = t.navMusic;
+            navLinks[3].innerHTML = t.navEncyclopedia;
+            navLinks[4].innerHTML = t.navSocial;
+        }
+        const themeBtn = document.getElementById('themeToggle');
+        if (themeBtn && !document.body.classList.contains('light') && themeBtn.innerHTML !== '夜晚') themeBtn.innerHTML = t.themeToggleNight;
+        if (themeBtn && document.body.classList.contains('light') && themeBtn.innerHTML !== '白天') themeBtn.innerHTML = t.themeToggleDay;
+        const langBtn = document.getElementById('langToggle');
+        if (langBtn) langBtn.innerHTML = currentLang === 'zh-CN' ? '繁' : '简';
+        const siteDomain = document.querySelector('.site-domain');
+        if (siteDomain) siteDomain.innerText = t.heroDomain;
+        const mainSearch = document.getElementById('mainSearchInput');
+        if (mainSearch) mainSearch.placeholder = t.mainSearchPlaceholder;
+        const seasonTitle = document.querySelector('#seasonPage h2');
+        if (seasonTitle) seasonTitle.innerHTML = t.seasonTitle;
+        const seasonSearch = document.getElementById('seasonSearchInput');
+        if (seasonSearch) seasonSearch.placeholder = t.seasonSearchPlaceholder;
+        const musicTitle = document.querySelector('#musicPage h2');
+        if (musicTitle) musicTitle.innerHTML = t.musicTitle;
+        const musicFooter = document.getElementById('musicFooterNote');
+        if (musicFooter) musicFooter.innerHTML = t.musicFooterNote;
+        const encTitle = document.querySelector('#encyclopediaPage h2');
+        if (encTitle) encTitle.innerHTML = t.encyclopediaTitle;
+        const encSearch = document.getElementById('encyclopediaSearch');
+        if (encSearch) encSearch.placeholder = t.encyclopediaSearchPlaceholder;
+        const socialTitleElem = document.querySelector('#socialPage h2');
+        if (socialTitleElem) socialTitleElem.innerHTML = t.socialTitle;
+        const authorTitleElem = document.querySelector('#aboutAuthor > div:first-child');
+        if (authorTitleElem) authorTitleElem.innerHTML = t.aboutAuthorTitle;
+        const authorTextElem = document.getElementById('authorText');
+        if (authorTextElem) authorTextElem.innerHTML = t.aboutAuthorText;
+        const interactTitleElem = document.querySelector('.interact-section h3');
+        if (interactTitleElem) interactTitleElem.innerHTML = t.interactTitle;
+        const commentInput = document.getElementById('commentInput');
+        if (commentInput) commentInput.placeholder = t.commentPlaceholder;
+        const commentBtn = document.querySelector('.interact-section button');
+        if (commentBtn) commentBtn.innerText = t.commentButton;
+        const footerLeftSpan = document.querySelector('.footer-left > span');
+        if (footerLeftSpan) footerLeftSpan.innerHTML = t.footerLeft;
+        const footerCopy = document.querySelector('.footer-copyright');
+        if (footerCopy) footerCopy.innerHTML = t.footerCopyright;
+        const trialPopup = document.getElementById('trialPopup');
+        if (trialPopup) {
+            const titleSpan = trialPopup.querySelector('.popup-header strong');
+            if (titleSpan) titleSpan.innerHTML = t.trialTitle;
+            const pElems = trialPopup.querySelectorAll('p');
+            if (pElems.length >= 2) {
+                pElems[0].innerHTML = t.trialText.split('<br>')[0];
+                pElems[1].innerHTML = t.trialText.split('<br>')[1] || '';
+                if (pElems[2]) pElems[2].innerHTML = t.trialAutoClose;
+            }
+        }
+        renderNews();
+        renderSeasonVideos();
+        renderMusic();
+        renderEncyclopedia();
+        renderSocialLinks();
+        // 重新渲染热词（因为热词中有文字需要随语言变化）
+        renderHomeHotSearch();
+        renderEncyclopediaHotSearch();
+    }
+
+    function renderNews() {
+        const t = texts[currentLang];
+        const newsContainer = document.getElementById('newsList');
+        if (!newsContainer) return;
+        let html = '';
+        t.newsItems.forEach(item => {
+            html += `<div class="news-item"><span class="news-date">${item.date}</span><span class="news-content">${item.content}</span></div>`;
+        });
+        newsContainer.innerHTML = html;
+        const newsItems = document.querySelectorAll('.news-item');
+        if (newsItems.length) {
+            const s31Item = newsItems[0];
+            if (s31Item) {
+                s31Item.addEventListener('click', () => {
+                    const modal = document.getElementById('videoModal'), mv = document.getElementById('modalVideo');
+                    mv.src = `${VIDEO_BASE_PATH}S31-西湖寻缘.mp4`;
+                    document.getElementById('modalTitle').innerText = normalVideos.find(v=>v.fileName==='S31-西湖寻缘.mp4')?.title || 'S31-西湖寻缘';
+                    document.getElementById('modalDesc').innerText = normalVideos.find(v=>v.fileName==='S31-西湖寻缘.mp4')?.description || '';
+                    modal.style.display = 'flex'; mv.play();
+                });
+            }
+        }
+    }
+
+    function renderHomeHotSearch() {
+        const container = document.getElementById('hotSearchContainer');
+        if (!container) return;
+        const t = texts[currentLang];
+        const hotTags = ["S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战", "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘"];
+        let html = `<span class="hot-search-label">🔥 热词搜索：</span>`;
+        hotTags.forEach(tag => {
+            html += `<span class="hot-tag">${tag}</span>`;
+        });
+        container.innerHTML = html;
+        // 绑定点击事件
+        document.querySelectorAll('#hotSearchContainer .hot-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const mainSearch = document.getElementById('mainSearchInput');
+                const mainResult = document.getElementById('mainSearchResult');
+                if (mainSearch) mainSearch.value = tag.innerText;
+                if (mainResult) {
+                    mainResult.innerHTML = `<span style="color:var(--title-color);">${t.mainSearchResult}</span>`;
+                    setTimeout(() => mainResult.innerHTML = '', 2000);
+                }
+            });
+        });
+    }
+
+    function renderEncyclopediaHotSearch() {
+        const container = document.getElementById('encyHotSearch');
+        if (!container) return;
+        const t = texts[currentLang];
+        // 热词：Rock and Roll, 梦幻星遇, 剧院首席露希, Ignis the Flame Spirit (替换流火精灵舞舞)
+        const hotTags = ["Rock and Roll", "梦幻星遇", "剧院首席露希", "Ignis the Flame Spirit"];
+        let html = `<span class="hot-search-label-ency">🔥 热词搜索：</span>`;
+        hotTags.forEach(tag => {
+            html += `<span class="hot-ency-tag">${tag}</span>`;
+        });
+        container.innerHTML = html;
+        const encSearch = document.getElementById('encyclopediaSearch');
+        document.querySelectorAll('#encyHotSearch .hot-ency-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                if (encSearch) {
+                    encSearch.value = tag.innerText;
+                    renderEncyclopedia(tag.innerText);
+                }
+            });
+        });
+    }
+
+    // ---------- 以下为原有数据 ----------
     const normalVideos = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
@@ -163,8 +438,7 @@
     let currentSeasonFilter = "";
     function escapeHtml(s){if(!s)return '';return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
 
-    // ---------- 蛋仔百科全量数据 ----------
-    const seasonsData = [
+    const fullSeasonsData = [
         { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy", link: null },{ cn: "小蓝帽", en: "Blu", link: null },{ cn: "法拉帝", en: "Ferretti", link: null },{ cn: "透明小蓝帽", en: "Cyber Blu", link: null }] },
         { name: "惊奇游乐园", nameEn: "Playground of Wonders", characters: [{ cn: "欢宴园长", en: "Ringmaster", link: null },{ cn: "蟹船长", en: "Captain Crab", link: null },{ cn: "胆小鬼", en: "Sheetz", link: null },{ cn: "黎月园长", en: "Crescent Director", link: null }] },
         { name: "疯狂马戏团", nameEn: "A Day at the Circus", characters: [{ cn: "惑心小丑", en: "Dark Jester", link: null },{ cn: "布偶狮", en: "Lionel", link: null },{ cn: "木偶波露", en: "Mary O. Nette", link: null },{ cn: "暗匿小丑", en: "Sneaky Jester", link: null }] },
@@ -199,7 +473,7 @@
         const container = document.getElementById('encyclopediaContainer');
         const lowerFilter = filterText.toLowerCase();
         let html = "";
-        for (const season of seasonsData) {
+        for (const season of fullSeasonsData) {
             const matchedChars = season.characters.filter(c => c.cn.toLowerCase().includes(lowerFilter) || c.en.toLowerCase().includes(lowerFilter));
             const seasonMatch = season.name.toLowerCase().includes(lowerFilter) || (season.nameEn && season.nameEn.toLowerCase().includes(lowerFilter));
             if (!filterText) {
@@ -212,7 +486,7 @@
                 }
             }
         }
-        if (!html) html = '<div style="text-align:center;padding:40px;">😭 没有找到相关内容</div>';
+        if (!html) html = `<div style="text-align:center;padding:40px;">${texts[currentLang].noEncyclopediaFound}</div>`;
         container.innerHTML = html;
         const cards = document.querySelectorAll('.encyclopedia-card');
         if (cards.length) {
@@ -225,151 +499,151 @@
             cards.forEach(c => observer.observe(c));
         }
     }
-
     function renderSeasonCard(season, showAll, filteredChars = null) {
         const chars = showAll ? season.characters : filteredChars;
+        const t = texts[currentLang];
         let html = `<div class="encyclopedia-card"><div class="card-header">${escapeHtml(season.name)}<span class="season-en">${escapeHtml(season.nameEn)}</span></div><div class="card-list">`;
         for (const c of chars) {
-            const linkHtml = c.link ? `<a href="${c.link}" target="_blank" class="baike-link">查看百科</a>` : `<span class="not-ready">暂未引入</span>`;
+            const linkHtml = c.link ? `<a href="${c.link}" target="_blank" class="baike-link">${t.viewBaike}</a>` : `<span class="not-ready">${t.notReady}</span>`;
             html += `<li><span class="char-name">${escapeHtml(c.cn)} <small>${escapeHtml(c.en)}</small></span>${linkHtml}</li>`;
         }
         html += `</div></div>`;
         return html;
     }
 
-    // ---------- 赛季动画渲染 ----------
-    function renderSeasonVideos(){
-        const container=document.getElementById('videoContainer'),keyword=currentSeasonFilter.toLowerCase().trim();
-        const matchedEaster=easterEggs.filter(e=>e.keyword===keyword);
-        if(matchedEaster.length){
-            let html='';
-            matchedEaster.forEach(egg=>{html+=`<div class="easter-egg"><img src="${egg.img}" alt="彩蛋"><div><h4>${escapeHtml(egg.title)}</h4><p>${escapeHtml(egg.content)}</p></div></div>`;});
-            container.innerHTML=html;
+    function renderSeasonVideos() {
+        const container = document.getElementById('videoContainer');
+        const keyword = currentSeasonFilter.toLowerCase().trim();
+        const t = texts[currentLang];
+        const matchedEaster = easterEggs.filter(e => e.keyword === keyword);
+        if (matchedEaster.length) {
+            let html = '';
+            matchedEaster.forEach(egg => { html += `<div class="easter-egg"><img src="${egg.img}" alt="彩蛋"><div><h4>${escapeHtml(egg.title)}</h4><p>${escapeHtml(egg.content)}</p></div></div>`; });
+            container.innerHTML = html;
             return;
         }
-        const filtered=normalVideos.filter(v=>v.title.toLowerCase().includes(keyword)||v.description.toLowerCase().includes(keyword));
-        if(!filtered.length){container.innerHTML='<div style="text-align:center;padding:40px;">😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋</div>';return;}
-        let html='';
-        for(let v of filtered){
-            const url=VIDEO_BASE_PATH+v.fileName;
-            html+=`<div class="video-card" data-video-url="${url}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}"><video preload="none" poster=""><source data-src="${url}" type="video/mp4"></video><div class="card-info"><div class="card-title">${escapeHtml(v.title)}</div><div>${escapeHtml(v.description)}</div><a href="${url}" download class="download-btn">⬇️ 下载</a></div></div>`;
+        const filtered = normalVideos.filter(v => v.title.toLowerCase().includes(keyword) || v.description.toLowerCase().includes(keyword));
+        if (!filtered.length) { container.innerHTML = `<div style="text-align:center;padding:40px;">${t.noVideoFound}</div>`; return; }
+        let html = '';
+        for (let v of filtered) {
+            const url = VIDEO_BASE_PATH + v.fileName;
+            html += `<div class="video-card" data-video-url="${url}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}"><video preload="none" poster=""><source data-src="${url}" type="video/mp4"></video><div class="card-info"><div class="card-title">${escapeHtml(v.title)}</div><div>${escapeHtml(v.description)}</div><a href="${url}" download class="download-btn">${t.downloadBtn}</a></div></div>`;
         }
-        container.innerHTML=html;
+        container.innerHTML = html;
         initVideoLazyLoad();
         bindVideoClick();
     }
-    function initVideoLazyLoad(){
-        const cards=document.querySelectorAll('.video-card');if(!cards.length)return;
-        const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{const c=entry.target;if(entry.isIntersecting){const ve=c.querySelector('video'),se=ve?.querySelector('source'),ds=se?.getAttribute('data-src');if(ds&&!ve.src){se.setAttribute('src',ds);ve.load();ve.preload='metadata';se.removeAttribute('data-src');}c.classList.add('visible');}else c.classList.remove('visible');});},{rootMargin:"100px",threshold:0.1});
-        cards.forEach(c=>obs.observe(c));
+    function initVideoLazyLoad() {
+        const cards = document.querySelectorAll('.video-card'); if (!cards.length) return;
+        const obs = new IntersectionObserver(entries => { entries.forEach(entry => { const c = entry.target; if (entry.isIntersecting) { const ve = c.querySelector('video'), se = ve?.querySelector('source'), ds = se?.getAttribute('data-src'); if (ds && !ve.src) { se.setAttribute('src', ds); ve.load(); ve.preload = 'metadata'; se.removeAttribute('data-src'); } c.classList.add('visible'); } else c.classList.remove('visible'); }); }, { rootMargin: "100px", threshold: 0.1 });
+        cards.forEach(c => obs.observe(c));
     }
-    function bindVideoClick(){
-        const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo'),mt=document.getElementById('modalTitle'),md=document.getElementById('modalDesc');
-        document.querySelectorAll('.video-card').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('.download-btn'))return;const url=c.getAttribute('data-video-url'),t=c.getAttribute('data-title'),d=c.getAttribute('data-desc');if(url){mv.src=url;mt.innerText=t;md.innerText=d;modal.style.display='flex';mv.play();}});});
+    function bindVideoClick() {
+        const modal = document.getElementById('videoModal'), mv = document.getElementById('modalVideo'), mt = document.getElementById('modalTitle'), md = document.getElementById('modalDesc');
+        document.querySelectorAll('.video-card').forEach(c => { c.addEventListener('click', e => { if (e.target.closest('.download-btn')) return; const url = c.getAttribute('data-video-url'), t = c.getAttribute('data-title'), d = c.getAttribute('data-desc'); if (url) { mv.src = url; mt.innerText = t; md.innerText = d; modal.style.display = 'flex'; mv.play(); } }); });
     }
 
-    // ---------- 歌单渲染 ----------
-    function renderMusic(){
-        const grid=document.getElementById('musicGrid');if(!grid)return;
-        const playlists=[
-            {cover:"assets/gdtx.jpg",title:"蛋仔派对部分赛季大厅音乐",desc:"此歌单包含了从S1至今的部分赛季蛋仔岛音乐。",link:"https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk="},
-            {cover:"assets/abyy.jpg",title:"蛋仔派对艾比大陆背景音乐",desc:"追光而遇，沐光而行——艾比们祝你前行路上事事顺！",link:"https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA="}
+    function renderMusic() {
+        const grid = document.getElementById('musicGrid'); if (!grid) return;
+        const t = texts[currentLang];
+        const playlists = [
+            { cover: "assets/gdtx.jpg", title: "蛋仔派对部分赛季大厅音乐", desc: "此歌单包含了从S1至今的部分赛季蛋仔岛音乐。", link: "https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=" },
+            { cover: "assets/abyy.jpg", title: "蛋仔派对艾比大陆背景音乐", desc: "追光而遇，沐光而行——艾比们祝你前行路上事事顺！", link: "https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA=" }
         ];
-        let html='';
-        playlists.forEach(p=>{html+=`<div class="song-card"><div class="card-inner"><img class="card-cover" src="${p.cover}" alt="歌单封面" onerror="this.src='https://placehold.co/180x180/2c3e50/ffd966?text=Cover'"><div class="card-info"><div class="card-title">${escapeHtml(p.title)}</div><div class="card-desc">${escapeHtml(p.desc)}</div><a href="${p.link}" target="_blank" class="download-btn">🎧 去网易云听歌 →</a></div></div></div>`;});
-        grid.innerHTML=html;
+        let html = '';
+        playlists.forEach(p => { html += `<div class="song-card"><div class="card-inner"><img class="card-cover" src="${p.cover}" alt="歌单封面" onerror="this.src='https://placehold.co/180x180/2c3e50/ffd966?text=Cover'"><div class="card-info"><div class="card-title">${escapeHtml(p.title)}</div><div class="card-desc">${escapeHtml(p.desc)}</div><a href="${p.link}" target="_blank" class="download-btn">${t.musicListen}</a></div></div></div>`; });
+        grid.innerHTML = html;
     }
 
-    // ---------- 社交链接 ----------
-    const socials=[
-        {name:"BiliBili",url:"https://b23.tv/Y9D2tR9",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg"},
-        {name:"抖音",url:"https://v.douyin.com/YuEr0aR3RSM/",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg"},
-        {name:"快手",url:"https://v.kuaishou.com/KG1pc49y",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg"},
-        {name:"小红书",url:"https://xhslink.com/m/2PO9N97jXhn",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg"},
-        {name:"LOFTER",url:"https://xz1127205258.lofter.com",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg"},
-        {name:"网易云音乐",url:"https://y.music.163.com/m/user?id=7808133486",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg"},
-        {name:"X (Twitter)",url:"https://x.com/dzpddzxzy",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg"},
-        {name:"YouTube",url:"https://youtube.com/@蛋仔小鄒呀",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"}
-    ];
-    const footerSoc=document.getElementById('footerSocial');
-    socials.forEach(s=>{
-        const a=document.createElement('a');
-        a.href=s.url;a.target='_blank';a.setAttribute('data-url',s.url);
-        a.innerHTML=`<img src="${s.icon}" alt="${s.name}" width="24" height="24"><span>${s.name}</span><div class="qr-popup"></div>`;
-        const qrDiv=a.querySelector('.qr-popup');
-        const qrImg=document.createElement('img');
-        qrImg.src=`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(s.url)}`;
-        qrImg.style.width='60px';qrImg.style.height='60px';
-        qrDiv.appendChild(qrImg);
-        footerSoc.appendChild(a);
-    });
+    function renderSocialLinks() {
+        const container = document.getElementById('footerSocial'); if (!container) return;
+        container.innerHTML = '';
+        const socials = [
+            { name: "BiliBili", url: "https://b23.tv/Y9D2tR9", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg" },
+            { name: "抖音", url: "https://v.douyin.com/YuEr0aR3RSM/", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" },
+            { name: "快手", url: "https://v.kuaishou.com/KG1pc49y", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg" },
+            { name: "小红书", url: "https://xhslink.com/m/2PO9N97jXhn", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg" },
+            { name: "LOFTER", url: "https://xz1127205258.lofter.com", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg" },
+            { name: "网易云音乐", url: "https://y.music.163.com/m/user?id=7808133486", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg" },
+            { name: "X (Twitter)", url: "https://x.com/dzpddzxzy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" },
+            { name: "YouTube", url: "https://youtube.com/@蛋仔小鄒呀", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" }
+        ];
+        socials.forEach(s => {
+            const a = document.createElement('a');
+            a.href = s.url; a.target = '_blank'; a.setAttribute('data-url', s.url);
+            a.innerHTML = `<img src="${s.icon}" alt="${s.name}" width="24" height="24"><span>${s.name}</span><div class="qr-popup"></div>`;
+            const qrDiv = a.querySelector('.qr-popup');
+            const qrImg = document.createElement('img');
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(s.url)}`;
+            qrImg.style.width = '60px'; qrImg.style.height = '60px';
+            qrDiv.appendChild(qrImg);
+            container.appendChild(a);
+        });
+    }
 
-    // ---------- 页面导航 ----------
-    const pages={home:document.getElementById('homePage'),season:document.getElementById('seasonPage'),music:document.getElementById('musicPage'),encyclopedia:document.getElementById('encyclopediaPage'),social:document.getElementById('socialPage')};
-    function showPage(p){
-        Object.values(pages).forEach(v=>v.classList.remove('active-page'));
+    // ---------- 页面初始化 ----------
+    // 默认简体中文，不读取 localStorage 中的语言偏好（强制简体）
+    currentLang = 'zh-CN';
+    localStorage.setItem('lang', 'zh-CN'); // 可选，确保下次刷新仍然简体
+    applyLanguage();
+
+    function switchLanguage() {
+        currentLang = currentLang === 'zh-CN' ? 'zh-TW' : 'zh-CN';
+        localStorage.setItem('lang', currentLang);
+        applyLanguage();
+    }
+    document.getElementById('langToggle').addEventListener('click', switchLanguage);
+
+    // 页面导航
+    const pages = { home: document.getElementById('homePage'), season: document.getElementById('seasonPage'), music: document.getElementById('musicPage'), encyclopedia: document.getElementById('encyclopediaPage'), social: document.getElementById('socialPage') };
+    function showPage(p) {
+        Object.values(pages).forEach(v => v.classList.remove('active-page'));
         pages[p].classList.add('active-page');
-        document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         document.querySelector(`.nav-link[data-page="${p}"]`).classList.add('active');
-        if(p==='season')renderSeasonVideos();
-        if(p==='encyclopedia'){const inp=document.getElementById('encyclopediaSearch');renderEncyclopedia(inp?inp.value:"");}
+        if (p === 'season') renderSeasonVideos();
+        if (p === 'encyclopedia') { const inp = document.getElementById('encyclopediaSearch'); renderEncyclopedia(inp ? inp.value : ""); }
     }
-    document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();showPage(l.getAttribute('data-page'));}));
+    document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', e => { e.preventDefault(); showPage(l.getAttribute('data-page')); }));
     showPage('home');
 
-    // ---------- 公告点击播放S31 ----------
-    document.getElementById('newsS31')?.addEventListener('click',()=>{
-        const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo');
-        mv.src=`${VIDEO_BASE_PATH}S31-西湖寻缘.mp4`;
-        document.getElementById('modalTitle').innerText="S31-西湖寻缘";
-        document.getElementById('modalDesc').innerText="恩人，你到底在哪里？";
-        modal.style.display='flex';mv.play();
+    // 首页搜索提示
+    const mainSearch = document.getElementById('mainSearchInput');
+    const mainResult = document.getElementById('mainSearchResult');
+    mainSearch.addEventListener('input', () => {
+        mainResult.innerHTML = `<span style="color:var(--title-color);">${texts[currentLang].mainSearchResult}</span>`;
+        setTimeout(() => mainResult.innerHTML = '', 2000);
     });
 
-    // ---------- 热词 ----------
-    const hotTags=["S12-寻秘狂欢","S14-寻光冰雪","S16-潮玩大作战","S20-龙与剑之诗","S21-时之回响","S31-西湖寻缘"];
-    const hotContainer=document.getElementById('hotSearchContainer');
-    hotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-tag';s.textContent=t;s.addEventListener('click',()=>{document.getElementById('mainSearchInput').value=t;const rd=document.getElementById('mainSearchResult');rd.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>rd.innerHTML='',2000);});hotContainer.appendChild(s);});
-
-    const encyHotTags=["Rock and Roll","梦幻星遇","剧院首席露希","道具师芙芙","流火精灵舞舞"];
-    const encyHot=document.getElementById('encyHotSearch');
-    if(encyHot){encyHotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-ency-tag';s.textContent=t;s.addEventListener('click',()=>{const sb=document.getElementById('encyclopediaSearch');if(sb){sb.value=t;renderEncyclopedia(t);}});encyHot.appendChild(s);});}
-
-    // ---------- 主题切换等 ----------
-    const themeToggle=document.getElementById('themeToggle');
-    function setTheme(t){
-        if(t==='light'){document.body.classList.remove('dark');document.body.classList.add('light');themeToggle.innerHTML='夜晚';localStorage.setItem('theme','light');}
-        else{document.body.classList.remove('light');document.body.classList.add('dark');themeToggle.innerHTML='白天';localStorage.setItem('theme','dark');}
-    }
-    const saved=localStorage.getItem('theme');setTheme(saved==='dark'?'dark':'light');
-    themeToggle.addEventListener('click',()=>setTheme(document.body.classList.contains('dark')?'light':'dark'));
-
-    // 滚动底部浮层
-    const footerFloat=document.getElementById('footerFloat');
-    window.addEventListener('scroll',()=>{const st=window.pageYOffset||document.documentElement.scrollTop,wh=window.innerHeight,dh=document.documentElement.scrollHeight;if(st+wh>=dh-100)footerFloat.classList.add('show');else footerFloat.classList.remove('show');});
-
-    // 试运行弹窗自动关闭
-    window.closeTrialPopup=()=>document.getElementById('trialPopup').classList.add('hide');
-    setTimeout(()=>document.getElementById('trialPopup').classList.add('hide'),5000);
-
-    // 首页搜索提示
-    const ms=document.getElementById('mainSearchInput'),mr=document.getElementById('mainSearchResult');
-    ms.addEventListener('input',()=>{mr.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>mr.innerHTML='',2000);});
-
     // 赛季动画搜索
-    const ss=document.getElementById('seasonSearchInput');
-    ss.addEventListener('input',e=>{currentSeasonFilter=e.target.value;renderSeasonVideos();});
+    const seasonSearch = document.getElementById('seasonSearchInput');
+    seasonSearch.addEventListener('input', e => { currentSeasonFilter = e.target.value; renderSeasonVideos(); });
 
     // 蛋仔百科搜索
-    const es=document.getElementById('encyclopediaSearch');
-    if(es)es.addEventListener('input',e=>renderEncyclopedia(e.target.value));
+    const encSearch = document.getElementById('encyclopediaSearch');
+    if (encSearch) encSearch.addEventListener('input', e => renderEncyclopedia(e.target.value));
+
+    // 主题切换
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(t) {
+        if (t === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); themeToggle.innerHTML = texts[currentLang].themeToggleDay; localStorage.setItem('theme', 'light'); }
+        else { document.body.classList.remove('light'); document.body.classList.add('dark'); themeToggle.innerHTML = texts[currentLang].themeToggleNight; localStorage.setItem('theme', 'dark'); }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme === 'light' ? 'light' : 'dark');
+    themeToggle.addEventListener('click', () => setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+
+    // 底部浮层滚动
+    const footerFloat = document.getElementById('footerFloat');
+    window.addEventListener('scroll', () => { const st = window.pageYOffset || document.documentElement.scrollTop, wh = window.innerHeight, dh = document.documentElement.scrollHeight; if (st + wh >= dh - 100) footerFloat.classList.add('show'); else footerFloat.classList.remove('show'); });
+
+    // 试运行弹窗自动关闭
+    window.closeTrialPopup = () => document.getElementById('trialPopup').classList.add('hide');
+    setTimeout(() => document.getElementById('trialPopup').classList.add('hide'), 5000);
 
     // 模态框关闭
-    window.closeModal=function(){const m=document.getElementById('videoModal');m.style.display='none';document.getElementById('modalVideo').pause();document.getElementById('modalVideo').src='';};
-    window.onclick=function(e){if(e.target===document.getElementById('videoModal'))closeModal();};
-
-    // 初始化
-    renderSeasonVideos();renderMusic();renderEncyclopedia();
+    window.closeModal = function() { const m = document.getElementById('videoModal'); m.style.display = 'none'; document.getElementById('modalVideo').pause(); document.getElementById('modalVideo').src = ''; };
+    window.onclick = function(e) { if (e.target === document.getElementById('videoModal')) closeModal(); };
 </script>
 </body>
 </html>
