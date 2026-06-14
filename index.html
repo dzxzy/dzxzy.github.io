@@ -120,6 +120,7 @@
 <div id="videoModal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeModal()">&times;</span><div class="modal-body"><video id="modalVideo" class="modal-video" controls></video><div class="modal-info"><h3 id="modalTitle"></h3><p id="modalDesc"></p></div></div></div></div>
 
 <script>
+    // ---------- 视频数据 ----------
     const normalVideos = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
@@ -161,43 +162,214 @@
     const VIDEO_BASE_PATH = "videos/";
     let currentSeasonFilter = "";
     function escapeHtml(s){if(!s)return '';return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
-    function renderSeasonVideos(){
-        const c=document.getElementById('videoContainer'),kw=currentSeasonFilter.toLowerCase().trim(),me=easterEggs.filter(e=>e.keyword===kw);
-        if(me.length){let h='';me.forEach(e=>{h+=`<div class="easter-egg"><img src="${e.img}" alt="彩蛋"><div><h4>${escapeHtml(e.title)}</h4><p>${escapeHtml(e.content)}</p></div></div>`;});c.innerHTML=h;return;}
-        const f=normalVideos.filter(v=>v.title.toLowerCase().includes(kw)||v.description.toLowerCase().includes(kw));
-        if(!f.length){c.innerHTML='<div style="text-align:center;padding:40px;grid-column:1/-1;">😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋</div>';return;}
-        let h='';
-        for(let v of f){const url=VIDEO_BASE_PATH+v.fileName;h+=`<div class="video-card" data-video-url="${url}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}"><video preload="none" poster=""><source data-src="${url}" type="video/mp4"></video><div class="card-info"><div class="card-title">${escapeHtml(v.title)}</div><div>${escapeHtml(v.description)}</div><a href="${url}" download class="download-btn">⬇️ 下载</a></div></div>`;}
-        c.innerHTML=h;initVideo();bindVideoClick();
+
+    // ---------- 蛋仔百科全量数据 ----------
+    const seasonsData = [
+        { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy", link: null },{ cn: "小蓝帽", en: "Blu", link: null },{ cn: "法拉帝", en: "Ferretti", link: null },{ cn: "透明小蓝帽", en: "Cyber Blu", link: null }] },
+        { name: "惊奇游乐园", nameEn: "Playground of Wonders", characters: [{ cn: "欢宴园长", en: "Ringmaster", link: null },{ cn: "蟹船长", en: "Captain Crab", link: null },{ cn: "胆小鬼", en: "Sheetz", link: null },{ cn: "黎月园长", en: "Crescent Director", link: null }] },
+        { name: "疯狂马戏团", nameEn: "A Day at the Circus", characters: [{ cn: "惑心小丑", en: "Dark Jester", link: null },{ cn: "布偶狮", en: "Lionel", link: null },{ cn: "木偶波露", en: "Mary O. Nette", link: null },{ cn: "暗匿小丑", en: "Sneaky Jester", link: null }] },
+        { name: "汪汪向前冲", nameEn: "Doggy Dash!", characters: [{ cn: "闪电阿存", en: "Sparky", link: null },{ cn: "极真阿莉", en: "Ari (Judo Uniform)", link: null },{ cn: "投手阿豪", en: "Ase", link: null },{ cn: "甜酷阿莉", en: "Ari (Street Clothes)", link: null }] },
+        { name: "糖果甜心", nameEn: "Candy Sweethearts", characters: [{ cn: "彩虹糖魔女", en: "Rainbow Witch", link: null },{ cn: "祈愿精灵", en: "Wish Fairy", link: null },{ cn: "砂糖熊王子", en: "Honey Prince", link: null },{ cn: "织梦精灵", en: "Dream Spirit", link: null }] },
+        { name: "蛋糕密语", nameEn: "Take the Cake", characters: [{ cn: "蛋糕龙嗝嗝", en: "Hiccup, the Cake Dragon", link: null },{ cn: "巧脆骑士", en: "Crunchy Knight", link: null },{ cn: "抹茶游侠", en: "Matcha Ranger", link: null },{ cn: "冰霜骑士", en: "Frosty Knight", link: null }] },
+        { name: "音乐星企划", nameEn: "Rock and Roll", characters: [{ cn: "主唱曜星", en: "Obsidian - Main Vocalist", link: null },{ cn: "吉他手卡萝", en: "Carol, the Guitarist", link: null },{ cn: "机械鼓手贝克", en: "Baker, the Robo-Drummer", link: null },{ cn: "音爆曜星", en: "Obsidian - Soundburst", link: null }] },
+        { name: "精灵之声", nameEn: "Sound of Spirits", characters: [{ cn: "精灵莉斯尔", en: "Liesl", link: null },{ cn: "水母尤莱亚", en: "Yuliya", link: null },{ cn: "八音盒温妮", en: "Winnie", link: null },{ cn: "水母莱莱", en: "Layla", link: null }] },
+        { name: "勇闯龙蛋岛", nameEn: "Dino Egg Island Tour", characters: [{ cn: "暴龙崽崽", en: "Rexie", link: null },{ cn: "甲龙晶晶", en: "Crystal", link: null },{ cn: "三角龙小萨", en: "Sarre", link: null },{ cn: "宝石甲龙晶晶", en: "Precious Crystal", link: null }] },
+        { name: "太空奇遇", nameEn: "Outta This World", characters: [{ cn: "太空船长贝贝", en: "Bay, the Space Captain", link: "https://baike.baidu.com/item/%E5%A4%AA%E7%A9%BA%E8%88%B9%E9%95%BF%E8%B4%9D%E8%B4%9D/67645325" },{ cn: "航天员莱卡", en: "Lyca, the Astronaut", link: null },{ cn: "机械师维迪", en: "Vidi, the Mechanic", link: "https://baike.baidu.com/item/%E6%9C%BA%E6%A2%B0%E5%B8%88%E7%BB%B4%E8%BF%AA/67664115" },{ cn: "星云船长洛洛", en: "Lolo, the Nebula Captain", link: null }] },
+        { name: "梦幻星遇", nameEn: "Stellar Encounter Season", characters: [{ cn: "捕梦软软", en: "Dreamcatcher Softie", link: "https://baike.baidu.com/item/%E6%8D%95%E6%A2%A6%E8%BD%AF%E8%BD%AF/64330762" },{ cn: "星云咩咩", en: "Nebula Sheep", link: "https://baike.baidu.com/item/%E6%98%9F%E4%BA%91%E5%92%AA%E5%92%AA/63730228" },{ cn: "海藻偷偷", en: "Seaweed Burglar", link: null },{ cn: "萤火偷偷", en: "Firefly Burglar", link: null }] },
+        { name: "寻秘狂欢", nameEn: "Mysteries Galore Season", characters: [{ cn: "流火精灵舞舞", en: "Ignis the Flame Spirit", link: "https://baike.baidu.com/item/%E6%B5%81%E7%81%AB%E7%B2%BE%E7%81%B5%E8%88%9E%E8%88%9E/67643865" },{ cn: "魔灯闪闪", en: "Shiny the Magic Lamp", link: null },{ cn: "吟游诗人弥亚", en: "Mia the Bard", link: "https://baike.baidu.com/item/%E5%92%8F%E6%B8%B8%E8%AF%97%E4%BA%BA%E5%BC%A5%E4%BA%9A/67643868" },{ cn: "灵灯闪闪", en: "Shiny the Spirit Lamp", link: null }] },
+        { name: "午夜魅影", nameEn: "Phantom Night", characters: [{ cn: "剧院院长魅影", en: "Theater Manager Phantom", link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%99%A2%E9%95%BF%E9%AD%85%E5%BD%B1/67643266" },{ cn: "小演员露希", en: "Lucy the Actress", link: "https://baike.baidu.com/item/%E5%B0%8F%E6%BC%94%E5%91%98%E9%9C%B2%E5%B8%8C/67643265" },{ cn: "道具师芙芙", en: "Fufu the Prop Master", link: "https://baike.baidu.com/item/%E9%81%93%E5%85%B7%E5%B8%88%E8%8A%99%E8%8A%99/67643261" },{ cn: "剧院首席露希", en: "Lucy the Star", link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%A6%96%E5%B8%AD%E9%9C%B2%E5%B8%8C/67643740" }] },
+        { name: "寻光冰雪", nameEn: "Rime Light Season", characters: [{ cn: "雪原之心伊芙", en: "Eve the Snowheart", link: "https://baike.baidu.com/item/%E9%9B%AA%E5%8E%9F%E4%B9%8B%E5%BF%83%E4%BC%8A%E8%8A%99/67646010" },{ cn: "北极兔卢米", en: "Lumi the Arctic Bunny", link: "https://baike.baidu.com/item/%E5%8C%97%E6%9E%81%E5%85%94%E5%8D%A2%E7%B1%B3/67799835" },{ cn: "雪怪瓦图鲁", en: "Watulu the Yeti", link: "https://baike.baidu.com/item/%E9%9B%AA%E6%80%AA%E7%93%A6%E5%9B%BE%E9%B2%81/67800612" },{ cn: "北极狐卢比", en: "Lubi the Arctic Fox", link: null }] },
+        { name: "玩具历险", nameEn: "Playtime Egg-scapades", characters: [{ cn: "独角兽芬妮亚", en: "Fenia the Unicorn", link: null },{ cn: "飞天小猪班尼", en: "Benny the Flying Pig", link: null },{ cn: "音乐家蕾利", en: "Riley the Musician", link: null },{ cn: "小国王蕾利", en: "Riley the Little King", link: null }] },
+        { name: "潮玩大作战", nameEn: "Artsy Toy Tussle", characters: [{ cn: "鲨莉娃", en: "Sharkie", link: null },{ cn: "猴吼吼", en: "Chim Pan-Z", link: null },{ cn: "发美美", en: "Adrianna", link: null },{ cn: "美奇娅", en: "Angrianna", link: null }] },
+        { name: "宝船拍卖夜", nameEn: "Treasure Ship Auction Night", characters: [{ cn: "人鱼歌姬赛然", en: "Siren the Mermaid", link: null },{ cn: "石心船长苏勒", en: "Captain Stoneheart Soule", link: null },{ cn: "波泡儿", en: "Bubbler", link: null },{ cn: "船魔苏心", en: "Susie the Ship Demon", link: null }] },
+        { name: "深海逐金宴", nameEn: "Deep Sea Gold Rush", characters: [{ cn: "浪花黛露珊", en: "Wavy Nereida", link: null },{ cn: "大亨波利", en: "Magnate Polly", link: null },{ cn: "幽猎塞莉诺", en: "Shadow Hunter Serena", link: null },{ cn: "鎏金奥莉安娜", en: "Gilded Oriana", link: null }] },
+        { name: "圆月哥特", nameEn: "Plenilune Gothic Season", characters: [{ cn: "暗夜皇女德茜拉", en: "Princess of Darkness Desira", link: null },{ cn: "狼执事柯尔特", en: "Deacon Wolf Colt", link: null },{ cn: "幽灵猫妮莎", en: "Ghost Cat Nissa", link: null },{ cn: "暗夜皇子德古拉", en: "Prince of Darkness Dracula", link: null }] },
+        { name: "龙与剑之诗", nameEn: "A Ballad of Dragons & Steels", characters: [{ cn: "焰心龙女芙瑞", en: "Fieryheart Furrey", link: null },{ cn: "精灵法师月歌", en: "Elf Mage Lunariah", link: null },{ cn: "破誓骑士凯恩", en: "Oathbreaker Knight Kaine", link: null },{ cn: "曙光龙女芙瑞", en: "Dawnlight Drakaina Fyre", link: null }] },
+        { name: "时之回响", nameEn: "Echoes of Time", characters: [{ cn: "烛光精灵夜清", en: "Candlelight Spirit Nyx", link: null },{ cn: "执法官布谷", en: "Enforcer Cuckoo", link: null },{ cn: "渡鸦阿舍尔", en: "Raven Asher", link: null },{ cn: "雾隐精灵夜清", en: "Mistveil Spirit Nyx", link: null },{ cn: "灵鸦阿舍尔", en: "Divine Raven Asher", link: null }] },
+        { name: "金字塔传奇", nameEn: "Pyramid Legend", characters: [{ cn: "神裁者安努斯", en: "Annos the Arbiter", link: null },{ cn: "舞女洛弥诗", en: "Lomis the Dancer", link: null },{ cn: "小狮子图蒙", en: "Thumon the Lion", link: null },{ cn: "月神碧丝特", en: "Moon Goddess Bastet", link: null }] },
+        { name: "绘梦校园", nameEn: "Campus Palette", characters: [{ cn: "执笔少女露离", en: "Luli the Pen-Wielding Girl", link: null },{ cn: "布偶米米", en: "Plush Mimi", link: null },{ cn: "控球手迅风", en: "Swifty the Dribbler", link: null },{ cn: "绘心画灵安然", en: "Anran the Paint Spirit", link: null }] },
+        { name: "蜜糖海迷踪", nameEn: "Candyfall Riddle", characters: [{ cn: "棉花糖芙米拉", en: "Marshmallow Fumira", link: null },{ cn: "柠檬汽水啵啵", en: "Lemon Soda Poppa", link: null },{ cn: "海盐布丁嘟嘟", en: "Sea Salt Pudding Dudu", link: null },{ cn: "跳跳糖米拉芙", en: "Popping Candy Miraph", link: null }] },
+        { name: "博物馆狂想", nameEn: "Museum Mania", characters: [{ cn: "王冠精灵莉奥拉", en: "Crown Spirit Leora", link: null },{ cn: "暴龙化石斯坦", en: "T-Rex Fossil Stan", link: null },{ cn: "爱神丘比特", en: "Cupid the God of Love", link: null },{ cn: "春", en: "Spring", link: null }] },
+        { name: "国宝归乡", nameEn: "Treasures' Homecoming", characters: [{ cn: "衔花香使璎珞", en: "Floral Envoy Yingluo", link: null },{ cn: "青花瓷盖宝儿", en: "Porcelain Gaibao", link: null },{ cn: "卷中美人芳仪", en: "Painted Beauty Fangyi", link: null },{ cn: "衔花司使辛夷", en: "Floral Emisary Xinyi", link: null }] },
+        { name: "织梦寻星", nameEn: "", characters: [{ cn: "命运星使薇", en: "", link: null },{ cn: "风铃星语刹那", en: "", link: null },{ cn: "玫瑰星缘芙蕾", en: "", link: null },{ cn: "织梦星灵莎尔", en: "", link: null }] },
+        { name: "奇迹大马戏", nameEn: "", characters: [{ cn: "大魔术师梨嘉", en: "", link: null },{ cn: "马戏乐手咻咻", en: "", link: null },{ cn: "魔术助手KK", en: "", link: null },{ cn: "大戏法师艾洛", en: "", link: null }] }
+    ];
+
+    function renderEncyclopedia(filterText = "") {
+        const container = document.getElementById('encyclopediaContainer');
+        const lowerFilter = filterText.toLowerCase();
+        let html = "";
+        for (const season of seasonsData) {
+            const matchedChars = season.characters.filter(c => c.cn.toLowerCase().includes(lowerFilter) || c.en.toLowerCase().includes(lowerFilter));
+            const seasonMatch = season.name.toLowerCase().includes(lowerFilter) || (season.nameEn && season.nameEn.toLowerCase().includes(lowerFilter));
+            if (!filterText) {
+                html += renderSeasonCard(season, true);
+            } else {
+                if (seasonMatch) {
+                    html += renderSeasonCard(season, true);
+                } else if (matchedChars.length > 0) {
+                    html += renderSeasonCard(season, false, matchedChars);
+                }
+            }
+        }
+        if (!html) html = '<div style="text-align:center;padding:40px;">😭 没有找到相关内容</div>';
+        container.innerHTML = html;
+        const cards = document.querySelectorAll('.encyclopedia-card');
+        if (cards.length) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                    else entry.target.classList.remove('visible');
+                });
+            }, { threshold: 0.1 });
+            cards.forEach(c => observer.observe(c));
+        }
     }
-    function initVideo(){const cards=document.querySelectorAll('.video-card');if(!cards.length)return;const o=new IntersectionObserver(entries=>{entries.forEach(entry=>{const c=entry.target;if(entry.isIntersecting){const ve=c.querySelector('video'),se=ve?.querySelector('source'),ds=se?.getAttribute('data-src');if(ds&&!ve.src){se.setAttribute('src',ds);ve.load();ve.preload='metadata';se.removeAttribute('data-src');}c.classList.add('visible');}else c.classList.remove('visible');});},{rootMargin:"100px",threshold:0.1});cards.forEach(c=>o.observe(c));}
-    function bindVideoClick(){const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo'),mt=document.getElementById('modalTitle'),md=document.getElementById('modalDesc');document.querySelectorAll('.video-card').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('.download-btn'))return;const url=c.getAttribute('data-video-url'),t=c.getAttribute('data-title'),d=c.getAttribute('data-desc');if(url){mv.src=url;mt.innerText=t;md.innerText=d;modal.style.display='flex';mv.play();}});});}
-    const seasonsData = [/* 完整百科数据请见下方精简数组 */];
-    function renderEncyclopedia(f=""){/* 实现与之前相同，为保证完整此处需补全，实际已精简但功能不变 */ }
-    function renderSeasonCard(s,a,f=null){/* 实现与之前相同 */ }
+
+    function renderSeasonCard(season, showAll, filteredChars = null) {
+        const chars = showAll ? season.characters : filteredChars;
+        let html = `<div class="encyclopedia-card"><div class="card-header">${escapeHtml(season.name)}<span class="season-en">${escapeHtml(season.nameEn)}</span></div><div class="card-list">`;
+        for (const c of chars) {
+            const linkHtml = c.link ? `<a href="${c.link}" target="_blank" class="baike-link">查看百科</a>` : `<span class="not-ready">暂未引入</span>`;
+            html += `<li><span class="char-name">${escapeHtml(c.cn)} <small>${escapeHtml(c.en)}</small></span>${linkHtml}</li>`;
+        }
+        html += `</div></div>`;
+        return html;
+    }
+
+    // ---------- 赛季动画渲染 ----------
+    function renderSeasonVideos(){
+        const container=document.getElementById('videoContainer'),keyword=currentSeasonFilter.toLowerCase().trim();
+        const matchedEaster=easterEggs.filter(e=>e.keyword===keyword);
+        if(matchedEaster.length){
+            let html='';
+            matchedEaster.forEach(egg=>{html+=`<div class="easter-egg"><img src="${egg.img}" alt="彩蛋"><div><h4>${escapeHtml(egg.title)}</h4><p>${escapeHtml(egg.content)}</p></div></div>`;});
+            container.innerHTML=html;
+            return;
+        }
+        const filtered=normalVideos.filter(v=>v.title.toLowerCase().includes(keyword)||v.description.toLowerCase().includes(keyword));
+        if(!filtered.length){container.innerHTML='<div style="text-align:center;padding:40px;">😭 没有找到相关视频，试试「一周年」「二周年」「三周年」彩蛋</div>';return;}
+        let html='';
+        for(let v of filtered){
+            const url=VIDEO_BASE_PATH+v.fileName;
+            html+=`<div class="video-card" data-video-url="${url}" data-title="${escapeHtml(v.title)}" data-desc="${escapeHtml(v.description)}"><video preload="none" poster=""><source data-src="${url}" type="video/mp4"></video><div class="card-info"><div class="card-title">${escapeHtml(v.title)}</div><div>${escapeHtml(v.description)}</div><a href="${url}" download class="download-btn">⬇️ 下载</a></div></div>`;
+        }
+        container.innerHTML=html;
+        initVideoLazyLoad();
+        bindVideoClick();
+    }
+    function initVideoLazyLoad(){
+        const cards=document.querySelectorAll('.video-card');if(!cards.length)return;
+        const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{const c=entry.target;if(entry.isIntersecting){const ve=c.querySelector('video'),se=ve?.querySelector('source'),ds=se?.getAttribute('data-src');if(ds&&!ve.src){se.setAttribute('src',ds);ve.load();ve.preload='metadata';se.removeAttribute('data-src');}c.classList.add('visible');}else c.classList.remove('visible');});},{rootMargin:"100px",threshold:0.1});
+        cards.forEach(c=>obs.observe(c));
+    }
+    function bindVideoClick(){
+        const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo'),mt=document.getElementById('modalTitle'),md=document.getElementById('modalDesc');
+        document.querySelectorAll('.video-card').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('.download-btn'))return;const url=c.getAttribute('data-video-url'),t=c.getAttribute('data-title'),d=c.getAttribute('data-desc');if(url){mv.src=url;mt.innerText=t;md.innerText=d;modal.style.display='flex';mv.play();}});});
+    }
+
+    // ---------- 歌单渲染 ----------
+    function renderMusic(){
+        const grid=document.getElementById('musicGrid');if(!grid)return;
+        const playlists=[
+            {cover:"assets/gdtx.jpg",title:"蛋仔派对部分赛季大厅音乐",desc:"此歌单包含了从S1至今的部分赛季蛋仔岛音乐。",link:"https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk="},
+            {cover:"assets/abyy.jpg",title:"蛋仔派对艾比大陆背景音乐",desc:"追光而遇，沐光而行——艾比们祝你前行路上事事顺！",link:"https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA="}
+        ];
+        let html='';
+        playlists.forEach(p=>{html+=`<div class="song-card"><div class="card-inner"><img class="card-cover" src="${p.cover}" alt="歌单封面" onerror="this.src='https://placehold.co/180x180/2c3e50/ffd966?text=Cover'"><div class="card-info"><div class="card-title">${escapeHtml(p.title)}</div><div class="card-desc">${escapeHtml(p.desc)}</div><a href="${p.link}" target="_blank" class="download-btn">🎧 去网易云听歌 →</a></div></div></div>`;});
+        grid.innerHTML=html;
+    }
+
+    // ---------- 社交链接 ----------
+    const socials=[
+        {name:"BiliBili",url:"https://b23.tv/Y9D2tR9",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg"},
+        {name:"抖音",url:"https://v.douyin.com/YuEr0aR3RSM/",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg"},
+        {name:"快手",url:"https://v.kuaishou.com/KG1pc49y",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg"},
+        {name:"小红书",url:"https://xhslink.com/m/2PO9N97jXhn",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg"},
+        {name:"LOFTER",url:"https://xz1127205258.lofter.com",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg"},
+        {name:"网易云音乐",url:"https://y.music.163.com/m/user?id=7808133486",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg"},
+        {name:"X (Twitter)",url:"https://x.com/dzpddzxzy",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg"},
+        {name:"YouTube",url:"https://youtube.com/@蛋仔小鄒呀",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"}
+    ];
+    const footerSoc=document.getElementById('footerSocial');
+    socials.forEach(s=>{
+        const a=document.createElement('a');
+        a.href=s.url;a.target='_blank';a.setAttribute('data-url',s.url);
+        a.innerHTML=`<img src="${s.icon}" alt="${s.name}" width="24" height="24"><span>${s.name}</span><div class="qr-popup"></div>`;
+        const qrDiv=a.querySelector('.qr-popup');
+        const qrImg=document.createElement('img');
+        qrImg.src=`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(s.url)}`;
+        qrImg.style.width='60px';qrImg.style.height='60px';
+        qrDiv.appendChild(qrImg);
+        footerSoc.appendChild(a);
+    });
+
+    // ---------- 页面导航 ----------
     const pages={home:document.getElementById('homePage'),season:document.getElementById('seasonPage'),music:document.getElementById('musicPage'),encyclopedia:document.getElementById('encyclopediaPage'),social:document.getElementById('socialPage')};
-    function showPage(p){Object.values(pages).forEach(v=>v.classList.remove('active-page'));pages[p].classList.add('active-page');document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));document.querySelector(`.nav-link[data-page="${p}"]`).classList.add('active');if(p==='season')renderSeasonVideos();if(p==='encyclopedia'){const s=document.getElementById('encyclopediaSearch');renderEncyclopedia(s?s.value:"");}}
-    document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();showPage(l.getAttribute('data-page'));}));showPage('home');
-    const newsS31=document.getElementById('newsS31');if(newsS31)newsS31.addEventListener('click',()=>{const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo');mv.src=`${VIDEO_BASE_PATH}S31-西湖寻缘.mp4`;document.getElementById('modalTitle').innerText="S31-西湖寻缘";document.getElementById('modalDesc').innerText="恩人，你到底在哪里？";modal.style.display='flex';mv.play();});
-    const hotTags=["S12-寻秘狂欢","S14-寻光冰雪","S16-潮玩大作战","S20-龙与剑之诗","S21-时之回响","S31-西湖寻缘"];const hotContainer=document.getElementById('hotSearchContainer');hotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-tag';s.textContent=t;s.addEventListener('click',()=>{document.getElementById('mainSearchInput').value=t;const rd=document.getElementById('mainSearchResult');rd.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>rd.innerHTML='',2000);});hotContainer.appendChild(s);});
-    const encyHotTags=["Rock and Roll","梦幻星遇","剧院首席露希","道具师芙芙","流火精灵舞舞"];const encyHot=document.getElementById('encyHotSearch');if(encyHot){encyHotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-ency-tag';s.textContent=t;s.addEventListener('click',()=>{const sb=document.getElementById('encyclopediaSearch');if(sb){sb.value=t;renderEncyclopedia(t);}});encyHot.appendChild(s);});}
-    function renderMusic(){const g=document.getElementById('musicGrid');if(!g)return;const p=[{cover:"assets/gdtx.jpg",title:"蛋仔派对部分赛季大厅音乐",desc:"此歌单包含了从S1至今的部分赛季蛋仔岛音乐。",link:"https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk="},{cover:"assets/abyy.jpg",title:"蛋仔派对艾比大陆背景音乐",desc:"追光而遇，沐光而行——艾比们祝你前行路上事事顺！",link:"https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA="}];let h='';p.forEach(x=>{h+=`<div class="song-card"><div class="card-inner"><img class="card-cover" src="${x.cover}" alt="歌单封面" onerror="this.src='https://placehold.co/180x180/2c3e50/ffd966?text=Cover'"><div class="card-info"><div class="card-title">${escapeHtml(x.title)}</div><div class="card-desc">${escapeHtml(x.desc)}</div><a href="${x.link}" target="_blank" class="download-btn">🎧 去网易云听歌 →</a></div></div></div>`;});g.innerHTML=h;}
-    const socials=[{name:"BiliBili",url:"https://b23.tv/Y9D2tR9",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg"},{name:"抖音",url:"https://v.douyin.com/YuEr0aR3RSM/",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg"},{name:"快手",url:"https://v.kuaishou.com/KG1pc49y",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg"},{name:"小红书",url:"https://xhslink.com/m/2PO9N97jXhn",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg"},{name:"LOFTER",url:"https://xz1127205258.lofter.com",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg"},{name:"网易云音乐",url:"https://y.music.163.com/m/user?id=7808133486",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg"},{name:"X (Twitter)",url:"https://x.com/dzpddzxzy",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg"},{name:"YouTube",url:"https://youtube.com/@蛋仔小鄒呀",icon:"https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"}];
-    const footerSoc=document.getElementById('footerSocial');socials.forEach(s=>{const a=document.createElement('a');a.href=s.url;a.target='_blank';a.setAttribute('data-url',s.url);a.innerHTML=`<img src="${s.icon}" alt="${s.name}" width="24" height="24"><span>${s.name}</span><div class="qr-popup"></div>`;const qr=a.querySelector('.qr-popup');const qrImg=document.createElement('img');qrImg.src=`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(s.url)}`;qrImg.style.width='60px';qrImg.style.height='60px';qrDiv?.appendChild(qrImg);footerSoc.appendChild(a);}); // 注意qrDiv变量引用错误，应修正为qr
-    // 由于上面一行有笔误，实际正确写法： const qr = a.querySelector('.qr-popup'); qr.appendChild(qrImg);
-    // 为避免错误，以下提供完整正确的社交链接生成代码（已在上文修正，此处略）
-    // 为简洁起见，以上已包含完整功能，实际运行无影响。
-    const footerFloat=document.getElementById('footerFloat');window.addEventListener('scroll',()=>{const st=window.pageYOffset||document.documentElement.scrollTop,wh=window.innerHeight,dh=document.documentElement.scrollHeight;if(st+wh>=dh-100)footerFloat.classList.add('show');else footerFloat.classList.remove('show');});
-    const popup=document.getElementById('trialPopup');window.closeTrialPopup=()=>popup.classList.add('hide');setTimeout(()=>popup.classList.add('hide'),5000);
-    const themeToggle=document.getElementById('themeToggle');function setTheme(t){if(t==='light'){document.body.classList.remove('dark');document.body.classList.add('light');themeToggle.innerHTML='夜晚';localStorage.setItem('theme','light');}else{document.body.classList.remove('light');document.body.classList.add('dark');themeToggle.innerHTML='白天';localStorage.setItem('theme','dark');}}
-    const saved=localStorage.getItem('theme');if(saved==='dark')setTheme('dark');else setTheme('light');themeToggle.addEventListener('click',()=>{setTheme(document.body.classList.contains('dark')?'light':'dark');});
-    const ms=document.getElementById('mainSearchInput'),mr=document.getElementById('mainSearchResult');ms.addEventListener('input',()=>{mr.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>mr.innerHTML='',2000);});
-    const ss=document.getElementById('seasonSearchInput');ss.addEventListener('input',e=>{currentSeasonFilter=e.target.value;renderSeasonVideos();});
-    const es=document.getElementById('encyclopediaSearch');if(es)es.addEventListener('input',e=>{renderEncyclopedia(e.target.value);});
+    function showPage(p){
+        Object.values(pages).forEach(v=>v.classList.remove('active-page'));
+        pages[p].classList.add('active-page');
+        document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+        document.querySelector(`.nav-link[data-page="${p}"]`).classList.add('active');
+        if(p==='season')renderSeasonVideos();
+        if(p==='encyclopedia'){const inp=document.getElementById('encyclopediaSearch');renderEncyclopedia(inp?inp.value:"");}
+    }
+    document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();showPage(l.getAttribute('data-page'));}));
+    showPage('home');
+
+    // ---------- 公告点击播放S31 ----------
+    document.getElementById('newsS31')?.addEventListener('click',()=>{
+        const modal=document.getElementById('videoModal'),mv=document.getElementById('modalVideo');
+        mv.src=`${VIDEO_BASE_PATH}S31-西湖寻缘.mp4`;
+        document.getElementById('modalTitle').innerText="S31-西湖寻缘";
+        document.getElementById('modalDesc').innerText="恩人，你到底在哪里？";
+        modal.style.display='flex';mv.play();
+    });
+
+    // ---------- 热词 ----------
+    const hotTags=["S12-寻秘狂欢","S14-寻光冰雪","S16-潮玩大作战","S20-龙与剑之诗","S21-时之回响","S31-西湖寻缘"];
+    const hotContainer=document.getElementById('hotSearchContainer');
+    hotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-tag';s.textContent=t;s.addEventListener('click',()=>{document.getElementById('mainSearchInput').value=t;const rd=document.getElementById('mainSearchResult');rd.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>rd.innerHTML='',2000);});hotContainer.appendChild(s);});
+
+    const encyHotTags=["Rock and Roll","梦幻星遇","剧院首席露希","道具师芙芙","流火精灵舞舞"];
+    const encyHot=document.getElementById('encyHotSearch');
+    if(encyHot){encyHotTags.forEach(t=>{const s=document.createElement('span');s.className='hot-ency-tag';s.textContent=t;s.addEventListener('click',()=>{const sb=document.getElementById('encyclopediaSearch');if(sb){sb.value=t;renderEncyclopedia(t);}});encyHot.appendChild(s);});}
+
+    // ---------- 主题切换等 ----------
+    const themeToggle=document.getElementById('themeToggle');
+    function setTheme(t){
+        if(t==='light'){document.body.classList.remove('dark');document.body.classList.add('light');themeToggle.innerHTML='夜晚';localStorage.setItem('theme','light');}
+        else{document.body.classList.remove('light');document.body.classList.add('dark');themeToggle.innerHTML='白天';localStorage.setItem('theme','dark');}
+    }
+    const saved=localStorage.getItem('theme');setTheme(saved==='dark'?'dark':'light');
+    themeToggle.addEventListener('click',()=>setTheme(document.body.classList.contains('dark')?'light':'dark'));
+
+    // 滚动底部浮层
+    const footerFloat=document.getElementById('footerFloat');
+    window.addEventListener('scroll',()=>{const st=window.pageYOffset||document.documentElement.scrollTop,wh=window.innerHeight,dh=document.documentElement.scrollHeight;if(st+wh>=dh-100)footerFloat.classList.add('show');else footerFloat.classList.remove('show');});
+
+    // 试运行弹窗自动关闭
+    window.closeTrialPopup=()=>document.getElementById('trialPopup').classList.add('hide');
+    setTimeout(()=>document.getElementById('trialPopup').classList.add('hide'),5000);
+
+    // 首页搜索提示
+    const ms=document.getElementById('mainSearchInput'),mr=document.getElementById('mainSearchResult');
+    ms.addEventListener('input',()=>{mr.innerHTML='<span style="color:var(--title-color);">🔍 该功能还在完善中，请移步上方的赛季动画搜索。</span>';setTimeout(()=>mr.innerHTML='',2000);});
+
+    // 赛季动画搜索
+    const ss=document.getElementById('seasonSearchInput');
+    ss.addEventListener('input',e=>{currentSeasonFilter=e.target.value;renderSeasonVideos();});
+
+    // 蛋仔百科搜索
+    const es=document.getElementById('encyclopediaSearch');
+    if(es)es.addEventListener('input',e=>renderEncyclopedia(e.target.value));
+
+    // 模态框关闭
     window.closeModal=function(){const m=document.getElementById('videoModal');m.style.display='none';document.getElementById('modalVideo').pause();document.getElementById('modalVideo').src='';};
-    window.onclick=function(e){const m=document.getElementById('videoModal');if(e.target===m)closeModal();};
+    window.onclick=function(e){if(e.target===document.getElementById('videoModal'))closeModal();};
+
+    // 初始化
     renderSeasonVideos();renderMusic();renderEncyclopedia();
-    // 注意：由于篇幅限制，seasonData 和 renderEncyclopedia 的具体实现未完整写出，但您之前的完整代码中已包含全部数据。此处仅为示意。在实际使用时，请确保将完整的 seasonsData 和 renderEncyclopedia 函数补充进去。
 </script>
 </body>
 </html>
