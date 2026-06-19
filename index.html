@@ -160,9 +160,8 @@
         return text.replace(/[一-龥]/g, ch => tradMap[ch] || ch);
     }
 
-    let currentLang = 'zh-CN'; // 默认简体
+    let currentLang = 'zh-CN';
 
-    // ---------- 多语言文本库 ----------
     const texts = {
         'zh-CN': {
             siteTitle: '蛋仔小鄒呀 | 个人公开网站',
@@ -320,7 +319,6 @@
         renderMusic();
         renderEncyclopedia();
         renderSocialLinks();
-        // 重新渲染热词（因为热词中有文字需要随语言变化）
         renderHomeHotSearch();
         renderEncyclopediaHotSearch();
     }
@@ -359,7 +357,6 @@
             html += `<span class="hot-tag">${tag}</span>`;
         });
         container.innerHTML = html;
-        // 绑定点击事件
         document.querySelectorAll('#hotSearchContainer .hot-tag').forEach(tag => {
             tag.addEventListener('click', () => {
                 const mainSearch = document.getElementById('mainSearchInput');
@@ -377,7 +374,6 @@
         const container = document.getElementById('encyHotSearch');
         if (!container) return;
         const t = texts[currentLang];
-        // 热词：Rock and Roll, 梦幻星遇, 剧院首席露希, Ignis the Flame Spirit (替换流火精灵舞舞)
         const hotTags = ["Rock and Roll", "梦幻星遇", "剧院首席露希", "Ignis the Flame Spirit"];
         let html = `<span class="hot-search-label-ency">🔥 热词搜索：</span>`;
         hotTags.forEach(tag => {
@@ -395,7 +391,7 @@
         });
     }
 
-    // ---------- 以下为原有数据 ----------
+    // ---------- 视频数据 ----------
     const normalVideos = [
         { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
         { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
@@ -448,12 +444,12 @@
         { name: "音乐星企划", nameEn: "Rock and Roll", characters: [{ cn: "主唱曜星", en: "Obsidian - Main Vocalist", link: null },{ cn: "吉他手卡萝", en: "Carol, the Guitarist", link: null },{ cn: "机械鼓手贝克", en: "Baker, the Robo-Drummer", link: null },{ cn: "音爆曜星", en: "Obsidian - Soundburst", link: null }] },
         { name: "精灵之声", nameEn: "Sound of Spirits", characters: [{ cn: "精灵莉斯尔", en: "Liesl", link: null },{ cn: "水母尤莱亚", en: "Yuliya", link: null },{ cn: "八音盒温妮", en: "Winnie", link: null },{ cn: "水母莱莱", en: "Layla", link: null }] },
         { name: "勇闯龙蛋岛", nameEn: "Dino Egg Island Tour", characters: [{ cn: "暴龙崽崽", en: "Rexie", link: null },{ cn: "甲龙晶晶", en: "Crystal", link: null },{ cn: "三角龙小萨", en: "Sarre", link: null },{ cn: "宝石甲龙晶晶", en: "Precious Crystal", link: null }] },
-        { name: "太空奇遇", nameEn: "Outta This World", characters: [{ cn: "太空船长贝贝", en: "Bay, the Space Captain", link: "https://baike.baidu.com/item/%E5%A4%AA%E7%A9%BA%E8%88%B9%E9%95%BF%E8%B4%9D%E8%B4%9D/67645325" },{ cn: "航天员莱卡", en: "Lyca, the Astronaut", link: null },{ cn: "机械师维迪", en: "Vidi, the Mechanic", link: "https://baike.baidu.com/item/%E6%9C%BA%E6%A2%B0%E5%B8%88%E7%BB%B4%E8%BF%AA/67664115" },{ cn: "星云船长洛洛", en: "Lolo, the Nebula Captain", link: null }] },
+        { name: "太空奇遇", nameEn: "Outta This World", characters: [{ cn: "太空船长贝贝", en: "Bay, the Space Captain", link: "https://baike.baidu.com/item/%E5%A4%AA%E7%A9%BA%E8%88%B9%E9%95%BF%E8%B4%9D%E8%B4%9D/67645325" },{ cn: "航天员莱卡", en: "Lyca, the Astronaut", link: "https://baike.baidu.com/item/%E8%88%AA%E5%A4%A9%E5%91%98%E8%8E%B1%E5%8D%A1/67967264" },{ cn: "机械师维迪", en: "Vidi, the Mechanic", link: "https://baike.baidu.com/item/%E6%9C%BA%E6%A2%B0%E5%B8%88%E7%BB%B4%E8%BF%AA/67664115" },{ cn: "星云船长洛洛", en: "Lolo, the Nebula Captain", link: null }] },
         { name: "梦幻星遇", nameEn: "Stellar Encounter Season", characters: [{ cn: "捕梦软软", en: "Dreamcatcher Softie", link: "https://baike.baidu.com/item/%E6%8D%95%E6%A2%A6%E8%BD%AF%E8%BD%AF/64330762" },{ cn: "星云咩咩", en: "Nebula Sheep", link: "https://baike.baidu.com/item/%E6%98%9F%E4%BA%91%E5%92%AA%E5%92%AA/63730228" },{ cn: "海藻偷偷", en: "Seaweed Burglar", link: null },{ cn: "萤火偷偷", en: "Firefly Burglar", link: null }] },
-        { name: "寻秘狂欢", nameEn: "Mysteries Galore Season", characters: [{ cn: "流火精灵舞舞", en: "Ignis the Flame Spirit", link: "https://baike.baidu.com/item/%E6%B5%81%E7%81%AB%E7%B2%BE%E7%81%B5%E8%88%9E%E8%88%9E/67643865" },{ cn: "魔灯闪闪", en: "Shiny the Magic Lamp", link: null },{ cn: "吟游诗人弥亚", en: "Mia the Bard", link: "https://baike.baidu.com/item/%E5%92%8F%E6%B8%B8%E8%AF%97%E4%BA%BA%E5%BC%A5%E4%BA%9A/67643868" },{ cn: "灵灯闪闪", en: "Shiny the Spirit Lamp", link: null }] },
+        { name: "寻秘狂欢", nameEn: "Mysteries Galore Season", characters: [{ cn: "流火精灵舞舞", en: "Ignis the Flame Spirit", link: "https://baike.baidu.com/item/%E6%B5%81%E7%81%AB%E7%B2%BE%E7%81%B5%E8%88%9E%E8%88%9E/67643865" },{ cn: "魔灯闪闪", en: "Shiny the Magic Lamp", link: null },{ cn: "吟游诗人弥亚", en: "Mia the Bard", link: "https://baike.baidu.com/item/%E5%90%9F%E6%B8%B8%E8%AF%97%E4%BA%BA%E5%BC%A5%E4%BA%9A/67643868" },{ cn: "灵灯闪闪", en: "Shiny the Spirit Lamp", link: null }] },
         { name: "午夜魅影", nameEn: "Phantom Night", characters: [{ cn: "剧院院长魅影", en: "Theater Manager Phantom", link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%99%A2%E9%95%BF%E9%AD%85%E5%BD%B1/67643266" },{ cn: "小演员露希", en: "Lucy the Actress", link: "https://baike.baidu.com/item/%E5%B0%8F%E6%BC%94%E5%91%98%E9%9C%B2%E5%B8%8C/67643265" },{ cn: "道具师芙芙", en: "Fufu the Prop Master", link: "https://baike.baidu.com/item/%E9%81%93%E5%85%B7%E5%B8%88%E8%8A%99%E8%8A%99/67643261" },{ cn: "剧院首席露希", en: "Lucy the Star", link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%A6%96%E5%B8%AD%E9%9C%B2%E5%B8%8C/67643740" }] },
         { name: "寻光冰雪", nameEn: "Rime Light Season", characters: [{ cn: "雪原之心伊芙", en: "Eve the Snowheart", link: "https://baike.baidu.com/item/%E9%9B%AA%E5%8E%9F%E4%B9%8B%E5%BF%83%E4%BC%8A%E8%8A%99/67646010" },{ cn: "北极兔卢米", en: "Lumi the Arctic Bunny", link: "https://baike.baidu.com/item/%E5%8C%97%E6%9E%81%E5%85%94%E5%8D%A2%E7%B1%B3/67799835" },{ cn: "雪怪瓦图鲁", en: "Watulu the Yeti", link: "https://baike.baidu.com/item/%E9%9B%AA%E6%80%AA%E7%93%A6%E5%9B%BE%E9%B2%81/67800612" },{ cn: "北极狐卢比", en: "Lubi the Arctic Fox", link: null }] },
-        { name: "玩具历险", nameEn: "Playtime Egg-scapades", characters: [{ cn: "独角兽芬妮亚", en: "Fenia the Unicorn", link: null },{ cn: "飞天小猪班尼", en: "Benny the Flying Pig", link: null },{ cn: "音乐家蕾利", en: "Riley the Musician", link: null },{ cn: "小国王蕾利", en: "Riley the Little King", link: null }] },
+        { name: "玩具历险", nameEn: "Playtime Egg-scapades", characters: [{ cn: "独角兽芬妮亚", en: "Fenia the Unicorn", link: "https://baike.baidu.com/item/%E7%8B%AC%E8%A7%92%E5%85%BD%E8%8A%AC%E5%A6%AE%E4%BA%9A/67967268" },{ cn: "飞天小猪班尼", en: "Benny the Flying Pig", link: null },{ cn: "音乐家蕾利", en: "Riley the Musician", link: "https://baike.baidu.com/item/%E9%9F%B3%E4%B9%90%E5%AE%B6%E8%95%BE%E5%88%A9/67967355" },{ cn: "小国王蕾利", en: "Riley the Little King", link: null }] },
         { name: "潮玩大作战", nameEn: "Artsy Toy Tussle", characters: [{ cn: "鲨莉娃", en: "Sharkie", link: null },{ cn: "猴吼吼", en: "Chim Pan-Z", link: null },{ cn: "发美美", en: "Adrianna", link: null },{ cn: "美奇娅", en: "Angrianna", link: null }] },
         { name: "宝船拍卖夜", nameEn: "Treasure Ship Auction Night", characters: [{ cn: "人鱼歌姬赛然", en: "Siren the Mermaid", link: null },{ cn: "石心船长苏勒", en: "Captain Stoneheart Soule", link: null },{ cn: "波泡儿", en: "Bubbler", link: null },{ cn: "船魔苏心", en: "Susie the Ship Demon", link: null }] },
         { name: "深海逐金宴", nameEn: "Deep Sea Gold Rush", characters: [{ cn: "浪花黛露珊", en: "Wavy Nereida", link: null },{ cn: "大亨波利", en: "Magnate Polly", link: null },{ cn: "幽猎塞莉诺", en: "Shadow Hunter Serena", link: null },{ cn: "鎏金奥莉安娜", en: "Gilded Oriana", link: null }] },
@@ -582,9 +578,8 @@
     }
 
     // ---------- 页面初始化 ----------
-    // 默认简体中文，不读取 localStorage 中的语言偏好（强制简体）
     currentLang = 'zh-CN';
-    localStorage.setItem('lang', 'zh-CN'); // 可选，确保下次刷新仍然简体
+    localStorage.setItem('lang', 'zh-CN');
     applyLanguage();
 
     function switchLanguage() {
@@ -594,7 +589,6 @@
     }
     document.getElementById('langToggle').addEventListener('click', switchLanguage);
 
-    // 页面导航
     const pages = { home: document.getElementById('homePage'), season: document.getElementById('seasonPage'), music: document.getElementById('musicPage'), encyclopedia: document.getElementById('encyclopediaPage'), social: document.getElementById('socialPage') };
     function showPage(p) {
         Object.values(pages).forEach(v => v.classList.remove('active-page'));
@@ -607,7 +601,6 @@
     document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', e => { e.preventDefault(); showPage(l.getAttribute('data-page')); }));
     showPage('home');
 
-    // 首页搜索提示
     const mainSearch = document.getElementById('mainSearchInput');
     const mainResult = document.getElementById('mainSearchResult');
     mainSearch.addEventListener('input', () => {
@@ -615,33 +608,29 @@
         setTimeout(() => mainResult.innerHTML = '', 2000);
     });
 
-    // 赛季动画搜索
     const seasonSearch = document.getElementById('seasonSearchInput');
     seasonSearch.addEventListener('input', e => { currentSeasonFilter = e.target.value; renderSeasonVideos(); });
 
-    // 蛋仔百科搜索
     const encSearch = document.getElementById('encyclopediaSearch');
     if (encSearch) encSearch.addEventListener('input', e => renderEncyclopedia(e.target.value));
 
-    // 主题切换
+    // 默认白天
     const themeToggle = document.getElementById('themeToggle');
     function setTheme(t) {
         if (t === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); themeToggle.innerHTML = texts[currentLang].themeToggleDay; localStorage.setItem('theme', 'light'); }
         else { document.body.classList.remove('light'); document.body.classList.add('dark'); themeToggle.innerHTML = texts[currentLang].themeToggleNight; localStorage.setItem('theme', 'dark'); }
     }
     const savedTheme = localStorage.getItem('theme');
-    setTheme(savedTheme === 'light' ? 'light' : 'dark');
+    if (savedTheme === 'dark') setTheme('dark');
+    else setTheme('light');
     themeToggle.addEventListener('click', () => setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
-    // 底部浮层滚动
     const footerFloat = document.getElementById('footerFloat');
     window.addEventListener('scroll', () => { const st = window.pageYOffset || document.documentElement.scrollTop, wh = window.innerHeight, dh = document.documentElement.scrollHeight; if (st + wh >= dh - 100) footerFloat.classList.add('show'); else footerFloat.classList.remove('show'); });
 
-    // 试运行弹窗自动关闭
     window.closeTrialPopup = () => document.getElementById('trialPopup').classList.add('hide');
     setTimeout(() => document.getElementById('trialPopup').classList.add('hide'), 5000);
 
-    // 模态框关闭
     window.closeModal = function() { const m = document.getElementById('videoModal'); m.style.display = 'none'; document.getElementById('modalVideo').pause(); document.getElementById('modalVideo').src = ''; };
     window.onclick = function(e) { if (e.target === document.getElementById('videoModal')) closeModal(); };
 </script>
