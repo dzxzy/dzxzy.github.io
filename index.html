@@ -14,14 +14,14 @@
         body{font-family:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;color:var(--text-color);transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
         .container{max-width:1300px;margin:0 auto;padding:0 16px}
 
-        /* ===== 喜庆装饰 ===== */
-        .festive-deco{position:relative;overflow:hidden;padding:10px 0 0;margin-bottom:-20px}
+        /* 喜庆装饰 */
+        .festive-deco{position:relative;overflow:hidden;min-height:80px;padding:20px 0 0;margin-bottom:-10px}
         .balloon{position:absolute;font-size:2.4rem;animation:floatBalloon 4s ease-in-out infinite;opacity:0.7;user-select:none;pointer-events:none;z-index:1}
-        .balloon:nth-child(1){left:2%;top:-10px;animation-delay:0s;font-size:2.8rem}
-        .balloon:nth-child(2){left:10%;top:5px;animation-delay:1.2s;font-size:2rem}
-        .balloon:nth-child(3){right:12%;top:-5px;animation-delay:0.6s;font-size:2.6rem}
-        .balloon:nth-child(4){right:3%;top:10px;animation-delay:1.8s;font-size:2.2rem}
-        .balloon:nth-child(5){left:50%;top:-20px;animation-delay:2.4s;font-size:3rem;transform:translateX(-50%)}
+        .balloon:nth-child(1){left:2%;top:0;animation-delay:0s;font-size:2.8rem}
+        .balloon:nth-child(2){left:10%;top:10px;animation-delay:1.2s;font-size:2rem}
+        .balloon:nth-child(3){right:12%;top:5px;animation-delay:0.6s;font-size:2.6rem}
+        .balloon:nth-child(4){right:3%;top:15px;animation-delay:1.8s;font-size:2.2rem}
+        .balloon:nth-child(5){left:50%;top:-10px;animation-delay:2.4s;font-size:3rem;transform:translateX(-50%)}
         @keyframes floatBalloon{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
         .confetti{position:absolute;width:8px;height:8px;border-radius:50%;animation:fallConfetti linear infinite;opacity:0.6;pointer-events:none;z-index:0}
         .confetti:nth-child(6){left:5%;animation-duration:5s;animation-delay:0s;background:#ff6b6b}
@@ -34,26 +34,34 @@
         .confetti:nth-child(13){left:95%;animation-duration:6.8s;animation-delay:0.8s;background:#6bcb77}
         @keyframes fallConfetti{0%{transform:translateY(-20px) rotate(0deg);opacity:0.8}100%{transform:translateY(80px) rotate(720deg);opacity:0}}
         .sparkle{position:absolute;font-size:1.2rem;animation:twinkle 2s ease-in-out infinite;pointer-events:none;z-index:1}
-        .sparkle:nth-child(14){left:8%;top:30px;animation-delay:0.3s}
-        .sparkle:nth-child(15){right:8%;top:25px;animation-delay:1.2s}
-        .sparkle:nth-child(16){left:45%;top:15px;animation-delay:0.8s}
+        .sparkle:nth-child(14){left:8%;top:40px;animation-delay:0.3s}
+        .sparkle:nth-child(15){right:8%;top:35px;animation-delay:1.2s}
+        .sparkle:nth-child(16){left:45%;top:25px;animation-delay:0.8s}
         @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
 
-        /* ===== 卡通标题 ===== */
+        /* 卡通标题 */
         .cute-title{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientMove 3s ease-in-out infinite;display:inline-block;text-shadow:none}
         @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
         .festive-badge{display:inline-block;background:linear-gradient(135deg,#ff6b6b,#ffd93d);padding:4px 16px;border-radius:40px;font-weight:700;font-size:0.8rem;color:#fff;box-shadow:0 2px 12px rgba(255,107,107,0.4);margin-left:8px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
-        /* ===== 周年庆专用卡片 ===== */
+        /* 周年庆卡片 */
         .anniversary-card{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:32px;padding:32px;margin:24px 0;border:3px solid transparent;background-image:linear-gradient(var(--card-bg),var(--card-bg)),linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-origin:padding-box,border-box;background-clip:padding-box,border-box;box-shadow:0 8px 32px rgba(255,107,107,0.2);transition:transform 0.3s}
         .anniversary-card:hover{transform:translateY(-4px)}
         .anniversary-card .card-title{font-size:1.8rem;font-weight:900;text-align:center;background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
         .anniversary-card .card-sub{text-align:center;font-size:1.1rem;opacity:0.8;margin-bottom:20px}
         .anniversary-photo{width:100%;max-width:700px;margin:0 auto 20px;display:block;border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.2);border:4px solid rgba(255,215,0,0.3)}
 
-        /* ===== 导航 ===== */
+        /* 侧边卡片 - 填充左右空白 */
+        .side-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
+        .side-card{background:var(--card-bg);backdrop-filter:blur(8px);border-radius:20px;padding:18px 20px;border:var(--card-border);transition:transform .2s;box-shadow:var(--shadow-sm)}
+        .side-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+        .side-card h4{font-size:1.05rem;margin-bottom:12px;color:var(--title-color);display:flex;align-items:center;gap:8px}
+        .side-card ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+        .side-card ul li{background:rgba(128,128,128,0.12);padding:4px 14px;border-radius:20px;font-size:0.85rem;cursor:pointer;transition:var(--transition);border:1px solid transparent}
+        .side-card ul li:hover{background:var(--title-color);color:#1f2d3d;border-color:var(--title-color)}
+
+        /* 导航 */
         .top-banner{width:100%;overflow:hidden;line-height:0}
         .top-banner img{width:100%;height:auto;display:block;object-fit:cover}
         .header-wrapper{background:var(--card-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-index:1000;border-bottom:var(--card-border)}
@@ -193,17 +201,17 @@
         .back-to-top:hover{transform:scale(1.1)}
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
         @media (max-width:992px){.nav-menu{gap:12px}.header{flex-wrap:wrap;height:auto;padding:8px 12px}.logo-area{flex:1}.header-tools{flex:0 1 auto}}
-        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input{width:100%}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}}
+        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input{width:100%}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}}
         @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}.cute-title{font-size:1.6rem}.anniversary-card .card-title{font-size:1.4rem}.balloon{font-size:1.8rem !important}}
     </style>
 </head>
 <body class="light">
-    <!-- ===== 顶部横幅 ===== -->
+    <!-- 顶部横幅 -->
     <div class="top-banner">
         <img src="assets/ccllt.webp" alt="网站横幅" onerror="this.src='https://placehold.co/1920x200/2c3e50/ffd966?text=Banner'">
     </div>
 
-    <!-- ===== 头部导航 ===== -->
+    <!-- 导航 -->
     <div class="header-wrapper">
         <div class="header">
             <div class="logo-area">
@@ -226,10 +234,11 @@
         </div>
     </div>
 
-    <!-- ===== 主内容 ===== -->
+    <!-- 主内容 -->
     <div class="main-content container">
-        <!-- ===== 首页（带喜庆装饰） ===== -->
+        <!-- 首页 -->
         <div id="homePage" class="page active-page">
+            <!-- 装饰 -->
             <div class="festive-deco">
                 <div class="balloon">🎈</div>
                 <div class="balloon">🎈</div>
@@ -271,6 +280,31 @@
                 </div>
             </div>
 
+            <!-- 侧边卡片 - 填充左右空白 -->
+            <div class="side-cards">
+                <div class="side-card">
+                    <h4>🎬 最新赛季</h4>
+                    <ul>
+                        <li onclick="performSearch('S31-西湖寻缘')">西湖寻缘</li>
+                        <li onclick="performSearch('S30-元气零食')">元气零食</li>
+                        <li onclick="performSearch('S29-心动魔法')">心动魔法</li>
+                        <li onclick="performSearch('S28-奇迹大马戏')">奇迹大马戏</li>
+                    </ul>
+                </div>
+                <div class="side-card">
+                    <h4>🌟 热门角色</h4>
+                    <ul>
+                        <li onclick="performSearch('剧院首席露希')">剧院首席露希</li>
+                        <li onclick="performSearch('流火精灵舞舞')">流火精灵舞舞</li>
+                        <li onclick="performSearch('雪原之心伊芙')">雪原之心伊芙</li>
+                        <li onclick="performSearch('主唱曜星')">主唱曜星</li>
+                        <li onclick="performSearch('北极兔卢米')">北极兔卢米</li>
+                        <li onclick="performSearch('焰心龙女芙瑞')">焰心龙女芙瑞</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 四周年快闪横幅 -->
             <div style="background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-size:300% 300%;border-radius:28px;padding:16px 24px;margin:20px 0;text-align:center;animation:gradientMove 4s ease-in-out infinite;box-shadow:0 4px 24px rgba(255,107,107,0.3)">
                 <p style="color:#fff;font-weight:900;font-size:1.2rem;text-shadow:0 2px 8px rgba(0,0,0,0.2);letter-spacing:1px">
                     🎂 蛋仔派对四周年快乐！🎉 点击上方「周年庆大合照」查看历年合照！
@@ -283,7 +317,7 @@
             </div>
         </div>
 
-        <!-- ===== 赛季动画PV ===== -->
+        <!-- 赛季动画PV -->
         <div id="seasonPage" class="page">
             <h2 style="text-align:center;margin-bottom:20px;">🎬 蛋仔派对赛季动画PV 🎬</h2>
             <div style="margin-bottom:20px;text-align:center;">
@@ -292,14 +326,14 @@
             <div id="videoContainer" class="season-grid"></div>
         </div>
 
-        <!-- ===== 推荐歌单 ===== -->
+        <!-- 推荐歌单 -->
         <div id="musicPage" class="page">
             <h2 style="text-align:center;margin-bottom:24px;">🎵 推荐歌单 🎵</h2>
             <div id="musicGrid" class="music-grid"></div>
             <p style="text-align:center;margin:24px 0;color:var(--title-color);" id="musicFooterNote">更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。</p>
         </div>
 
-        <!-- ===== 蛋仔百科 ===== -->
+        <!-- 蛋仔百科 -->
         <div id="encyclopediaPage" class="page">
             <h2 style="text-align:center;margin-bottom:24px;">📖 蛋仔百科 📖</h2>
             <div class="search-bar">
@@ -309,7 +343,7 @@
             <div id="encyclopediaContainer" class="encyclopedia-grid"></div>
         </div>
 
-        <!-- ===== 周年庆大合照页面（独立菜单） ===== -->
+        <!-- 周年庆大合照 -->
         <div id="anniversaryPage" class="page">
             <div style="text-align:center;padding:10px 0 20px">
                 <div style="font-size:3.5rem;animation:floatBalloon 3s ease-in-out infinite">🎂</div>
@@ -318,36 +352,26 @@
                 </h2>
                 <p style="font-size:1.1rem;opacity:0.8">蛋仔派对 · 历年周年大合照</p>
             </div>
-
-            <!-- 四周年大合照 -->
             <div class="anniversary-card">
                 <div class="card-title">🎂 四周年大合照</div>
                 <div class="card-sub">蛋仔派对四周年 · 全体蛋仔大集结！</div>
                 <img class="anniversary-photo" src="assets/sizn.jpg" alt="四周年大合照" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20四周年大合照%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E'">
             </div>
-
-            <!-- 三周年大合照 -->
             <div class="anniversary-card" style="border-color:rgba(107,203,119,0.5);border-image:linear-gradient(135deg,#6bcb77,#4d96ff);border-image-slice:1;">
                 <div class="card-title" style="background:linear-gradient(135deg,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎂 三周年大合照</div>
                 <div class="card-sub">蛋仔派对三周年 · 欢乐时光！</div>
                 <img class="anniversary-photo" src="assets/szn.jpg" alt="三周年大合照" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%236bcb77%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23fff%22%3E🎂%20三周年大合照%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E'">
             </div>
-
-            <!-- 二周年大合照 -->
             <div class="anniversary-card" style="border-color:rgba(255,215,61,0.5);border-image:linear-gradient(135deg,#ffd93d,#ff6b6b);border-image-slice:1;">
                 <div class="card-title" style="background:linear-gradient(135deg,#ffd93d,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎂 二周年大合照</div>
                 <div class="card-sub">蛋仔派对二周年 · 美好回忆！</div>
                 <img class="anniversary-photo" src="assets/ezn.jpg" alt="二周年大合照" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20二周年大合照%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E'">
             </div>
-
-            <!-- 一周年大合照 -->
             <div class="anniversary-card" style="border-color:rgba(77,150,255,0.5);border-image:linear-gradient(135deg,#4d96ff,#6bcb77);border-image-slice:1;">
                 <div class="card-title" style="background:linear-gradient(135deg,#4d96ff,#6bcb77);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🎂 一周年大合照</div>
                 <div class="card-sub">蛋仔派对一周年 · 初心不变！</div>
                 <img class="anniversary-photo" src="assets/yzn.jpg" alt="一周年大合照" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%234d96ff%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23fff%22%3E🎂%20一周年大合照%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E'">
             </div>
-
-            <!-- 祝福语 -->
             <div style="background:var(--card-bg);border-radius:28px;padding:24px;border:var(--card-border);margin:24px 0;text-align:center">
                 <p style="font-size:1.2rem;font-weight:600;color:var(--title-color)">🎈 周年寄语</p>
                 <p style="margin-top:8px;line-height:1.6">从一周年到四周年，感谢每一位蛋仔的陪伴！<br>愿我们继续一起，创造更多美好的回忆！🎉</p>
@@ -355,7 +379,7 @@
             </div>
         </div>
 
-        <!-- ===== 互动交流 ===== -->
+        <!-- 互动交流 -->
         <div id="socialPage" class="page">
             <h2 style="text-align:center;">📱 互动交流</h2>
             <div class="intro-card" id="aboutAuthor">
@@ -373,7 +397,7 @@
         </div>
     </div>
 
-    <!-- ===== 底部浮层 ===== -->
+    <!-- 底部浮层 -->
     <div id="footerFloat" class="footer-float">
         <div class="footer-content">
             <div class="footer-left">
@@ -384,7 +408,7 @@
         </div>
     </div>
 
-    <!-- ===== 试运行弹窗 ===== -->
+    <!-- 试运行弹窗 -->
     <div id="trialPopup" class="trial-popup">
         <div class="popup-header">
             <strong>⚠️ 试运行公告</strong>
@@ -397,7 +421,7 @@
         </div>
     </div>
 
-    <!-- ===== 视频模态框 ===== -->
+    <!-- 视频模态框 -->
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -411,7 +435,7 @@
         </div>
     </div>
 
-    <!-- ===== 回到顶部 ===== -->
+    <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
 
     <script>
@@ -560,17 +584,9 @@
             '乐': '樂'
         };
 
-        function toTraditional(text) {
-            if (!text) return text;
-            return text.replace(/[一-龥]/g, function(ch) { return zhMap[ch] || ch; });
-        }
+        function toTraditional(text) { if (!text) return text; return text.replace(/[一-龥]/g, function(ch) { return zhMap[ch] || ch; }); }
 
-        function toSimplified(text) {
-            var tradMap = {};
-            for (var k in zhMap) { tradMap[zhMap[k]] = k; }
-            if (!text) return text;
-            return text.replace(/[一-龥]/g, function(ch) { return tradMap[ch] || ch; });
-        }
+        function toSimplified(text) { var tradMap = {}; for (var k in zhMap) { tradMap[zhMap[k]] = k; } if (!text) return text; return text.replace(/[一-龥]/g, function(ch) { return tradMap[ch] || ch; }); }
 
         var currentLang = 'zh-CN';
 
@@ -676,7 +692,6 @@
             }
         };
 
-        // ===== 应用语言 =====
         function applyLanguage() {
             var t = texts[currentLang];
             document.title = t.siteTitle;
@@ -774,15 +789,22 @@
             }
         }
 
-        // ===== 热门搜索（首页） =====
+        // ===== 热门搜索（首页）- 修改标签显示（去掉Sxx-前缀） =====
         function renderHomeHotSearch() {
             var container = document.getElementById('hotSearchContainer');
             if (!container) return;
             var t = texts[currentLang];
-            var hotTags = ["S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战", "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘"];
+            var hotTags = [
+                "S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战",
+                "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘",
+                "梦幻星遇", "Stellar Encounter Season", "流火精灵舞舞",
+                "Ignis the Flame Spirit", "剧院首席露希", "Lucy the Star"
+            ];
             var html = '<span class="hot-search-label">' + t.hotSearchLabel + '</span>';
             for (var i = 0; i < hotTags.length; i++) {
-                html += '<span class="hot-tag" data-tag="' + hotTags[i] + '">' + hotTags[i] + '</span>';
+                var full = hotTags[i];
+                var display = full.split('-').length > 1 ? full.split('-')[1] : full;
+                html += '<span class="hot-tag" data-tag="' + full + '">' + display + '</span>';
             }
             container.innerHTML = html;
             var tags = container.querySelectorAll('.hot-tag');
@@ -971,7 +993,7 @@
             }
         }
 
-        // ===== 蛋仔百科数据 =====
+        // ===== 蛋仔百科数据（完整） =====
         var fullSeasonsData = [
             { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy",
                     link: null }, { cn: "小蓝帽", en: "Blu", link: null }, { cn: "法拉帝", en: "Ferretti",
@@ -1368,7 +1390,7 @@
             }
         }
 
-        // ===== 首页搜索功能 =====
+        // ===== 首页搜索功能（支持周年大合照） =====
         function performSearch(query) {
             var trimmed = query.trim();
             var resultsArea = document.getElementById('searchResultsArea');
@@ -1378,18 +1400,41 @@
                 return;
             }
             var t = texts[currentLang];
+
+            // 检测周年关键词
+            var yearMatch = null;
+            for (var i = 0; i < easterEggs.length; i++) {
+                if (trimmed.indexOf(easterEggs[i].keyword) !== -1) {
+                    yearMatch = easterEggs[i];
+                    break;
+                }
+            }
+            if (yearMatch) {
+                var cardHtml = '<div class="anniversary-card" style="margin:0;max-width:700px;margin:0 auto;">' +
+                    '<div class="card-title">' + yearMatch.title + '</div>' +
+                    '<div class="card-sub">' + yearMatch.content + '</div>' +
+                    '<img class="anniversary-photo" src="' + yearMatch.img + '" alt="' + yearMatch.title +
+                    '" onerror="this.src=\'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20' +
+                    yearMatch.keyword + '%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E\'">' +
+                    '</div>';
+                resultGrid.innerHTML = cardHtml;
+                resultsArea.classList.add('active');
+                return;
+            }
+
+            // 普通搜索
             var results = [];
-            for (var i = 0; i < normalVideos.length; i++) {
-                var v = normalVideos[i];
+            for (var j = 0; j < normalVideos.length; j++) {
+                var v = normalVideos[j];
                 if (v.title.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1 || v.description.toLowerCase().indexOf(
                         trimmed.toLowerCase()) !== -1) {
                     results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName });
                 }
             }
-            for (var j = 0; j < fullSeasonsData.length; j++) {
-                var season = fullSeasonsData[j];
-                for (var k = 0; k < season.characters.length; k++) {
-                    var c = season.characters[k];
+            for (var k = 0; k < fullSeasonsData.length; k++) {
+                var season = fullSeasonsData[k];
+                for (var l = 0; l < season.characters.length; l++) {
+                    var c = season.characters[l];
                     if (c.cn.indexOf(trimmed) !== -1 || c.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) {
                         results.push({ type: '📖 百科角色', title: c.cn, desc: season.name + ' · ' + c.en,
                             seasonName: season.name });
