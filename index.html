@@ -14,45 +14,7 @@
         body{font-family:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;color:var(--text-color);transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
         .container{max-width:1300px;margin:0 auto;padding:0 16px}
 
-        /* 喜庆装饰 */
-        .festive-deco{position:relative;overflow:hidden;min-height:80px;padding:20px 0 0;margin-bottom:-10px}
-        .balloon{position:absolute;font-size:2.4rem;animation:floatBalloon 4s ease-in-out infinite;opacity:0.7;user-select:none;pointer-events:none;z-index:1}
-        .balloon:nth-child(1){left:2%;top:0;animation-delay:0s;font-size:2.8rem}
-        .balloon:nth-child(2){left:10%;top:10px;animation-delay:1.2s;font-size:2rem}
-        .balloon:nth-child(3){right:12%;top:5px;animation-delay:0.6s;font-size:2.6rem}
-        .balloon:nth-child(4){right:3%;top:15px;animation-delay:1.8s;font-size:2.2rem}
-        .balloon:nth-child(5){left:50%;top:-10px;animation-delay:2.4s;font-size:3rem;transform:translateX(-50%)}
-        @keyframes floatBalloon{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
-        .confetti{position:absolute;width:8px;height:8px;border-radius:50%;animation:fallConfetti linear infinite;opacity:0.6;pointer-events:none;z-index:0}
-        .confetti:nth-child(6){left:5%;animation-duration:5s;animation-delay:0s;background:#ff6b6b}
-        .confetti:nth-child(7){left:15%;animation-duration:6s;animation-delay:1s;background:#ffd93d}
-        .confetti:nth-child(8){left:25%;animation-duration:4.5s;animation-delay:2s;background:#6bcb77}
-        .confetti:nth-child(9){left:40%;animation-duration:5.5s;animation-delay:0.5s;background:#4d96ff}
-        .confetti:nth-child(10){left:55%;animation-duration:6.5s;animation-delay:1.5s;background:#ff6bff}
-        .confetti:nth-child(11){left:70%;animation-duration:4.8s;animation-delay:3s;background:#ffd93d}
-        .confetti:nth-child(12){left:85%;animation-duration:5.2s;animation-delay:2.5s;background:#ff6b6b}
-        .confetti:nth-child(13){left:95%;animation-duration:6.8s;animation-delay:0.8s;background:#6bcb77}
-        @keyframes fallConfetti{0%{transform:translateY(-20px) rotate(0deg);opacity:0.8}100%{transform:translateY(80px) rotate(720deg);opacity:0}}
-        .sparkle{position:absolute;font-size:1.2rem;animation:twinkle 2s ease-in-out infinite;pointer-events:none;z-index:1}
-        .sparkle:nth-child(14){left:8%;top:40px;animation-delay:0.3s}
-        .sparkle:nth-child(15){right:8%;top:35px;animation-delay:1.2s}
-        .sparkle:nth-child(16){left:45%;top:25px;animation-delay:0.8s}
-        @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
-
-        /* 卡通标题 */
-        .cute-title{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientMove 3s ease-in-out infinite;display:inline-block;text-shadow:none}
-        @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        .festive-badge{display:inline-block;background:linear-gradient(135deg,#ff6b6b,#ffd93d);padding:4px 16px;border-radius:40px;font-weight:700;font-size:0.8rem;color:#fff;box-shadow:0 2px 12px rgba(255,107,107,0.4);margin-left:8px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite}
-        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-
-        /* 周年庆卡片 */
-        .anniversary-card{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:32px;padding:32px;margin:24px 0;border:3px solid transparent;background-image:linear-gradient(var(--card-bg),var(--card-bg)),linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-origin:padding-box,border-box;background-clip:padding-box,border-box;box-shadow:0 8px 32px rgba(255,107,107,0.2);transition:transform 0.3s}
-        .anniversary-card:hover{transform:translateY(-4px)}
-        .anniversary-card .card-title{font-size:1.8rem;font-weight:900;text-align:center;background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
-        .anniversary-card .card-sub{text-align:center;font-size:1.1rem;opacity:0.8;margin-bottom:20px}
-        .anniversary-photo{width:100%;max-width:700px;margin:0 auto 20px;display:block;border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.2);border:4px solid rgba(255,215,0,0.3)}
-
-        /* 侧边卡片 - 填充左右空白 */
+        /* 侧边卡片 */
         .side-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
         .side-card{background:var(--card-bg);backdrop-filter:blur(8px);border-radius:20px;padding:18px 20px;border:var(--card-border);transition:transform .2s;box-shadow:var(--shadow-sm)}
         .side-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
@@ -94,10 +56,6 @@
         .search-suggestions .suggestion-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid rgba(128,128,128,0.1);display:flex;align-items:center;gap:10px;font-size:0.9rem}
         .search-suggestions .suggestion-item:hover{background:rgba(128,128,128,0.1)}
         .search-suggestions .suggestion-item .s-tag{font-size:0.7rem;background:rgba(128,128,128,0.2);padding:2px 8px;border-radius:12px}
-        .hot-search{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
-        .hot-search-label{font-size:.85rem;font-weight:500;margin-right:4px;color:var(--title-color)}
-        .hot-tag{background:rgba(128,128,128,0.15);padding:4px 12px;border-radius:40px;cursor:pointer;font-size:.75rem;transition:var(--transition)}
-        .hot-tag:hover{background:var(--title-color);color:#1f2d3d}
         .search-results-area{margin-top:20px;display:none}
         .search-results-area.active{display:block}
         .search-results-area .result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
@@ -199,10 +157,21 @@
         .back-to-top{position:fixed;bottom:80px;right:20px;background:var(--title-color);color:#1f2d3d;width:40px;height:40px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);z-index:100;box-shadow:var(--shadow-md)}
         .back-to-top.visible{opacity:1;visibility:visible}
         .back-to-top:hover{transform:scale(1.1)}
+        /* 好友板块 */
+        .friend-section{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:28px;padding:20px;margin:24px 0;border:var(--card-border)}
+        .friend-section h3{margin-bottom:14px;color:var(--title-color);font-size:1.2rem}
+        .friend-card{display:flex;align-items:center;gap:16px;background:rgba(128,128,128,0.06);border-radius:20px;padding:16px 20px;border:1px solid rgba(128,128,128,0.1);transition:transform .2s}
+        .friend-card:hover{transform:translateY(-3px)}
+        .friend-card img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--title-color)}
+        .friend-card .friend-info{flex:1}
+        .friend-card .friend-info .fname{font-weight:700;font-size:1.1rem;color:var(--title-color)}
+        .friend-card .friend-info .fdesc{font-size:0.85rem;opacity:0.7;margin-top:2px}
+        .friend-card .friend-link{display:inline-block;background:#2a5f8a;padding:6px 18px;border-radius:40px;text-decoration:none;color:#fff;font-size:0.85rem;transition:background .2s}
+        .friend-card .friend-link:hover{background:#3a7faa}
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
         @media (max-width:992px){.nav-menu{gap:12px}.header{flex-wrap:wrap;height:auto;padding:8px 12px}.logo-area{flex:1}.header-tools{flex:0 1 auto}}
         @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input{width:100%}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}}
-        @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}.cute-title{font-size:1.6rem}.anniversary-card .card-title{font-size:1.4rem}.balloon{font-size:1.8rem !important}}
+        @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}}
     </style>
 </head>
 <body class="light">
@@ -225,6 +194,7 @@
                 <li><a class="nav-link" data-page="encyclopedia">📖 蛋仔百科</a></li>
                 <li><a class="nav-link" data-page="anniversary">🎂 周年庆大合照</a></li>
                 <li><a class="nav-link" data-page="social">📱 互动交流</a></li>
+                <li><a class="nav-link" data-page="friend">👥 关于好友</a></li>
             </ul>
             <div class="header-tools">
                 <div class="lang-switch" id="langToggle">繁</div>
@@ -238,32 +208,9 @@
     <div class="main-content container">
         <!-- 首页 -->
         <div id="homePage" class="page active-page">
-            <!-- 装饰 -->
-            <div class="festive-deco">
-                <div class="balloon">🎈</div>
-                <div class="balloon">🎈</div>
-                <div class="balloon">🎈</div>
-                <div class="balloon">🎈</div>
-                <div class="balloon">🎉</div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="sparkle">✨</div>
-                <div class="sparkle">✨</div>
-                <div class="sparkle">✨</div>
-            </div>
-
             <div class="hero-center">
                 <img src="assets/tx.jpg" alt="蛋仔小鄒呀" class="avatar-large" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23ffd966%22%2F%3E%3C%2Fsvg%3E'">
-                <div class="site-name">
-                    <span class="cute-title">🎉 蛋仔小鄒呀 🎉</span>
-                    <span class="festive-badge">🎂 4周年</span>
-                </div>
+                <div class="site-name">🎉 蛋仔小鄒呀</div>
                 <div class="site-domain">dzxzy.github.io</div>
                 <div class="main-search">
                     <div class="search-wrapper">
@@ -272,23 +219,20 @@
                     </div>
                     <div class="search-suggestions" id="searchSuggestions"></div>
                 </div>
-                <div class="hot-search" id="hotSearchContainer">
-                    <span class="hot-search-label">🔥 热门搜索：</span>
-                </div>
                 <div class="search-results-area" id="searchResultsArea">
                     <div class="result-grid" id="searchResultGrid"></div>
                 </div>
             </div>
 
-            <!-- 侧边卡片 - 填充左右空白 -->
+            <!-- 侧边卡片 -->
             <div class="side-cards">
                 <div class="side-card">
                     <h4>🎬 最新赛季</h4>
                     <ul>
+                        <li onclick="performSearch('S32-惊魂盛典')">惊魂盛典</li>
                         <li onclick="performSearch('S31-西湖寻缘')">西湖寻缘</li>
                         <li onclick="performSearch('S30-元气零食')">元气零食</li>
                         <li onclick="performSearch('S29-心动魔法')">心动魔法</li>
-                        <li onclick="performSearch('S28-奇迹大马戏')">奇迹大马戏</li>
                     </ul>
                 </div>
                 <div class="side-card">
@@ -302,13 +246,6 @@
                         <li onclick="performSearch('焰心龙女芙瑞')">焰心龙女芙瑞</li>
                     </ul>
                 </div>
-            </div>
-
-            <!-- 四周年快闪横幅 -->
-            <div style="background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-size:300% 300%;border-radius:28px;padding:16px 24px;margin:20px 0;text-align:center;animation:gradientMove 4s ease-in-out infinite;box-shadow:0 4px 24px rgba(255,107,107,0.3)">
-                <p style="color:#fff;font-weight:900;font-size:1.2rem;text-shadow:0 2px 8px rgba(0,0,0,0.2);letter-spacing:1px">
-                    🎂 蛋仔派对四周年快乐！🎉 点击上方「周年庆大合照」查看历年合照！
-                </p>
             </div>
 
             <div class="news-section">
@@ -393,6 +330,22 @@
                     <button class="comment-btn" id="commentSubmitBtn">📢 发布留言</button>
                 </div>
                 <div class="comment-list" id="commentList"></div>
+            </div>
+        </div>
+
+        <!-- 关于好友 -->
+        <div id="friendPage" class="page">
+            <h2 style="text-align:center;">👥 关于好友</h2>
+            <div class="friend-section">
+                <h3>🌟 我的好友</h3>
+                <div class="friend-card">
+                    <img src="assets/friend.jpg" alt="好友头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2260%22%20height%3D%2260%22%3E%3Crect%20width%3D%2260%22%20height%3D%2260%22%20fill%3D%22%23ffd966%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%2235%22%20text-anchor%3D%22middle%22%20font-size%3D%2220%22%20fill%3D%22%23ff6b6b%22%3E👤%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                    <div class="friend-info">
+                        <div class="fname">搞电脑的查拉</div>
+                        <div class="fdesc">💻 电脑技术爱好者 · 蛋仔派对玩家</div>
+                    </div>
+                    <a href="https://biyonfu.github.io" target="_blank" class="friend-link">去他的网站 →</a>
+                </div>
             </div>
         </div>
     </div>
@@ -600,6 +553,7 @@
                 navEncyclopedia: '📖 蛋仔百科',
                 navAnniversary: '🎂 周年庆大合照',
                 navSocial: '📱 互动交流',
+                navFriend: '👥 关于好友',
                 themeToggleNight: '夜晚',
                 themeToggleDay: '白天',
                 langToggle: '繁',
@@ -607,10 +561,7 @@
                 searchPlaceholder: '搜索赛季、角色、视频...',
                 newsTitle: '📢 最新公告',
                 newsItems: [
-                    { date: '2026-07-04', content: '🎉 蛋仔派对四周年庆！点击「周年庆大合照」查看历年合照！' },
-                    { date: '2026-06-13', content: '✨ S31-西湖寻缘PV上线！' },
-                    { date: '2026-06-13', content: '📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）' },
-                    { date: '2026-06-10', content: '🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单' }
+                    { date: '2026-09-01', content: '🎬 新增S32赛季动画PV「惊魂盛典」！' }
                 ],
                 seasonTitle: '🎬 蛋仔派对赛季动画PV 🎬',
                 seasonSearchPlaceholder: '🔍 搜索视频标题...',
@@ -636,10 +587,13 @@
                 viewBaike: '查看百科',
                 notReady: '暂未引入',
                 emptyComments: '还没有留言，快来发表你的想法吧！',
-                hotSearchLabel: '🔥 热门搜索：',
                 encyHotSearchLabel: '🔥 热词搜索：',
                 noSearchResult: '😭 没有找到相关内容',
-                sensitiveWordWarning: '留言包含敏感词，请修改后重试。'
+                sensitiveWordWarning: '留言包含敏感词，请修改后重试。',
+                friendTitle: '👥 关于好友',
+                friendName: '搞电脑的查拉',
+                friendDesc: '💻 电脑技术爱好者 · 蛋仔派对玩家',
+                friendLink: '去他的网站 →'
             },
             'zh-TW': {
                 siteTitle: '蛋仔小鄒呀 | 個人公開網站',
@@ -649,6 +603,7 @@
                 navEncyclopedia: '📖 蛋仔百科',
                 navAnniversary: '🎂 週年慶大合照',
                 navSocial: '📱 互動交流',
+                navFriend: '👥 關於好友',
                 themeToggleNight: '夜晚',
                 themeToggleDay: '白天',
                 langToggle: '简',
@@ -656,10 +611,7 @@
                 searchPlaceholder: '搜索賽季、角色、視頻...',
                 newsTitle: '📢 最新公告',
                 newsItems: [
-                    { date: '2026-07-04', content: '🎉 蛋仔派對四週年慶！點擊「週年慶大合照」查看歷年合照！' },
-                    { date: '2026-06-13', content: '✨ S31-西湖尋緣PV上線！' },
-                    { date: '2026-06-13', content: '📖 新增蛋仔百科一欄。（部分功能仍在試運行中。）' },
-                    { date: '2026-06-10', content: '🎵 歌單推薦新增「蛋仔派對艾比大陸背景音樂」歌單' }
+                    { date: '2026-09-01', content: '🎬 新增S32賽季動畫PV「驚魂盛典」！' }
                 ],
                 seasonTitle: '🎬 蛋仔派對賽季動畫PV 🎬',
                 seasonSearchPlaceholder: '🔍 搜索視頻標題...',
@@ -685,10 +637,13 @@
                 viewBaike: '查看百科',
                 notReady: '暫未引入',
                 emptyComments: '還沒有留言，快來發表你的想法吧！',
-                hotSearchLabel: '🔥 熱門搜索：',
                 encyHotSearchLabel: '🔥 熱詞搜索：',
                 noSearchResult: '😭 沒有找到相關內容',
-                sensitiveWordWarning: '留言包含敏感詞，請修改後重試。'
+                sensitiveWordWarning: '留言包含敏感詞，請修改後重試。',
+                friendTitle: '👥 關於好友',
+                friendName: '搞電腦的查拉',
+                friendDesc: '💻 電腦技術愛好者 · 蛋仔派對玩家',
+                friendLink: '去他的網站 →'
             }
         };
 
@@ -697,7 +652,7 @@
             document.title = t.siteTitle;
             var navLinks = document.querySelectorAll('.nav-menu .nav-link[data-page]');
             var navMap = { home: t.navHome, season: t.navSeason, music: t.navMusic, encyclopedia: t.navEncyclopedia,
-                anniversary: t.navAnniversary, social: t.navSocial };
+                anniversary: t.navAnniversary, social: t.navSocial, friend: t.navFriend };
             for (var i = 0; i < navLinks.length; i++) {
                 var page = navLinks[i].getAttribute('data-page');
                 if (navMap[page]) navLinks[i].innerHTML = navMap[page];
@@ -753,8 +708,16 @@
                     if (pElems[2]) pElems[2].innerHTML = t.trialAutoClose;
                 }
             }
-            renderHomeHotSearch();
-            renderEncyclopediaHotSearch();
+            // 好友板块
+            var friendTitle = document.querySelector('#friendPage h2');
+            if (friendTitle) friendTitle.innerHTML = t.friendTitle;
+            var fname = document.querySelector('.friend-card .fname');
+            if (fname) fname.innerHTML = t.friendName;
+            var fdesc = document.querySelector('.friend-card .fdesc');
+            if (fdesc) fdesc.innerHTML = t.friendDesc;
+            var flink = document.querySelector('.friend-card .friend-link');
+            if (flink) flink.innerHTML = t.friendLink;
+
             renderNews();
             renderSeasonVideos();
             renderMusic();
@@ -775,45 +738,19 @@
                     item.content + '</span></div>';
             }
             container.innerHTML = html;
+            // 为公告绑定点击事件（S32公告点击播放视频）
             var items = document.querySelectorAll('.news-item');
             if (items.length) {
                 items[0].addEventListener('click', function() {
                     var modal = document.getElementById('videoModal');
                     var mv = document.getElementById('modalVideo');
-                    mv.src = VIDEO_BASE_PATH + 'S31-西湖寻缘.mp4';
-                    document.getElementById('modalTitle').innerText = 'S31-西湖寻缘';
-                    document.getElementById('modalDesc').innerText = '恩人，你到底在哪里？';
-                    modal.style.display = 'flex';
-                    mv.play();
-                });
-            }
-        }
-
-        // ===== 热门搜索（首页）- 修改标签显示（去掉Sxx-前缀） =====
-        function renderHomeHotSearch() {
-            var container = document.getElementById('hotSearchContainer');
-            if (!container) return;
-            var t = texts[currentLang];
-            var hotTags = [
-                "S12-寻秘狂欢", "S14-寻光冰雪", "S16-潮玩大作战",
-                "S20-龙与剑之诗", "S21-时之回响", "S31-西湖寻缘",
-                "梦幻星遇", "Stellar Encounter Season", "流火精灵舞舞",
-                "Ignis the Flame Spirit", "剧院首席露希", "Lucy the Star"
-            ];
-            var html = '<span class="hot-search-label">' + t.hotSearchLabel + '</span>';
-            for (var i = 0; i < hotTags.length; i++) {
-                var full = hotTags[i];
-                var display = full.split('-').length > 1 ? full.split('-')[1] : full;
-                html += '<span class="hot-tag" data-tag="' + full + '">' + display + '</span>';
-            }
-            container.innerHTML = html;
-            var tags = container.querySelectorAll('.hot-tag');
-            for (var j = 0; j < tags.length; j++) {
-                tags[j].addEventListener('click', function() {
-                    var input = document.getElementById('mainSearchInput');
-                    if (input) {
-                        input.value = this.getAttribute('data-tag');
-                        performSearch(this.getAttribute('data-tag'));
+                    var s32 = normalVideos.find(v => v.fileName === 'S32-惊魂盛典.mp4');
+                    if (s32) {
+                        mv.src = VIDEO_BASE_PATH + s32.fileName;
+                        document.getElementById('modalTitle').innerText = s32.title;
+                        document.getElementById('modalDesc').innerText = s32.description;
+                        modal.style.display = 'flex';
+                        mv.play();
                     }
                 });
             }
@@ -842,39 +779,40 @@
             }
         }
 
-        // ===== 视频数据 =====
+        // ===== 视频数据（更新所有简介 + 新增S32） =====
         var normalVideos = [
-            { title: "怪奇工厂", description: "暂无介绍", fileName: "S01-怪奇工厂.mp4" },
-            { title: "S02-惊奇游乐园", description: "暂无介绍", fileName: "S02-惊奇游乐园.mp4" },
-            { title: "S03-疯狂马戏团", description: "暂无介绍", fileName: "S03-疯狂马戏团.mp4" },
-            { title: "S04-汪汪向前冲", description: "我要用速度战胜一切", fileName: "S04-汪汪向前冲.mp4" },
-            { title: "S05-糖果甜心", description: "暂无介绍", fileName: "S05-糖果甜心.mp4" },
-            { title: "S06-蛋糕蜜语", description: "传说,在一个甜蜜的午后……", fileName: "S06-蛋糕蜜语.mp4" },
-            { title: "S07-音乐星企划", description: "准备好让心跳加速了吗！", fileName: "S07-音乐星企划.mp4" },
-            { title: "S08-精灵之声", description: "自从曜星离开后，我以为，世界上不会再有音乐了……", fileName: "S08-精灵之声.mp4" },
-            { title: "S09-勇闯龙蛋岛", description: "暂无介绍", fileName: "S09-勇闯龙蛋岛.mp4" },
-            { title: "S10-太空奇遇", description: "暂无介绍", fileName: "S10-太空奇遇.mp4" },
-            { title: "S11-梦幻星遇", description: "那些深满内心的恐惧，总会以梦的形式再次出现……", fileName: "S11-梦幻星遇.mp4" },
-            { title: "S12-寻秘狂欢", description: "欢迎来到狂欢节", fileName: "S12-寻秘狂欢.mp4" },
-            { title: "S13-午夜魅影", description: "午夜剧院，欢迎所有迷路的灵魂……", fileName: "S13-午夜魅影.mp4" },
-            { title: "S14-寻光冰雪", description: "又梦见了冰原的冬日……", fileName: "S14-寻光冰雪.mp4" },
-            { title: "S15-玩具历险", description: "怀揣着梦想而来的小蛋仔，请许下你的愿望……", fileName: "S15-玩具历险.mp4" },
-            { title: "S16-潮玩大作战", description: "这些被改造的玩具，最后都去了哪里……", fileName: "S16-潮玩大作战.mp4" },
-            { title: "S17-宝船拍卖夜", description: "载满了珍宝的游船，现在已为你靠岸……", fileName: "S17-宝船拍卖夜.mp4" },
-            { title: "S18-深海逐金宴", description: "几乎所有的罪恶，都来源于全能的黄金……", fileName: "S18-深海逐金宴.mp4" },
-            { title: "S19-圆月哥特", description: "十五天后，我会被那些家伙撕碎……", fileName: "S19-圆月哥特.mp4" },
-            { title: "S20-龙与剑之诗", description: "我重生了……", fileName: "S20-龙与剑之诗.mp4" },
-            { title: "S21-时之回响", description: "时针，指向二十一点前……", fileName: "S21-时之回响.mp4" },
-            { title: "S22-金字塔传奇", description: "不知从何时开始，神明抛弃了我们……", fileName: "S22-金字塔传奇.mp4" },
-            { title: "S23-绘梦校园", description: "平静的校园里，藏着多少秘密……", fileName: "S23-绘梦校园.mp4" },
-            { title: "S24-蜜糖海迷踪", description: "传说，在一个甜蜜的午后……*2", fileName: "S24-蜜糖海迷踪.mp4" },
-            { title: "S25-博物馆狂想", description: "好漂亮的王冠……（呃啊，我的屁股！）", fileName: "S25-博物馆狂想.mp4" },
-            { title: "S26-国宝归乡", description: "时间，是顽固的错觉……", fileName: "S26-国宝归乡.mp4" },
-            { title: "S27-织梦寻星", description: "欢迎光临，尊敬的客人", fileName: "S27-织梦寻星.mp4" },
-            { title: "S28-奇迹大马戏", description: "爸爸说，当天空落下第一片雪花，他就会回家。", fileName: "S28-奇迹大马戏.mp4" },
-            { title: "S29-心动魔法", description: "魔法少女，变身！", fileName: "S29-心动魔法.mp4" },
-            { title: "S30-元气零食", description: "热量在沸腾，美味在尖叫！", fileName: "S30-元气零食.mp4" },
-            { title: "S31-西湖寻缘", description: "恩人，你到底在哪里？", fileName: "S31-西湖寻缘.mp4" }
+            { title: "S1-怪奇工厂", description: "蛋仔岛的建立离不开它们", fileName: "S01-怪奇工厂.mp4" },
+            { title: "S2-惊奇游乐园", description: "欢迎来到怪象丛生的游乐园", fileName: "S02-惊奇游乐园.mp4" },
+            { title: "S3-疯狂马戏团", description: "这里的表演一定会让你流连忘返", fileName: "S03-疯狂马戏团.mp4" },
+            { title: "S4-汪汪向前冲", description: "勇敢汪汪向前冲", fileName: "S04-汪汪向前冲.mp4" },
+            { title: "S5-糖果甜心", description: "尽情享受糖果的甜蜜吧", fileName: "S05-糖果甜心.mp4" },
+            { title: "S6-蛋糕蜜语", description: "聆听蛋糕们的奇幻蜜语", fileName: "S06-蛋糕蜜语.mp4" },
+            { title: "S7-音乐星企划", description: "这首歌，带来爱与勇气的力量", fileName: "S07-音乐星企划.mp4" },
+            { title: "S8-精灵之声", description: "传说中的精灵，拥有振奋人心的力量", fileName: "S08-精灵之声.mp4" },
+            { title: "S9-勇闯龙蛋岛", description: "来自远古丛林的神秘客人", fileName: "S09-勇闯龙蛋岛.mp4" },
+            { title: "S10-太空奇遇", description: "和太空小队一起穿越浪漫星河", fileName: "S10-太空奇遇.mp4" },
+            { title: "S11-梦幻星遇", description: "美梦守护联盟，点亮你的每个梦境", fileName: "S11-梦幻星遇.mp4" },
+            { title: "S12-寻秘狂欢", description: "探寻隐秘故事，徜徉童话世界", fileName: "S12-寻秘狂欢.mp4" },
+            { title: "S13-午夜魅影", description: "穿越午夜迷雾，点亮幽暗的梦之舞台", fileName: "S13-午夜魅影.mp4" },
+            { title: "S14-寻光冰雪", description: "踏上未知的旅程，追寻自然的微光", fileName: "S14-寻光冰雪.mp4" },
+            { title: "S15-玩具历险", description: "穿过奇妙玩具世界，寻找神秘心愿瀑布", fileName: "S15-玩具历险.mp4" },
+            { title: "S16-潮玩大作战", description: "误入惊叫之旅，开启极限逃生", fileName: "S16-潮玩大作战.mp4" },
+            { title: "S17-宝船拍卖夜", description: "载满珍宝的游船，现已为你靠岸", fileName: "S17-宝船拍卖夜.mp4" },
+            { title: "S18-深海逐金宴", description: "深海的罪恶，皆因黄金的引诱", fileName: "S18-深海逐金宴.mp4" },
+            { title: "S19-圆月哥特", description: "神秘的古堡中流传着怎样的传说", fileName: "S19-圆月哥特.mp4" },
+            { title: "S20-龙与剑之诗", description: "我们的诗歌将流传后世", fileName: "S20-龙与剑之诗.mp4" },
+            { title: "S21-时之回响", description: "时针指向二十一，一切都会推倒重来", fileName: "S21-时之回响.mp4" },
+            { title: "S22-金字塔传奇", description: "探秘金字塔，书写新的传奇", fileName: "S22-金字塔传奇.mp4" },
+            { title: "S23-绘梦校园", description: "体验奇异的校园冒险", fileName: "S23-绘梦校园.mp4" },
+            { title: "S24-蜜糖海迷踪", description: "遨游神秘的蜜糖之海", fileName: "S24-蜜糖海迷踪.mp4" },
+            { title: "S25-博物馆狂想", description: "在博物馆度过奇妙之夜", fileName: "S25-博物馆狂想.mp4" },
+            { title: "S26-国宝归乡", description: "带国宝回家", fileName: "S26-国宝归乡.mp4" },
+            { title: "S27-织梦寻星", description: "点亮通往幸福的星图", fileName: "S27-织梦寻星.mp4" },
+            { title: "S28-奇迹大马戏", description: "爱是最伟大的奇迹", fileName: "S28-奇迹大马戏.mp4" },
+            { title: "S29-心动魔法", description: "泪与魔法，华丽变身", fileName: "S29-心动魔法.mp4" },
+            { title: "S30-元气零食", description: "一口零食，元气满满", fileName: "S30-元气零食.mp4" },
+            { title: "S31-西湖寻缘", description: "寻缘断桥上，相逢烟雨中", fileName: "S31-西湖寻缘.mp4" },
+            { title: "S32-惊魂盛典", description: "欢迎参加惊魂明星云集的晚宴", fileName: "S32-惊魂盛典.mp4" }
         ];
 
         var easterEggs = [
@@ -993,7 +931,7 @@
             }
         }
 
-        // ===== 蛋仔百科数据（完整） =====
+        // ===== 蛋仔百科数据 =====
         var fullSeasonsData = [
             { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy",
                     link: null }, { cn: "小蓝帽", en: "Blu", link: null }, { cn: "法拉帝", en: "Ferretti",
@@ -1508,7 +1446,8 @@
             music: document.getElementById('musicPage'),
             encyclopedia: document.getElementById('encyclopediaPage'),
             anniversary: document.getElementById('anniversaryPage'),
-            social: document.getElementById('socialPage')
+            social: document.getElementById('socialPage'),
+            friend: document.getElementById('friendPage')
         };
 
         function showPage(p) {
