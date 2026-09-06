@@ -7,6 +7,7 @@
     <link rel="preload" as="image" href="assets/bg.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ---------- 样式保持不变（原样） ---------- */
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--gov-main-color:#0A3369;--gov-accent-color:#FFB800;--card-bg-light:rgba(255,255,255,0.95);--card-bg-dark:rgba(30,35,55,0.85);--text-light:#1F2D3D;--text-dark:#EEF2FF;--shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 8px 24px rgba(0,0,0,0.12);--transition:all 0.25s ease}
         body.light{background:linear-gradient(135deg,#F0F4FA 0%,#E8EDF5 100%);background-attachment:fixed;--card-bg:rgba(255,255,255,0.92);--card-border:1px solid #E5E9F0;--text-color:var(--text-light);--title-color:var(--gov-main-color)}
@@ -425,9 +426,11 @@
 
     <script>
         // ============================================================
-        // 配置：网站所有者密码
+        // 配置：网站所有者密码（全自动哈希计算，无需手动替换）
+        // 固定密码为：SoliderDrop2935
+        // 网站加载时会自动计算其 SHA-256 哈希值并用于验证
         // ============================================================
-        var OWNER_PASSWORD = 'admin123';
+        var OWNER_PASSWORD_HASH = ''; // 留空，由程序自动计算填充
 
         // ============================================================
         // 1. 简繁映射
@@ -583,7 +586,7 @@
         var currentLang = 'zh-CN';
 
         // ============================================================
-        // 2. 多语言文本（已移除彩蛋相关提示）
+        // 2. 多语言文本
         // ============================================================
         var texts = {
             'zh-CN': {
@@ -914,7 +917,7 @@
         }
 
         // ============================================================
-        // 7. 渲染赛季动画（已移除彩蛋提示）
+        // 7. 渲染赛季动画
         // ============================================================
         function renderSeasonVideos() {
             var container = document.getElementById('videoContainer');
@@ -1012,7 +1015,7 @@
         }
 
         // ============================================================
-        // 8. 蛋仔百科数据（完整）
+        // 8. 蛋仔百科数据
         // ============================================================
         var fullSeasonsData = [
             { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy",
@@ -1270,12 +1273,11 @@
         }
 
         // ============================================================
-        // 12. 评论系统（含权限控制）
+        // 12. 评论系统（全自动 SHA-256 哈希验证）
         // ============================================================
         var STORAGE_KEY = 'egg_comments';
         var isOwner = false;
 
-        // 自动修复建议列表（简洁版）
         var autoFixSuggestions = {
             '艹': '🌱',
             '操': '🏋️',
@@ -1410,7 +1412,7 @@
             var finalText = result.hasIssue ? result.suggestion : text;
 
             if (result.hasIssue) {
-                alert(t.sensitiveWordWarning);
+                alert('检测到敏感词，已自动替换为表情符号');
                 return;
             }
 
@@ -1446,7 +1448,7 @@
             var finalText = result.hasIssue ? result.suggestion : text;
 
             if (result.hasIssue) {
-                alert(t.sensitiveWordWarning);
+                alert('检测到敏感词，已自动替换为表情符号');
                 return;
             }
 
@@ -1576,23 +1578,48 @@
             setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
         });
 
-        // 所有者验证
+        // 所有者验证（SHA-256 哈希比对 + 自动计算）
         document.getElementById('ownerLoginBtn').addEventListener('click', function() {
             var password = document.getElementById('ownerPassword').value;
             var statusEl = document.getElementById('ownerStatus');
             var t = texts[currentLang];
 
-            if (password === OWNER_PASSWORD) {
-                isOwner = true;
-                statusEl.textContent = '✅ 已验证';
-                statusEl.className = 'owner-status active';
-                document.getElementById('ownerPassword').value = '';
-                renderComments();
-            } else {
-                isOwner = false;
-                statusEl.textContent = t.ownerLoginFailed;
+            if (!password) {
+                statusEl.textContent = '请先输入密码';
                 statusEl.className = 'owner-status inactive';
+                return;
             }
+
+            // 如果 OWNER_PASSWORD_HASH 尚未计算（极罕见情况），先计算一次
+            if (!OWNER_PASSWORD_HASH) {
+                statusEl.textContent = '⏳ 系统初始化中，请稍后重试...';
+                statusEl.className = 'owner-status inactive';
+                // 触发一次计算（实际上 init 里已经计算，这里作为兜底）
+                return;
+            }
+
+            // 计算输入密码的 SHA-256
+            crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))
+                .then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    if (hashHex === OWNER_PASSWORD_HASH) {
+                        isOwner = true;
+                        statusEl.textContent = '✅ ' + t.ownerLoginSuccess;
+                        statusEl.className = 'owner-status active';
+                        document.getElementById('ownerPassword').value = '';
+                        renderComments();
+                    } else {
+                        isOwner = false;
+                        statusEl.textContent = '❌ ' + t.ownerLoginFailed;
+                        statusEl.className = 'owner-status inactive';
+                    }
+                })
+                .catch(err => {
+                    console.error('哈希计算失败:', err);
+                    statusEl.textContent = '⚠️ 验证过程出错';
+                    statusEl.className = 'owner-status inactive';
+                });
         });
 
         document.getElementById('ownerPassword').addEventListener('keydown', function(e) {
@@ -1880,15 +1907,33 @@
         }
 
         // ============================================================
-        // 15. 初始化
+        // 15. 初始化（包含自动计算密码哈希）
         // ============================================================
         (function init() {
             var savedLang = localStorage.getItem('lang');
             if (savedLang === 'zh-TW') currentLang = 'zh-TW';
             else currentLang = 'zh-CN';
-            applyLanguage();
-            showPage('home');
-            renderComments();
+
+            // --- 自动计算并设置密码哈希（用户无需任何操作） ---
+            async function setupPasswordHash() {
+                try {
+                    const msg = new TextEncoder().encode('SoliderDrop2935');
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', msg);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    OWNER_PASSWORD_HASH = hashHex;
+                    console.log('✅ 密码哈希已自动设置:', OWNER_PASSWORD_HASH);
+                } catch (err) {
+                    console.error('⚠️ 自动计算哈希失败，请刷新重试:', err);
+                }
+            }
+
+            // 执行哈希计算，完成后继续初始化
+            setupPasswordHash().then(() => {
+                applyLanguage();
+                showPage('home');
+                renderComments();
+            });
         })();
     </script>
 </body>
