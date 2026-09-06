@@ -13,8 +13,10 @@
         body.dark{background:url('assets/bg.jpg') center center/cover no-repeat fixed;background-color:#0a0f1a;--card-bg:rgba(30,40,60,0.75);--card-border:1px solid rgba(255,215,0,0.25);--text-color:#eef2ff;--title-color:#ffd966}
         body{font-family:system-ui,-apple-system,'Segoe UI','Noto Sans',sans-serif;color:var(--text-color);transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
         .container{max-width:1300px;margin:0 auto;padding:0 16px}
-
-        /* 侧边卡片 */
+        .anniversary-photo{width:100%;max-width:700px;height:auto;margin:0 auto 20px;display:block;border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.2);border:4px solid rgba(255,215,0,0.3)}
+        .anniversary-card{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:32px;padding:32px;margin:24px 0;border:3px solid transparent;background-image:linear-gradient(var(--card-bg),var(--card-bg)),linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);background-origin:padding-box,border-box;background-clip:padding-box,border-box;box-shadow:0 8px 32px rgba(255,107,107,0.2);transition:transform 0.3s}
+        .anniversary-card:hover{transform:translateY(-4px)}
+        .anniversary-card .card-title{font-size:1.8rem;font-weight:900;text-align:center;background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
         .side-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
         .side-card{background:var(--card-bg);backdrop-filter:blur(8px);border-radius:20px;padding:18px 20px;border:var(--card-border);transition:transform .2s;box-shadow:var(--shadow-sm)}
         .side-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
@@ -22,8 +24,6 @@
         .side-card ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
         .side-card ul li{background:rgba(128,128,128,0.12);padding:4px 14px;border-radius:20px;font-size:0.85rem;cursor:pointer;transition:var(--transition);border:1px solid transparent}
         .side-card ul li:hover{background:var(--title-color);color:#1f2d3d;border-color:var(--title-color)}
-
-        /* 导航 */
         .top-banner{width:100%;overflow:hidden;line-height:0}
         .top-banner img{width:100%;height:auto;display:block;object-fit:cover}
         .header-wrapper{background:var(--card-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-index:1000;border-bottom:var(--card-border)}
@@ -100,32 +100,38 @@
         .easter-egg img{width:100px;height:100px;border-radius:16px;object-fit:cover}
         .interact-section{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:28px;padding:20px;margin:24px 0;border:var(--card-border)}
         .interact-section h3{margin-bottom:14px;color:var(--title-color);font-size:1.2rem}
-        .comment-input-area{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-        .comment-input-area input{flex:1;padding:10px 16px;border-radius:40px;border:var(--card-border);background:rgba(128,128,128,0.08);color:var(--text-color);font-size:0.9rem;outline:none;min-width:120px}
-        .comment-input-area input:focus{border-color:var(--title-color)}
+        .comment-input-area{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+        .comment-input-area input[type="text"]{flex:1;padding:10px 16px;border-radius:40px;border:var(--card-border);background:rgba(128,128,128,0.08);color:var(--text-color);font-size:0.9rem;outline:none;min-width:120px}
+        .comment-input-area input[type="text"]:focus{border-color:var(--title-color)}
+        .comment-input-area .name-input{flex:0 0 160px}
         .comment-input-area .comment-btn{background:var(--title-color);border:none;border-radius:40px;padding:10px 24px;color:#1f2d3d;font-weight:600;cursor:pointer;transition:var(--transition);font-size:0.9rem}
         .comment-input-area .comment-btn:hover{opacity:0.8;transform:scale(0.97)}
         .comment-list{display:flex;flex-direction:column;gap:14px;max-height:500px;overflow-y:auto}
-        .comment-item{padding:14px;border-radius:18px;background:rgba(128,128,128,0.06);border:1px solid rgba(128,128,128,0.1);font-size:0.9rem}
+        .comment-item{padding:14px;border-radius:18px;background:rgba(128,128,128,0.06);border:1px solid rgba(128,128,128,0.1);font-size:0.9rem;position:relative}
         .comment-item .comment-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px}
-        .comment-item .comment-author{font-weight:600;display:flex;align-items:center;gap:8px}
-        .comment-item .comment-author .avatar{width:24px;height:24px;border-radius:50%;background:var(--title-color);color:#1f2d3d;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700}
+        .comment-item .comment-author{font-weight:600;display:flex;align-items:center;gap:8px;font-size:1rem}
+        .comment-item .comment-author .avatar{width:28px;height:28px;border-radius:50%;background:var(--title-color);color:#1f2d3d;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0}
+        .comment-item .comment-author .owner-badge{font-size:0.6rem;background:var(--title-color);color:#1f2d3d;padding:1px 8px;border-radius:12px;font-weight:700}
         .comment-item .comment-time{font-size:0.7rem;opacity:0.6}
-        .comment-item .comment-text{line-height:1.5;margin-bottom:8px}
-        .comment-item .comment-actions{display:flex;gap:14px;font-size:0.8rem}
+        .comment-item .comment-text{line-height:1.5;margin-bottom:8px;word-break:break-word}
+        .comment-item .comment-actions{display:flex;gap:14px;font-size:0.8rem;flex-wrap:wrap;align-items:center}
         .comment-item .comment-actions span{cursor:pointer;opacity:0.6;transition:var(--transition);display:flex;align-items:center;gap:4px}
         .comment-item .comment-actions span:hover{opacity:1;color:var(--title-color)}
         .comment-item .comment-actions .liked{color:#ff6b6b;opacity:1}
+        .comment-item .comment-actions .delete-btn{color:#ff6b6b;opacity:0.5;font-size:0.75rem}
+        .comment-item .comment-actions .delete-btn:hover{opacity:1;color:#ff0000}
         .comment-item .reply-area{margin-top:10px;padding-left:16px;border-left:2px solid var(--title-color);display:none}
         .comment-item .reply-area.active{display:block}
-        .comment-item .reply-area .reply-input{display:flex;gap:8px;margin-top:6px}
-        .comment-item .reply-area .reply-input input{flex:1;padding:6px 12px;border-radius:30px;border:var(--card-border);background:rgba(128,128,128,0.08);color:var(--text-color);font-size:0.8rem;outline:none}
+        .comment-item .reply-area .reply-input{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+        .comment-item .reply-area .reply-input input{flex:1;padding:6px 12px;border-radius:30px;border:var(--card-border);background:rgba(128,128,128,0.08);color:var(--text-color);font-size:0.8rem;outline:none;min-width:100px}
         .comment-item .reply-area .reply-input button{background:var(--title-color);border:none;border-radius:30px;padding:6px 14px;color:#1f2d3d;font-weight:600;cursor:pointer;font-size:0.8rem}
         .comment-item .replies{margin-top:10px;padding-left:16px;display:flex;flex-direction:column;gap:8px}
-        .comment-item .replies .reply-item{padding:8px 12px;background:rgba(128,128,128,0.05);border-radius:14px;border-left:2px solid var(--title-color)}
-        .comment-item .replies .reply-item .reply-author{font-weight:600;font-size:0.8rem}
+        .comment-item .replies .reply-item{padding:8px 12px;background:rgba(128,128,128,0.05);border-radius:14px;border-left:2px solid var(--title-color);position:relative}
+        .comment-item .replies .reply-item .reply-author{font-weight:600;font-size:0.8rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
         .comment-item .replies .reply-item .reply-text{font-size:0.85rem;margin-top:4px}
         .comment-item .replies .reply-item .reply-time{font-size:0.65rem;opacity:0.5;margin-top:2px}
+        .comment-item .replies .reply-item .delete-reply-btn{color:#ff6b6b;opacity:0.5;font-size:0.65rem;cursor:pointer;margin-left:8px}
+        .comment-item .replies .reply-item .delete-reply-btn:hover{opacity:1;color:#ff0000}
         .empty-comments{text-align:center;padding:24px;opacity:0.6}
         .intro-card{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:28px;padding:20px;margin:24px 0;border:var(--card-border)}
         .search-bar{margin-bottom:20px;text-align:center}
@@ -157,21 +163,31 @@
         .back-to-top{position:fixed;bottom:80px;right:20px;background:var(--title-color);color:#1f2d3d;width:40px;height:40px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);z-index:100;box-shadow:var(--shadow-md)}
         .back-to-top.visible{opacity:1;visibility:visible}
         .back-to-top:hover{transform:scale(1.1)}
-        /* 好友板块 */
-        .friend-section{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:28px;padding:20px;margin:24px 0;border:var(--card-border)}
-        .friend-section h3{margin-bottom:14px;color:var(--title-color);font-size:1.2rem}
-        .friend-card{display:flex;align-items:center;gap:16px;background:rgba(128,128,128,0.06);border-radius:20px;padding:16px 20px;border:1px solid rgba(128,128,128,0.1);transition:transform .2s}
-        .friend-card:hover{transform:translateY(-3px)}
-        .friend-card img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--title-color)}
+        .friend-section{background:var(--card-bg);backdrop-filter:blur(12px);border-radius:32px;padding:32px 40px;margin:32px 0;border:var(--card-border);box-shadow:var(--shadow-sm);transition:all 0.3s ease}
+        .friend-section:hover{box-shadow:var(--shadow-md)}
+        .friend-section h3{margin-bottom:24px;color:var(--title-color);font-size:1.6rem;text-align:center;letter-spacing:2px}
+        .friend-card{display:flex;align-items:center;gap:32px;background:rgba(128,128,128,0.08);border-radius:28px;padding:28px 36px;border:2px solid rgba(128,128,128,0.15);transition:transform .3s,box-shadow .3s}
+        .friend-card:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,0.15);background:rgba(128,128,128,0.12)}
+        .friend-card img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--title-color);flex-shrink:0}
         .friend-card .friend-info{flex:1}
-        .friend-card .friend-info .fname{font-weight:700;font-size:1.1rem;color:var(--title-color)}
-        .friend-card .friend-info .fdesc{font-size:0.85rem;opacity:0.7;margin-top:2px}
-        .friend-card .friend-link{display:inline-block;background:#2a5f8a;padding:6px 18px;border-radius:40px;text-decoration:none;color:#fff;font-size:0.85rem;transition:background .2s}
-        .friend-card .friend-link:hover{background:#3a7faa}
+        .friend-card .friend-info .fname{font-weight:700;font-size:1.6rem;color:var(--title-color);margin-bottom:6px}
+        .friend-card .friend-info .fdesc{font-size:1.05rem;opacity:0.8;line-height:1.5}
+        .friend-card .friend-link{display:inline-block;background:#2a5f8a;padding:12px 32px;border-radius:50px;text-decoration:none;color:#fff;font-size:1.1rem;font-weight:500;transition:background .2s,transform .2s;white-space:nowrap}
+        .friend-card .friend-link:hover{background:#3a7faa;transform:scale(1.02)}
+        .audit-badge{display:inline-block;background:#ffd93d;color:#1f2d3d;font-size:0.7rem;padding:2px 10px;border-radius:20px;margin-left:8px;font-weight:600}
+        .owner-panel{background:rgba(128,128,128,0.05);border-radius:16px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px dashed rgba(128,128,128,0.2)}
+        .owner-panel label{font-weight:600;font-size:0.85rem}
+        .owner-panel input{padding:6px 12px;border-radius:30px;border:var(--card-border);background:rgba(128,128,128,0.08);color:var(--text-color);font-size:0.85rem;outline:none;flex:1;min-width:120px}
+        .owner-panel input:focus{border-color:var(--title-color)}
+        .owner-panel .owner-btn{background:var(--title-color);border:none;border-radius:30px;padding:6px 16px;color:#1f2d3d;font-weight:600;cursor:pointer;font-size:0.8rem}
+        .owner-panel .owner-btn:hover{opacity:0.8}
+        .owner-status{font-size:0.75rem;padding:4px 12px;border-radius:20px}
+        .owner-status.active{background:rgba(107,203,119,0.2);color:#6bcb77}
+        .owner-status.inactive{background:rgba(255,107,107,0.2);color:#ff6b6b}
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
         @media (max-width:992px){.nav-menu{gap:12px}.header{flex-wrap:wrap;height:auto;padding:8px 12px}.logo-area{flex:1}.header-tools{flex:0 1 auto}}
-        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input{width:100%}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}}
-        @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}}
+        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input[type="text"]{width:100%}.comment-input-area .name-input{flex:1;min-width:100px}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}.friend-card{flex-direction:column;text-align:center;padding:24px}.friend-card .friend-link{white-space:normal;width:100%;text-align:center}.friend-card img{width:80px;height:80px}.friend-card .friend-info .fname{font-size:1.4rem}.friend-section{padding:24px 20px}}
+        @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}.comment-input-area .name-input{flex:1 1 100%}}
     </style>
 </head>
 <body class="light">
@@ -224,7 +240,6 @@
                 </div>
             </div>
 
-            <!-- 侧边卡片 -->
             <div class="side-cards">
                 <div class="side-card">
                     <h4>🎬 最新赛季</h4>
@@ -318,33 +333,50 @@
 
         <!-- 互动交流 -->
         <div id="socialPage" class="page">
-            <h2 style="text-align:center;">📱 互动交流</h2>
+            <h2 style="text-align:center;">📱 互动交流 <span class="audit-badge">🔐 仅作者可删除 · 测试使用</span></h2>
             <div class="intro-card" id="aboutAuthor">
                 <div style="font-size:1.3rem;font-weight:bold;">🎉 关于作者</div>
                 <div id="authorText"></div>
             </div>
             <div class="interact-section">
                 <h3>💬 留言板 · 素材推荐</h3>
+                <div style="margin-bottom:12px;font-size:0.85rem;opacity:0.7;display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+                    <span>📝 请填写昵称发布留言</span>
+                    <span>🔒 仅评论者本人和网站所有者可删除</span>
+                    <span>🧪 测试运行中，欢迎体验</span>
+                </div>
+
+                <!-- 网站所有者面板 -->
+                <div class="owner-panel" id="ownerPanel">
+                    <label>🔑 网站所有者：</label>
+                    <input type="password" id="ownerPassword" placeholder="输入管理员密码" style="flex:1;min-width:140px;">
+                    <button class="owner-btn" id="ownerLoginBtn">🔓 验证身份</button>
+                    <span id="ownerStatus" class="owner-status inactive">未验证</span>
+                </div>
+
+                <!-- 评论输入区 -->
                 <div class="comment-input-area">
+                    <input type="text" id="commentNameInput" class="name-input" placeholder="你的昵称 (可选)" maxlength="20">
                     <input type="text" id="commentInput" placeholder="写下你的想法或推荐素材...">
                     <button class="comment-btn" id="commentSubmitBtn">📢 发布留言</button>
                 </div>
+                <div id="auditStatus" style="display:none;margin-bottom:12px;padding:10px 16px;border-radius:12px;font-size:0.9rem;"></div>
                 <div class="comment-list" id="commentList"></div>
             </div>
         </div>
 
         <!-- 关于好友 -->
         <div id="friendPage" class="page">
-            <h2 style="text-align:center;">👥 关于好友</h2>
+            <h2 style="text-align:center;font-size:2rem;margin-bottom:32px;">👥 关于好友</h2>
             <div class="friend-section">
                 <h3>🌟 我的好友</h3>
                 <div class="friend-card">
-                    <img src="assets/friend.jpg" alt="好友头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2260%22%20height%3D%2260%22%3E%3Crect%20width%3D%2260%22%20height%3D%2260%22%20fill%3D%22%23ffd966%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%2235%22%20text-anchor%3D%22middle%22%20font-size%3D%2220%22%20fill%3D%22%23ff6b6b%22%3E👤%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                    <img src="assets/friend.jpg" alt="好友头像" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%22%20height%3D%22100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23ffd966%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2255%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E👤%3C%2Ftext%3E%3C%2Fsvg%3E'">
                     <div class="friend-info">
                         <div class="fname">搞电脑的查拉</div>
                         <div class="fdesc">💻 电脑技术爱好者 · 蛋仔派对玩家</div>
                     </div>
-                    <a href="https://biyonfu.github.io" target="_blank" class="friend-link">去他的网站 →</a>
+                    <a href="https://biyonfu.github.io" target="_blank" class="friend-link">去她的网站 →</a>
                 </div>
             </div>
         </div>
@@ -392,7 +424,14 @@
     <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
 
     <script>
-        // ===== 简繁映射 =====
+        // ============================================================
+        // 配置：网站所有者密码
+        // ============================================================
+        var OWNER_PASSWORD = 'admin123';
+
+        // ============================================================
+        // 1. 简繁映射
+        // ============================================================
         var zhMap = {
             '简': '簡',
             '繁': '繁',
@@ -543,7 +582,9 @@
 
         var currentLang = 'zh-CN';
 
-        // ===== 多语言文本 =====
+        // ============================================================
+        // 2. 多语言文本（已移除彩蛋相关提示）
+        // ============================================================
         var texts = {
             'zh-CN': {
                 siteTitle: '蛋仔小鄒呀 | 个人公开网站',
@@ -561,7 +602,11 @@
                 searchPlaceholder: '搜索赛季、角色、视频...',
                 newsTitle: '📢 最新公告',
                 newsItems: [
-                    { date: '2026-09-01', content: '🎬 新增S32赛季动画PV「惊魂盛典」！' }
+                    { date: '2026-09-01', content: '🎬 新增S32赛季动画PV「惊魂盛典」！' },
+                    { date: '2026-06-13', content: '✨ S31-西湖寻缘PV上线！' },
+                    { date: '2026-06-13', content: '📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）' },
+                    { date: '2026-06-10', content: '🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单' },
+                    { date: '2026-06-01', content: '✨ 网站开启试运行，部分功能持续优化中，感谢支持！' }
                 ],
                 seasonTitle: '🎬 蛋仔派对赛季动画PV 🎬',
                 seasonSearchPlaceholder: '🔍 搜索视频标题...',
@@ -574,6 +619,7 @@
                 aboutAuthorText: '🎮 《蛋仔派对》S11玩家<br>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏<br>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力<br>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～',
                 interactTitle: '💬 留言板 · 素材推荐',
                 commentPlaceholder: '写下你的想法或推荐素材...',
+                commentNamePlaceholder: '你的昵称 (可选)',
                 commentButton: '📢 发布留言',
                 footerLeft: '📱 找到我',
                 footerCopyright: '网站所有 © 蛋仔小鄒呀',
@@ -582,18 +628,27 @@
                 trialAutoClose: '弹窗将在5秒后自动关闭',
                 downloadBtn: '⬇️ 下载',
                 musicListen: '🎧 去网易云听歌 →',
-                noVideoFound: '😭 没有找到相关视频，试试「一周年」「二周年」「三周年」「四周年」彩蛋',
+                noVideoFound: '😭 没有找到相关视频',
                 noEncyclopediaFound: '😭 没有找到相关内容',
                 viewBaike: '查看百科',
                 notReady: '暂未引入',
                 emptyComments: '还没有留言，快来发表你的想法吧！',
                 encyHotSearchLabel: '🔥 热词搜索：',
                 noSearchResult: '😭 没有找到相关内容',
-                sensitiveWordWarning: '留言包含敏感词，请修改后重试。',
                 friendTitle: '👥 关于好友',
                 friendName: '搞电脑的查拉',
                 friendDesc: '💻 电脑技术爱好者 · 蛋仔派对玩家',
-                friendLink: '去他的网站 →'
+                friendLink: '去她的网站 →',
+                auditPassed: '✅ 留言发布成功！',
+                auditFailed: '❌ 内容包含违规信息，请修改后重试',
+                auditChecking: '⏳ 正在审核中，请稍候...',
+                ownerLoginSuccess: '✅ 已验证为网站所有者',
+                ownerLoginFailed: '❌ 密码错误，请重试',
+                ownerLogout: '已退出所有者模式',
+                deleteSuccess: '✅ 已删除',
+                deleteFailed: '❌ 删除失败，请重试',
+                noPermission: '⚠️ 您没有权限删除此评论',
+                confirmDelete: '确定要删除这条评论吗？'
             },
             'zh-TW': {
                 siteTitle: '蛋仔小鄒呀 | 個人公開網站',
@@ -611,7 +666,11 @@
                 searchPlaceholder: '搜索賽季、角色、視頻...',
                 newsTitle: '📢 最新公告',
                 newsItems: [
-                    { date: '2026-09-01', content: '🎬 新增S32賽季動畫PV「驚魂盛典」！' }
+                    { date: '2026-09-01', content: '🎬 新增S32賽季動畫PV「驚魂盛典」！' },
+                    { date: '2026-06-13', content: '✨ S31-西湖尋緣PV上線！' },
+                    { date: '2026-06-13', content: '📖 新增蛋仔百科一欄。（部分功能仍在試運行中。）' },
+                    { date: '2026-06-10', content: '🎵 歌單推薦新增「蛋仔派對艾比大陸背景音樂」歌單' },
+                    { date: '2026-06-01', content: '✨ 網站開啟試運行，部分功能持續優化中，感謝支持！' }
                 ],
                 seasonTitle: '🎬 蛋仔派對賽季動畫PV 🎬',
                 seasonSearchPlaceholder: '🔍 搜索視頻標題...',
@@ -624,6 +683,7 @@
                 aboutAuthorText: '🎮 《蛋仔派對》S11玩家<br>📹 所有素材均通過特殊渠道獲得，可用作視頻二創、剪輯，也可用作收藏<br>💡 免費使用，但請務必標註出處 —— 你的支持是我更新的動力<br>📩 合作建議：郵箱1127205258@qq.com📮，也可通過上方社交平台找到我～',
                 interactTitle: '💬 留言板 · 素材推薦',
                 commentPlaceholder: '寫下你的想法或推薦素材...',
+                commentNamePlaceholder: '你的暱稱 (可選)',
                 commentButton: '📢 發佈留言',
                 footerLeft: '📱 找到我',
                 footerCopyright: '網站所有 © 蛋仔小鄒呀',
@@ -632,21 +692,33 @@
                 trialAutoClose: '彈窗將在5秒後自動關閉',
                 downloadBtn: '⬇️ 下載',
                 musicListen: '🎧 去網易雲聽歌 →',
-                noVideoFound: '😭 沒有找到相關視頻，試試「一週年」「二週年」「三週年」「四週年」彩蛋',
+                noVideoFound: '😭 沒有找到相關視頻',
                 noEncyclopediaFound: '😭 沒有找到相關內容',
                 viewBaike: '查看百科',
                 notReady: '暫未引入',
                 emptyComments: '還沒有留言，快來發表你的想法吧！',
                 encyHotSearchLabel: '🔥 熱詞搜索：',
                 noSearchResult: '😭 沒有找到相關內容',
-                sensitiveWordWarning: '留言包含敏感詞，請修改後重試。',
                 friendTitle: '👥 關於好友',
                 friendName: '搞電腦的查拉',
                 friendDesc: '💻 電腦技術愛好者 · 蛋仔派對玩家',
-                friendLink: '去他的網站 →'
+                friendLink: '去她的網站 →',
+                auditPassed: '✅ 留言發布成功！',
+                auditFailed: '❌ 內容包含違規信息，請修改後重試',
+                auditChecking: '⏳ 正在審核中，請稍候...',
+                ownerLoginSuccess: '✅ 已驗證為網站所有者',
+                ownerLoginFailed: '❌ 密碼錯誤，請重試',
+                ownerLogout: '已退出所有者模式',
+                deleteSuccess: '✅ 已刪除',
+                deleteFailed: '❌ 刪除失敗，請重試',
+                noPermission: '⚠️ 您沒有權限刪除此評論',
+                confirmDelete: '確定要刪除此評論嗎？'
             }
         };
 
+        // ============================================================
+        // 3. 语言应用
+        // ============================================================
         function applyLanguage() {
             var t = texts[currentLang];
             document.title = t.siteTitle;
@@ -690,6 +762,8 @@
             if (interactTitleElem) interactTitleElem.innerHTML = t.interactTitle;
             var commentInput = document.getElementById('commentInput');
             if (commentInput) commentInput.placeholder = t.commentPlaceholder;
+            var commentNameInput = document.getElementById('commentNameInput');
+            if (commentNameInput) commentNameInput.placeholder = t.commentNamePlaceholder;
             var commentBtn = document.querySelector('.comment-btn');
             if (commentBtn) commentBtn.innerText = t.commentButton;
             var footerLeftSpan = document.querySelector('.footer-left > span');
@@ -708,7 +782,6 @@
                     if (pElems[2]) pElems[2].innerHTML = t.trialAutoClose;
                 }
             }
-            // 好友板块
             var friendTitle = document.querySelector('#friendPage h2');
             if (friendTitle) friendTitle.innerHTML = t.friendTitle;
             var fname = document.querySelector('.friend-card .fname');
@@ -726,7 +799,9 @@
             renderComments();
         }
 
-        // ===== 公告栏 =====
+        // ============================================================
+        // 4. 公告栏
+        // ============================================================
         function renderNews() {
             var t = texts[currentLang];
             var container = document.getElementById('newsList');
@@ -738,7 +813,6 @@
                     item.content + '</span></div>';
             }
             container.innerHTML = html;
-            // 为公告绑定点击事件（S32公告点击播放视频）
             var items = document.querySelectorAll('.news-item');
             if (items.length) {
                 items[0].addEventListener('click', function() {
@@ -756,7 +830,9 @@
             }
         }
 
-        // ===== 百科热门搜索 =====
+        // ============================================================
+        // 5. 百科热门搜索
+        // ============================================================
         function renderEncyclopediaHotSearch() {
             var container = document.getElementById('encyHotSearch');
             if (!container) return;
@@ -779,7 +855,9 @@
             }
         }
 
-        // ===== 视频数据（更新所有简介 + 新增S32） =====
+        // ============================================================
+        // 6. 视频数据
+        // ============================================================
         var normalVideos = [
             { title: "S1-怪奇工厂", description: "蛋仔岛的建立离不开它们", fileName: "S01-怪奇工厂.mp4" },
             { title: "S2-惊奇游乐园", description: "欢迎来到怪象丛生的游乐园", fileName: "S02-惊奇游乐园.mp4" },
@@ -835,7 +913,9 @@
             });
         }
 
-        // ===== 渲染赛季动画 =====
+        // ============================================================
+        // 7. 渲染赛季动画（已移除彩蛋提示）
+        // ============================================================
         function renderSeasonVideos() {
             var container = document.getElementById('videoContainer');
             var keyword = currentSeasonFilter.toLowerCase().trim();
@@ -931,7 +1011,9 @@
             }
         }
 
-        // ===== 蛋仔百科数据 =====
+        // ============================================================
+        // 8. 蛋仔百科数据（完整）
+        // ============================================================
         var fullSeasonsData = [
             { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy",
                     link: null }, { cn: "小蓝帽", en: "Blu", link: null }, { cn: "法拉帝", en: "Ferretti",
@@ -1053,7 +1135,9 @@
                 { cn: "大戏法师艾洛", en: "", link: null }] }
         ];
 
-        // ===== 渲染蛋仔百科 =====
+        // ============================================================
+        // 9. 渲染蛋仔百科
+        // ============================================================
         function renderEncyclopedia(filterText) {
             filterText = filterText || "";
             var container = document.getElementById('encyclopediaContainer');
@@ -1115,7 +1199,9 @@
             return html;
         }
 
-        // ===== 音乐推荐 =====
+        // ============================================================
+        // 10. 音乐推荐
+        // ============================================================
         function renderMusic() {
             var grid = document.getElementById('musicGrid');
             if (!grid) return;
@@ -1140,7 +1226,9 @@
             grid.innerHTML = html;
         }
 
-        // ===== 社交链接 =====
+        // ============================================================
+        // 11. 社交链接
+        // ============================================================
         function renderSocialLinks() {
             var container = document.getElementById('footerSocial');
             if (!container) return;
@@ -1181,9 +1269,29 @@
             }
         }
 
-        // ===== 互动交流 - 留言板 =====
+        // ============================================================
+        // 12. 评论系统（含权限控制）
+        // ============================================================
         var STORAGE_KEY = 'egg_comments';
-        var sensitiveWords = ['艹', '操', '傻逼', 'SB', 'sb', '弱智', '白痴', '废物', '垃圾', '死妈', '死爹', '你妈', '你爸', '祖宗'];
+        var isOwner = false;
+
+        // 自动修复建议列表（简洁版）
+        var autoFixSuggestions = {
+            '艹': '🌱',
+            '操': '🏋️',
+            '傻逼': '🤪',
+            'SB': '⭐',
+            'sb': '⭐',
+            '弱智': '😅',
+            '白痴': '😶',
+            '废物': '💪',
+            '垃圾': '♻️',
+            '死妈': '🙏',
+            '死爹': '🙏',
+            '你妈': '您',
+            '你爸': '您',
+            '祖宗': '先辈'
+        };
 
         function getComments() {
             try {
@@ -1196,11 +1304,16 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
         }
 
-        function isSensitive(text) {
-            for (var i = 0; i < sensitiveWords.length; i++) {
-                if (text.indexOf(sensitiveWords[i]) !== -1) return true;
+        function getAutoFixSuggestion(text) {
+            var suggestion = text;
+            var hasIssue = false;
+            for (var key in autoFixSuggestions) {
+                if (text.indexOf(key) !== -1) {
+                    suggestion = suggestion.replace(new RegExp(key, 'g'), autoFixSuggestions[key]);
+                    hasIssue = true;
+                }
             }
-            return false;
+            return { original: text, suggestion: suggestion, hasIssue: hasIssue };
         }
 
         function renderComments() {
@@ -1219,19 +1332,28 @@
                 if (c.replies && c.replies.length) {
                     for (var r = 0; r < c.replies.length; r++) {
                         var rep = c.replies[r];
+                        var isOwnReply = rep.author === c.author;
+                        var deleteReplyBtn = (isOwner || isOwnReply) ?
+                            '<span class="delete-reply-btn" data-comment-idx="' + i + '" data-reply-idx="' + r +
+                            '" onclick="deleteReply(' + i + ', ' + r + ')">🗑️</span>' : '';
                         repliesHtml += '<div class="reply-item"><div class="reply-author">' + escapeHtml(rep.author) +
-                            '</div><div class="reply-text">' + escapeHtml(rep.text) +
+                            deleteReplyBtn + '</div><div class="reply-text">' + escapeHtml(rep.text) +
                             '</div><div class="reply-time">' + rep.time + '</div></div>';
                     }
                 }
+                var isCommentOwner = c.author === getCurrentUser();
+                var deleteBtn = (isOwner || isCommentOwner) ?
+                    '<span class="delete-btn" onclick="deleteComment(' + i + ')">🗑️ 删除</span>' : '';
+                var ownerBadge = (c.author === '蛋仔小鄒呀' || c.author === '管理员') ?
+                    '<span class="owner-badge">👑 作者</span>' : '';
                 html += '<div class="comment-item" data-idx="' + i + '">' +
                     '<div class="comment-header"><div class="comment-author"><span class="avatar">' + escapeHtml(c
-                        .author[0] || '访') + '</span><span>' + escapeHtml(c.author) +
-                    '</span></div><span class="comment-time">' + c.time + '</span></div>' +
+                        .author[0] || '访') + '</span><span>' + escapeHtml(c.author) + '</span>' + ownerBadge +
+                    '</div><span class="comment-time">' + c.time + '</span></div>' +
                     '<div class="comment-text">' + escapeHtml(c.text) + '</div>' +
                     '<div class="comment-actions"><span class="like-btn ' + (c.liked ? 'liked' : '') + '" data-idx="' +
                     i + '">❤️ ' + (c.likes || 0) + '</span><span class="reply-toggle" data-idx="' + i +
-                    '">💬 回复</span></div>' +
+                    '">💬 回复</span>' + deleteBtn + '</div>' +
                     '<div class="reply-area" id="replyArea_' + i +
                     '"><div class="reply-input"><input type="text" placeholder="写下你的回复..." class="reply-input-field" data-idx="' +
                     i + '"><button class="reply-submit" data-idx="' + i + '">回复</button></div>' +
@@ -1277,17 +1399,27 @@
             }
         }
 
+        function getCurrentUser() {
+            var nameInput = document.getElementById('commentNameInput');
+            return nameInput ? nameInput.value.trim() || '匿名用户' : '匿名用户';
+        }
+
         function addComment(text) {
             var t = texts[currentLang];
-            if (isSensitive(text)) {
+            var result = getAutoFixSuggestion(text);
+            var finalText = result.hasIssue ? result.suggestion : text;
+
+            if (result.hasIssue) {
                 alert(t.sensitiveWordWarning);
                 return;
             }
+
             var comments = getComments();
+            var author = getCurrentUser();
             comments.unshift({
                 id: Date.now(),
-                author: '访客',
-                text: text,
+                author: author,
+                text: finalText,
                 time: new Date().toLocaleString('zh-CN'),
                 likes: 0,
                 liked: false,
@@ -1295,6 +1427,7 @@
             });
             saveComments(comments);
             renderComments();
+            document.getElementById('auditStatus').style.display = 'none';
         }
 
         function toggleLike(idx) {
@@ -1309,16 +1442,20 @@
 
         function addReply(idx, text) {
             var t = texts[currentLang];
-            if (isSensitive(text)) {
+            var result = getAutoFixSuggestion(text);
+            var finalText = result.hasIssue ? result.suggestion : text;
+
+            if (result.hasIssue) {
                 alert(t.sensitiveWordWarning);
                 return;
             }
+
             var comments = getComments();
             if (idx >= 0 && idx < comments.length) {
                 if (!comments[idx].replies) comments[idx].replies = [];
                 comments[idx].replies.push({
-                    author: '访客',
-                    text: text,
+                    author: getCurrentUser(),
+                    text: finalText,
                     time: new Date().toLocaleString('zh-CN')
                 });
                 saveComments(comments);
@@ -1328,118 +1465,49 @@
             }
         }
 
-        // ===== 首页搜索功能（支持周年大合照） =====
-        function performSearch(query) {
-            var trimmed = query.trim();
-            var resultsArea = document.getElementById('searchResultsArea');
-            var resultGrid = document.getElementById('searchResultGrid');
-            if (!trimmed) {
-                resultsArea.classList.remove('active');
-                return;
-            }
+        function deleteComment(idx) {
             var t = texts[currentLang];
+            var comments = getComments();
+            if (idx < 0 || idx >= comments.length) return;
+            var comment = comments[idx];
+            var currentUser = getCurrentUser();
 
-            // 检测周年关键词
-            var yearMatch = null;
-            for (var i = 0; i < easterEggs.length; i++) {
-                if (trimmed.indexOf(easterEggs[i].keyword) !== -1) {
-                    yearMatch = easterEggs[i];
-                    break;
-                }
-            }
-            if (yearMatch) {
-                var cardHtml = '<div class="anniversary-card" style="margin:0;max-width:700px;margin:0 auto;">' +
-                    '<div class="card-title">' + yearMatch.title + '</div>' +
-                    '<div class="card-sub">' + yearMatch.content + '</div>' +
-                    '<img class="anniversary-photo" src="' + yearMatch.img + '" alt="' + yearMatch.title +
-                    '" onerror="this.src=\'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20' +
-                    yearMatch.keyword + '%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E\'">' +
-                    '</div>';
-                resultGrid.innerHTML = cardHtml;
-                resultsArea.classList.add('active');
+            if (!isOwner && comment.author !== currentUser) {
+                alert(t.noPermission);
                 return;
             }
 
-            // 普通搜索
-            var results = [];
-            for (var j = 0; j < normalVideos.length; j++) {
-                var v = normalVideos[j];
-                if (v.title.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1 || v.description.toLowerCase().indexOf(
-                        trimmed.toLowerCase()) !== -1) {
-                    results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName });
-                }
-            }
-            for (var k = 0; k < fullSeasonsData.length; k++) {
-                var season = fullSeasonsData[k];
-                for (var l = 0; l < season.characters.length; l++) {
-                    var c = season.characters[l];
-                    if (c.cn.indexOf(trimmed) !== -1 || c.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) {
-                        results.push({ type: '📖 百科角色', title: c.cn, desc: season.name + ' · ' + c.en,
-                            seasonName: season.name });
-                    }
-                }
-                if (season.name.indexOf(trimmed) !== -1 || (season.nameEn && season.nameEn.toLowerCase().indexOf(trimmed
-                        .toLowerCase()) !== -1)) {
-                    results.push({ type: '📖 百科赛季', title: season.name, desc: season.nameEn || '',
-                        seasonName: season.name });
-                }
-            }
-            var seen = {};
-            var uniqueResults = [];
-            for (var m = 0; m < results.length; m++) {
-                var key = results[m].title + results[m].type;
-                if (!seen[key]) {
-                    seen[key] = true;
-                    uniqueResults.push(results[m]);
-                }
-            }
-            if (!uniqueResults.length) {
-                resultGrid.innerHTML = '<div class="no-result">😭 没有找到与“' + escapeHtml(trimmed) + '”相关的内容</div>';
-                resultsArea.classList.add('active');
-                return;
-            }
-            var html = '';
-            var maxShow = Math.min(uniqueResults.length, 12);
-            for (var n = 0; n < maxShow; n++) {
-                var r = uniqueResults[n];
-                html += '<div class="result-item" data-type="' + r.type + '" data-title="' + escapeHtml(r.title) +
-                    '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '">' +
-                    '<div class="r-type">' + r.type + '</div>' +
-                    '<div class="r-title">' + escapeHtml(r.title) + '</div>' +
-                    '<div class="r-desc">' + escapeHtml(r.desc) + '</div></div>';
-            }
-            resultGrid.innerHTML = html;
-            resultsArea.classList.add('active');
-            var items = resultGrid.querySelectorAll('.result-item');
-            for (var p = 0; p < items.length; p++) {
-                items[p].addEventListener('click', function() {
-                    var type = this.getAttribute('data-type');
-                    var title = this.getAttribute('data-title');
-                    var fileName = this.getAttribute('data-file');
-                    var seasonName = this.getAttribute('data-season');
-                    if (type.indexOf('赛季动画') !== -1 && fileName) {
-                        showPage('season');
-                        var searchInput = document.getElementById('seasonSearchInput');
-                        if (searchInput) {
-                            searchInput.value = title;
-                            currentSeasonFilter = title;
-                            renderSeasonVideos();
-                            document.getElementById('seasonPage').scrollIntoView({ behavior: 'smooth' });
-                        }
-                    } else if (type.indexOf('百科') !== -1) {
-                        showPage('encyclopedia');
-                        var encSearch = document.getElementById('encyclopediaSearch');
-                        if (encSearch) {
-                            encSearch.value = title;
-                            renderEncyclopedia(title);
-                        }
-                        document.getElementById('encyclopediaPage').scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
+            if (!confirm(t.confirmDelete)) return;
+            comments.splice(idx, 1);
+            saveComments(comments);
+            renderComments();
+            alert(t.deleteSuccess);
         }
 
-        // ===== 页面导航 =====
+        function deleteReply(commentIdx, replyIdx) {
+            var t = texts[currentLang];
+            var comments = getComments();
+            if (commentIdx < 0 || commentIdx >= comments.length) return;
+            var comment = comments[commentIdx];
+            if (!comment.replies || replyIdx < 0 || replyIdx >= comment.replies.length) return;
+            var reply = comment.replies[replyIdx];
+            var currentUser = getCurrentUser();
+
+            if (!isOwner && reply.author !== currentUser) {
+                alert(t.noPermission);
+                return;
+            }
+
+            if (!confirm(t.confirmDelete)) return;
+            comment.replies.splice(replyIdx, 1);
+            saveComments(comments);
+            renderComments();
+            alert(t.deleteSuccess);
+        }
+
+        // ============================================================
+        // 13. 页面导航
+        // ============================================================
         var pages = {
             home: document.getElementById('homePage'),
             season: document.getElementById('seasonPage'),
@@ -1478,7 +1546,9 @@
             });
         }
 
-        // ===== 事件绑定 =====
+        // ============================================================
+        // 14. 事件绑定
+        // ============================================================
         document.getElementById('langToggle').addEventListener('click', function() {
             currentLang = currentLang === 'zh-CN' ? 'zh-TW' : 'zh-CN';
             localStorage.setItem('lang', currentLang);
@@ -1506,6 +1576,64 @@
             setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
         });
 
+        // 所有者验证
+        document.getElementById('ownerLoginBtn').addEventListener('click', function() {
+            var password = document.getElementById('ownerPassword').value;
+            var statusEl = document.getElementById('ownerStatus');
+            var t = texts[currentLang];
+
+            if (password === OWNER_PASSWORD) {
+                isOwner = true;
+                statusEl.textContent = '✅ 已验证';
+                statusEl.className = 'owner-status active';
+                document.getElementById('ownerPassword').value = '';
+                renderComments();
+            } else {
+                isOwner = false;
+                statusEl.textContent = t.ownerLoginFailed;
+                statusEl.className = 'owner-status inactive';
+            }
+        });
+
+        document.getElementById('ownerPassword').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('ownerLoginBtn').click();
+            }
+        });
+
+        // 评论提交
+        document.getElementById('commentSubmitBtn').addEventListener('click', function() {
+            var input = document.getElementById('commentInput');
+            var text = input.value.trim();
+            if (text) {
+                var auditStatus = document.getElementById('auditStatus');
+                auditStatus.style.display = 'block';
+                auditStatus.style.background = 'rgba(255,215,0,0.2)';
+                auditStatus.style.border = '1px solid #ffd93d';
+                auditStatus.innerHTML = texts[currentLang].auditChecking;
+                document.getElementById('commentSubmitBtn').disabled = true;
+
+                setTimeout(function() {
+                    addComment(text);
+                    input.value = '';
+                    document.getElementById('commentSubmitBtn').disabled = false;
+                    auditStatus.style.background = 'rgba(107,203,119,0.2)';
+                    auditStatus.style.border = '1px solid #6bcb77';
+                    auditStatus.innerHTML = texts[currentLang].auditPassed;
+                    setTimeout(function() {
+                        auditStatus.style.display = 'none';
+                    }, 2000);
+                }, 300);
+            }
+        });
+
+        document.getElementById('commentInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('commentSubmitBtn').click();
+            }
+        });
+
+        // 搜索功能
         var mainSearchInput = document.getElementById('mainSearchInput');
         var searchSuggestions = document.getElementById('searchSuggestions');
 
@@ -1588,12 +1716,14 @@
             }
         });
 
+        // 赛季动画搜索
         var seasonSearch = document.getElementById('seasonSearchInput');
         seasonSearch.addEventListener('input', function(e) {
             currentSeasonFilter = e.target.value;
             renderSeasonVideos();
         });
 
+        // 百科搜索
         var encSearch2 = document.getElementById('encyclopediaSearch');
         if (encSearch2) {
             encSearch2.addEventListener('input', function(e) {
@@ -1601,25 +1731,7 @@
             });
         }
 
-        document.getElementById('commentSubmitBtn').addEventListener('click', function() {
-            var input = document.getElementById('commentInput');
-            var text = input.value.trim();
-            if (text) {
-                addComment(text);
-                input.value = '';
-            }
-        });
-
-        document.getElementById('commentInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                var text = this.value.trim();
-                if (text) {
-                    addComment(text);
-                    this.value = '';
-                }
-            }
-        });
-
+        // 其他功能
         var footerFloat = document.getElementById('footerFloat');
         window.addEventListener('scroll', function() {
             var st = window.pageYOffset || document.documentElement.scrollTop;
@@ -1659,6 +1771,117 @@
             if (e.target === document.getElementById('videoModal')) closeModal();
         };
 
+        function performSearch(query) {
+            var trimmed = query.trim();
+            var resultsArea = document.getElementById('searchResultsArea');
+            var resultGrid = document.getElementById('searchResultGrid');
+            if (!trimmed) {
+                resultsArea.classList.remove('active');
+                return;
+            }
+            var t = texts[currentLang];
+
+            var yearMatch = null;
+            for (var i = 0; i < easterEggs.length; i++) {
+                if (trimmed.indexOf(easterEggs[i].keyword) !== -1) {
+                    yearMatch = easterEggs[i];
+                    break;
+                }
+            }
+            if (yearMatch) {
+                var cardHtml = '<div class="anniversary-card" style="margin:0;max-width:700px;margin:0 auto;">' +
+                    '<div class="card-title">' + yearMatch.title + '</div>' +
+                    '<div class="card-sub">' + yearMatch.content + '</div>' +
+                    '<img class="anniversary-photo" src="' + yearMatch.img + '" alt="' + yearMatch.title +
+                    '" onerror="this.src=\'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20' +
+                    yearMatch.keyword + '%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E\'">' +
+                    '</div>';
+                resultGrid.innerHTML = cardHtml;
+                resultsArea.classList.add('active');
+                return;
+            }
+
+            var results = [];
+            for (var j = 0; j < normalVideos.length; j++) {
+                var v = normalVideos[j];
+                if (v.title.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1 || v.description.toLowerCase().indexOf(
+                        trimmed.toLowerCase()) !== -1) {
+                    results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName });
+                }
+            }
+            for (var k = 0; k < fullSeasonsData.length; k++) {
+                var season = fullSeasonsData[k];
+                for (var l = 0; l < season.characters.length; l++) {
+                    var c = season.characters[l];
+                    if (c.cn.indexOf(trimmed) !== -1 || c.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) {
+                        results.push({ type: '📖 百科角色', title: c.cn, desc: season.name + ' · ' + c.en,
+                            seasonName: season.name });
+                    }
+                }
+                if (season.name.indexOf(trimmed) !== -1 || (season.nameEn && season.nameEn.toLowerCase().indexOf(trimmed
+                        .toLowerCase()) !== -1)) {
+                    results.push({ type: '📖 百科赛季', title: season.name, desc: season.nameEn || '',
+                        seasonName: season.name });
+                }
+            }
+            var seen = {};
+            var uniqueResults = [];
+            for (var m = 0; m < results.length; m++) {
+                var key = results[m].title + results[m].type;
+                if (!seen[key]) {
+                    seen[key] = true;
+                    uniqueResults.push(results[m]);
+                }
+            }
+            if (!uniqueResults.length) {
+                resultGrid.innerHTML = '<div class="no-result">😭 没有找到与“' + escapeHtml(trimmed) + '”相关的内容</div>';
+                resultsArea.classList.add('active');
+                return;
+            }
+            var html = '';
+            var maxShow = Math.min(uniqueResults.length, 12);
+            for (var n = 0; n < maxShow; n++) {
+                var r = uniqueResults[n];
+                html += '<div class="result-item" data-type="' + r.type + '" data-title="' + escapeHtml(r.title) +
+                    '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '">' +
+                    '<div class="r-type">' + r.type + '</div>' +
+                    '<div class="r-title">' + escapeHtml(r.title) + '</div>' +
+                    '<div class="r-desc">' + escapeHtml(r.desc) + '</div></div>';
+            }
+            resultGrid.innerHTML = html;
+            resultsArea.classList.add('active');
+            var items = resultGrid.querySelectorAll('.result-item');
+            for (var p = 0; p < items.length; p++) {
+                items[p].addEventListener('click', function() {
+                    var type = this.getAttribute('data-type');
+                    var title = this.getAttribute('data-title');
+                    var fileName = this.getAttribute('data-file');
+                    var seasonName = this.getAttribute('data-season');
+                    if (type.indexOf('赛季动画') !== -1 && fileName) {
+                        showPage('season');
+                        var searchInput = document.getElementById('seasonSearchInput');
+                        if (searchInput) {
+                            searchInput.value = title;
+                            currentSeasonFilter = title;
+                            renderSeasonVideos();
+                            document.getElementById('seasonPage').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    } else if (type.indexOf('百科') !== -1) {
+                        showPage('encyclopedia');
+                        var encSearch = document.getElementById('encyclopediaSearch');
+                        if (encSearch) {
+                            encSearch.value = title;
+                            renderEncyclopedia(title);
+                        }
+                        document.getElementById('encyclopediaPage').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+        }
+
+        // ============================================================
+        // 15. 初始化
+        // ============================================================
         (function init() {
             var savedLang = localStorage.getItem('lang');
             if (savedLang === 'zh-TW') currentLang = 'zh-TW';
