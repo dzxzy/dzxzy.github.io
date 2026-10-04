@@ -7,7 +7,7 @@
     <link rel="preload" as="image" href="assets/bg.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ---------- 样式保持不变（原样） ---------- */
+        /* ---------- 基础样式 ---------- */
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--gov-main-color:#0A3369;--gov-accent-color:#FFB800;--card-bg-light:rgba(255,255,255,0.95);--card-bg-dark:rgba(30,35,55,0.85);--text-light:#1F2D3D;--text-dark:#EEF2FF;--shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 8px 24px rgba(0,0,0,0.12);--transition:all 0.25s ease}
         body.light{background:linear-gradient(135deg,#F0F4FA 0%,#E8EDF5 100%);background-attachment:fixed;--card-bg:rgba(255,255,255,0.92);--card-border:1px solid #E5E9F0;--text-color:var(--text-light);--title-color:var(--gov-main-color)}
@@ -185,9 +185,219 @@
         .owner-status{font-size:0.75rem;padding:4px 12px;border-radius:20px}
         .owner-status.active{background:rgba(107,203,119,0.2);color:#6bcb77}
         .owner-status.inactive{background:rgba(255,107,107,0.2);color:#ff6b6b}
+        
+        /* Tab 按钮样式 */
+        .encyclopedia-tabs{display:flex;justify-content:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+        .ency-tab-btn{padding:10px 28px;border-radius:40px;border:var(--card-border);background:var(--card-bg);color:var(--text-color);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+        .ency-tab-btn:hover{opacity:0.8;transform:scale(0.97)}
+        .ency-tab-btn.active{background:var(--title-color);color:#1f2d3d;border-color:var(--title-color)}
+
+        /* 艾比百科卡片样式 */
+        .abby-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 24px 0;
+        }
+        .abby-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 24px;
+            border: var(--card-border);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .abby-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 28px;
+            border-color: rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        body.dark .abby-card:hover {
+            background: linear-gradient(135deg, rgba(40,50,70,0.9) 0%, rgba(50,60,80,0.95) 100%);
+        }
+        .abby-card .abby-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed rgba(128,128,128,0.2);
+        }
+        .abby-card .abby-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--title-color);
+            letter-spacing: 1px;
+        }
+        .abby-card .abby-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        .abby-card .abby-meta span {
+            background: rgba(128,128,128,0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        .abby-card .abby-summary {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-color);
+            text-align: justify;
+            text-indent: 2em;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .view-detail-btn {
+            align-self: center;
+            padding: 8px 24px;
+            border-radius: 30px;
+            background: var(--title-color);
+            color: #1f2d3d;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .view-detail-btn:hover {
+            opacity: 0.8;
+            transform: scale(0.97);
+        }
+
+        /* FLIP 弹窗详情容器 */
+        .detail-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .detail-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .detail-modal {
+            position: fixed;
+            z-index: 2001;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(128,128,128,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        .detail-modal .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(128,128,128,0.15);
+            flex-shrink: 0;
+        }
+        .detail-modal .detail-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--title-color);
+        }
+        .detail-modal .detail-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-color);
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
+            line-height: 1;
+            padding: 4px;
+        }
+        .detail-modal .detail-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .detail-modal .detail-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .detail-modal .detail-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .detail-modal .detail-body::-webkit-scrollbar-thumb {
+            background: rgba(128,128,128,0.3);
+            border-radius: 3px;
+        }
+        .detail-modal .detail-meta {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .detail-modal .detail-meta span {
+            background: rgba(128,128,128,0.1);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+        .detail-modal .detail-char-list {
+            list-style: none;
+            padding: 0;
+        }
+        .detail-modal .detail-char-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(128,128,128,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .detail-modal .detail-char-list li .char-cn {
+            font-weight: 600;
+            color: var(--title-color);
+        }
+        .detail-modal .detail-char-list li .char-en {
+            opacity: 0.8;
+            font-size: 0.85rem;
+        }
+
+        /* 加载状态提示 */
+        .loading-indicator {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .loading-indicator.active {
+            display: block;
+        }
+
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
         @media (max-width:992px){.nav-menu{gap:12px}.header{flex-wrap:wrap;height:auto;padding:8px 12px}.logo-area{flex:1}.header-tools{flex:0 1 auto}}
-        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input[type="text"]{width:100%}.comment-input-area .name-input{flex:1;min-width:100px}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}.friend-card{flex-direction:column;text-align:center;padding:24px}.friend-card .friend-link{white-space:normal;width:100%;text-align:center}.friend-card img{width:80px;height:80px}.friend-card .friend-info .fname{font-size:1.4rem}.friend-section{padding:24px 20px}}
+        @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input[type="text"]{width:100%}.comment-input-area .name-input{flex:1;min-width:100px}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}.friend-card{flex-direction:column;text-align:center;padding:24px}.friend-card .friend-link{white-space:normal;width:100%;text-align:center}.friend-card img{width:80px;height:80px}.friend-card .friend-info .fname{font-size:1.4rem}.friend-section{padding:24px 20px}.abby-grid{grid-template-columns:1fr}.detail-modal{width: 90vw !important; height: 85vh !important;}}
         @media (max-width:480px){.logo-text{font-size:1rem}.logo-area img{width:30px;height:30px}.header-tools .lang-switch,.header-tools .theme-switch{padding:3px 8px;font-size:0.7rem}.site-name{font-size:1.5rem}.hero-center{margin:20px 0 30px}.news-title{font-size:1.1rem}.interact-section h3{font-size:1.1rem}.comment-item{font-size:0.85rem}.comment-input-area .name-input{flex:1 1 100%}}
     </style>
 </head>
@@ -288,12 +498,31 @@
 
         <!-- 蛋仔百科 -->
         <div id="encyclopediaPage" class="page">
-            <h2 style="text-align:center;margin-bottom:24px;">📖 蛋仔百科 📖</h2>
-            <div class="search-bar">
-                <input type="text" id="encyclopediaSearch" placeholder="🔍 搜索赛季名或角色名">
+            <h2 id="encyclopediaPageTitle" style="text-align:center;margin-bottom:24px;">📖 派对季皮肤百科 📖</h2>
+            
+            <!-- Tab 切换 -->
+            <div class="encyclopedia-tabs">
+                <button id="tabSkin" class="ency-tab-btn active" onclick="switchEncyclopediaTab('skin')">派对季皮肤百科</button>
+                <button id="tabAbby" class="ency-tab-btn" onclick="switchEncyclopediaTab('abby')">艾比百科</button>
             </div>
-            <div class="hot-search-encyclopedia" id="encyHotSearch"></div>
-            <div id="encyclopediaContainer" class="encyclopedia-grid"></div>
+
+            <!-- 皮肤百科内容 -->
+            <div id="skinEncyclopediaContent">
+                <div class="search-bar">
+                    <input type="text" id="encyclopediaSearch" placeholder="🔍 搜索赛季名或角色名">
+                </div>
+                <div class="hot-search-encyclopedia" id="encyHotSearch"></div>
+                <div id="encyclopediaContainer" class="encyclopedia-grid"></div>
+                <div class="loading-indicator" id="loadingSkin">加载中...</div>
+            </div>
+
+            <!-- 艾比百科内容 -->
+            <div id="abbyEncyclopediaContent" style="display:none;">
+                <div class="abby-grid" id="abbyGridContainer">
+                    <!-- 数据由 JS 动态渲染 -->
+                </div>
+                <div class="loading-indicator" id="loadingAbby">加载中...</div>
+            </div>
         </div>
 
         <!-- 周年庆大合照 -->
@@ -330,25 +559,10 @@
 
         <!-- 互动交流 -->
         <div id="socialPage" class="page">
-            <h2 style="text-align:center;">📱 互动交流 <span class="audit-badge">🔐 仅作者可删除 · 测试使用</span></h2>
+            <h2 style="text-align:center;">📱 互动交流</h2>
             <div class="intro-card" id="aboutAuthor">
                 <div style="font-size:1.3rem;font-weight:bold;">🎉 关于作者</div>
                 <div id="authorText"></div>
-            </div>
-            <div class="interact-section">
-                <h3>💬 留言板</h3>
-                <div style="text-align:center; padding:20px 0;">
-                    <p style="font-size:1.1rem; color:var(--title-color);">🚧 留言功能暂时关闭，敬请期待后续更新！</p>
-                    <p style="font-size:0.9rem; opacity:0.7;">如果你有素材推荐或合作建议，欢迎通过上方社交平台或邮箱联系我～</p>
-                </div>
-
-                <!-- 网站所有者面板（保留） -->
-                <div class="owner-panel" id="ownerPanel">
-                    <label>🔑 网站所有者：</label>
-                    <input type="password" id="ownerPassword" placeholder="输入管理员密码" style="flex:1;min-width:140px;">
-                    <button class="owner-btn" id="ownerLoginBtn">🔓 验证身份</button>
-                    <span id="ownerStatus" class="owner-status inactive">未验证</span>
-                </div>
             </div>
         </div>
 
@@ -407,16 +621,27 @@
         </div>
     </div>
 
+    <!-- FLIP 详情弹窗 -->
+    <div id="detailOverlay" class="detail-overlay"></div>
+    <div id="detailModal" class="detail-modal">
+        <div class="detail-header">
+            <div class="detail-title" id="detailTitle"></div>
+            <button class="detail-close" id="detailCloseBtn" aria-label="关闭">&times;</button>
+        </div>
+        <div class="detail-body" id="detailBody">
+            <div class="detail-meta" id="detailMeta"></div>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+
     <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
 
     <script>
         // ============================================================
-        // 配置：网站所有者密码（全自动哈希计算，无需手动替换）
-        // 固定密码为：SoliderDrop2935
-        // 网站加载时会自动计算其 SHA-256 哈希值并用于验证
+        // 配置
         // ============================================================
-        var OWNER_PASSWORD_HASH = ''; // 留空，由程序自动计算填充
+        var OWNER_PASSWORD_HASH = '';
 
         // ============================================================
         // 1. 简繁映射
@@ -459,15 +684,13 @@
                 seasonSearchPlaceholder: '🔍 搜索视频标题...',
                 musicTitle: '🎵 推荐歌单 🎵',
                 musicFooterNote: '更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。',
-                encyclopediaTitle: '📖 蛋仔百科 📖',
+                encyclopediaTitle: '📖 派对季皮肤百科 📖',
+                encyclopediaTabSkin: '派对季皮肤百科',
+                encyclopediaTabAbby: '艾比百科',
                 encyclopediaSearchPlaceholder: '🔍 搜索赛季名或角色名',
                 socialTitle: '📱 互动交流',
                 aboutAuthorTitle: '🎉 关于作者',
                 aboutAuthorText: '🎮 《蛋仔派对》S11玩家<br>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏<br>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力<br>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～',
-                interactTitle: '💬 留言板',
-                commentPlaceholder: '写下你的想法或推荐素材...',
-                commentNamePlaceholder: '你的昵称 (可选)',
-                commentButton: '📢 发布留言',
                 footerLeft: '📱 找到我',
                 footerCopyright: '网站所有 © 蛋仔小鄒呀',
                 trialTitle: '⚠️ 试运行公告',
@@ -479,23 +702,15 @@
                 noEncyclopediaFound: '😭 没有找到相关内容',
                 viewBaike: '查看百科',
                 notReady: '暂未引入',
-                emptyComments: '还没有留言，快来发表你的想法吧！',
                 encyHotSearchLabel: '🔥 热词搜索：',
                 noSearchResult: '😭 没有找到相关内容',
                 friendTitle: '👥 关于好友',
                 friendName: '搞电脑的查拉',
                 friendDesc: '💻 电脑技术爱好者 · 蛋仔派对玩家',
                 friendLink: '去她的网站 →',
-                auditPassed: '✅ 留言发布成功！',
-                auditFailed: '❌ 内容包含违规信息，请修改后重试',
-                auditChecking: '⏳ 正在审核中，请稍候...',
-                ownerLoginSuccess: '✅ 已验证为网站所有者',
-                ownerLoginFailed: '❌ 密码错误，请重试',
-                ownerLogout: '已退出所有者模式',
-                deleteSuccess: '✅ 已删除',
-                deleteFailed: '❌ 删除失败，请重试',
-                noPermission: '⚠️ 您没有权限删除此评论',
-                confirmDelete: '确定要删除这条评论吗？'
+                viewDetail: '查看详情',
+                abbyName: '艾比百科',
+                charList: '收录角色'
             },
             'zh-TW': {
                 siteTitle: '蛋仔小鄒呀 | 個人公開網站',
@@ -522,15 +737,13 @@
                 seasonSearchPlaceholder: '🔍 搜索視頻標題...',
                 musicTitle: '🎵 推薦歌單 🎵',
                 musicFooterNote: '更多歌單正在加入中，敬請期待。<br>以上所推薦歌單來源均來自於網易雲音樂。',
-                encyclopediaTitle: '📖 蛋仔百科 📖',
+                encyclopediaTitle: '📖 派對季皮膚百科 📖',
+                encyclopediaTabSkin: '派對季皮膚百科',
+                encyclopediaTabAbby: '艾比百科',
                 encyclopediaSearchPlaceholder: '🔍 搜索賽季名或角色名',
                 socialTitle: '📱 互動交流',
                 aboutAuthorTitle: '🎉 關於作者',
                 aboutAuthorText: '🎮 《蛋仔派對》S11玩家<br>📹 所有素材均通過特殊渠道獲得，可用作視頻二創、剪輯，也可用作收藏<br>💡 免費使用，但請務必標註出處 —— 你的支持是我更新的動力<br>📩 合作建議：郵箱1127205258@qq.com📮，也可通過上方社交平台找到我～',
-                interactTitle: '💬 留言板',
-                commentPlaceholder: '寫下你的想法或推薦素材...',
-                commentNamePlaceholder: '你的暱稱 (可選)',
-                commentButton: '📢 發佈留言',
                 footerLeft: '📱 找到我',
                 footerCopyright: '網站所有 © 蛋仔小鄒呀',
                 trialTitle: '⚠️ 試運行公告',
@@ -542,28 +755,30 @@
                 noEncyclopediaFound: '😭 沒有找到相關內容',
                 viewBaike: '查看百科',
                 notReady: '暫未引入',
-                emptyComments: '還沒有留言，快來發表你的想法吧！',
                 encyHotSearchLabel: '🔥 熱詞搜索：',
                 noSearchResult: '😭 沒有找到相關內容',
                 friendTitle: '👥 關於好友',
                 friendName: '搞電腦的查拉',
                 friendDesc: '💻 電腦技術愛好者 · 蛋仔派對玩家',
                 friendLink: '去她的網站 →',
-                auditPassed: '✅ 留言發布成功！',
-                auditFailed: '❌ 內容包含違規信息，請修改後重試',
-                auditChecking: '⏳ 正在審核中，請稍候...',
-                ownerLoginSuccess: '✅ 已驗證為網站所有者',
-                ownerLoginFailed: '❌ 密碼錯誤，請重試',
-                ownerLogout: '已退出所有者模式',
-                deleteSuccess: '✅ 已刪除',
-                deleteFailed: '❌ 刪除失敗，請重試',
-                noPermission: '⚠️ 您沒有權限刪除此評論',
-                confirmDelete: '確定要刪除此評論嗎？'
+                viewDetail: '查看詳情',
+                abbyName: '艾比百科',
+                charList: '收錄角色'
             }
         };
 
         // ============================================================
-        // 3. 语言应用
+        // 3. 全局数据与分页控制
+        // ============================================================
+        let encyclopediaData = []; // 存放 JSON 数据
+        let currentTab = 'skin';   // 当前 Tab ('skin' | 'abby')
+        let currentDataFiltered = []; // 当前 Tab 过滤后的数据
+        let renderedCount = 0;     // 已渲染的数量
+        const PAGE_SIZE = 6;       // 每次加载的数量
+        let isLoading = false;
+
+        // ============================================================
+        // 4. 语言应用
         // ============================================================
         function applyLanguage() {
             var t = texts[currentLang];
@@ -594,8 +809,14 @@
             if (musicTitle) musicTitle.innerHTML = t.musicTitle;
             var musicFooter = document.getElementById('musicFooterNote');
             if (musicFooter) musicFooter.innerHTML = t.musicFooterNote;
-            var encTitle = document.querySelector('#encyclopediaPage h2');
+            
+            var encTitle = document.getElementById('encyclopediaPageTitle');
             if (encTitle) encTitle.innerHTML = t.encyclopediaTitle;
+            var tabSkinBtn = document.getElementById('tabSkin');
+            if (tabSkinBtn) tabSkinBtn.innerText = t.encyclopediaTabSkin;
+            var tabAbbyBtn = document.getElementById('tabAbby');
+            if (tabAbbyBtn) tabAbbyBtn.innerText = t.encyclopediaTabAbby;
+
             var encSearch = document.getElementById('encyclopediaSearch');
             if (encSearch) encSearch.placeholder = t.encyclopediaSearchPlaceholder;
             var socialTitleElem = document.querySelector('#socialPage h2');
@@ -604,14 +825,6 @@
             if (authorTitleElem) authorTitleElem.innerHTML = t.aboutAuthorTitle;
             var authorTextElem = document.getElementById('authorText');
             if (authorTextElem) authorTextElem.innerHTML = t.aboutAuthorText;
-            var interactTitleElem = document.querySelector('.interact-section h3');
-            if (interactTitleElem) interactTitleElem.innerHTML = t.interactTitle;
-            var commentInput = document.getElementById('commentInput');
-            if (commentInput) commentInput.placeholder = t.commentPlaceholder;
-            var commentNameInput = document.getElementById('commentNameInput');
-            if (commentNameInput) commentNameInput.placeholder = t.commentNamePlaceholder;
-            var commentBtn = document.querySelector('.comment-btn');
-            if (commentBtn) commentBtn.innerText = t.commentButton;
             var footerLeftSpan = document.querySelector('.footer-left > span');
             if (footerLeftSpan) footerLeftSpan.innerHTML = t.footerLeft;
             var footerCopy = document.querySelector('.footer-copyright');
@@ -640,13 +853,11 @@
             renderNews();
             renderSeasonVideos();
             renderMusic();
-            renderEncyclopedia();
             renderSocialLinks();
-            renderComments();
         }
 
         // ============================================================
-        // 4. 公告栏
+        // 5. 公告栏
         // ============================================================
         function renderNews() {
             var t = texts[currentLang];
@@ -671,31 +882,6 @@
                         document.getElementById('modalDesc').innerText = s32.description;
                         modal.style.display = 'flex';
                         mv.play();
-                    }
-                });
-            }
-        }
-
-        // ============================================================
-        // 5. 百科热门搜索
-        // ============================================================
-        function renderEncyclopediaHotSearch() {
-            var container = document.getElementById('encyHotSearch');
-            if (!container) return;
-            var t = texts[currentLang];
-            var hotTags = ["Rock and Roll", "梦幻星遇", "剧院首席露希", "Ignis the Flame Spirit"];
-            var html = '<span class="hot-search-label-ency">' + t.encyHotSearchLabel + '</span>';
-            for (var i = 0; i < hotTags.length; i++) {
-                html += '<span class="hot-ency-tag" data-tag="' + hotTags[i] + '">' + hotTags[i] + '</span>';
-            }
-            container.innerHTML = html;
-            var tags = container.querySelectorAll('.hot-ency-tag');
-            for (var j = 0; j < tags.length; j++) {
-                tags[j].addEventListener('click', function() {
-                    var input = document.getElementById('encyclopediaSearch');
-                    if (input) {
-                        input.value = this.getAttribute('data-tag');
-                        renderEncyclopedia(this.getAttribute('data-tag'));
                     }
                 });
             }
@@ -858,192 +1044,260 @@
         }
 
         // ============================================================
-        // 8. 蛋仔百科数据
+        // 8. 百科数据加载与渲染
         // ============================================================
-        var fullSeasonsData = [
-            { name: "怪奇工厂", nameEn: "Strange Factory", characters: [{ cn: "艾瑞和巴蒂", en: "Ivory and Buddy",
-                    link: null }, { cn: "小蓝帽", en: "Blu", link: null }, { cn: "法拉帝", en: "Ferretti",
-                    link: null }, { cn: "透明小蓝帽", en: "Cyber Blu", link: null }] },
-            { name: "惊奇游乐园", nameEn: "Playground of Wonders", characters: [{ cn: "欢宴园长", en: "Ringmaster",
-                    link: null }, { cn: "蟹船长", en: "Captain Crab", link: null }, { cn: "胆小鬼", en: "Sheetz",
-                    link: null }, { cn: "黎月园长", en: "Crescent Director", link: null }] },
-            { name: "疯狂马戏团", nameEn: "A Day at the Circus", characters: [{ cn: "惑心小丑", en: "Dark Jester",
-                    link: null }, { cn: "布偶狮", en: "Lionel", link: null }, { cn: "木偶波露",
-                    en: "Mary O. Nette", link: null }, { cn: "暗匿小丑", en: "Sneaky Jester", link: null }] },
-            { name: "汪汪向前冲", nameEn: "Doggy Dash!", characters: [{ cn: "闪电阿存", en: "Sparky", link: null },
-                { cn: "极真阿莉", en: "Ari (Judo Uniform)", link: null }, { cn: "投手阿豪", en: "Ase",
-                    link: null }, { cn: "甜酷阿莉", en: "Ari (Street Clothes)", link: null }] },
-            { name: "糖果甜心", nameEn: "Candy Sweethearts", characters: [{ cn: "彩虹糖魔女", en: "Rainbow Witch",
-                    link: null }, { cn: "祈愿精灵", en: "Wish Fairy", link: null }, { cn: "砂糖熊王子",
-                    en: "Honey Prince", link: null }, { cn: "织梦精灵", en: "Dream Spirit", link: null }] },
-            { name: "蛋糕密语", nameEn: "Take the Cake", characters: [{ cn: "蛋糕龙嗝嗝", en: "Hiccup, the Cake Dragon",
-                    link: null }, { cn: "巧脆骑士", en: "Crunchy Knight", link: null }, { cn: "抹茶游侠",
-                    en: "Matcha Ranger", link: null }, { cn: "冰霜骑士", en: "Frosty Knight", link: null }] },
-            { name: "音乐星企划", nameEn: "Rock and Roll", characters: [{ cn: "主唱曜星",
-                    en: "Obsidian - Main Vocalist", link: null }, { cn: "吉他手卡萝", en: "Carol, the Guitarist",
-                    link: null }, { cn: "机械鼓手贝克", en: "Baker, the Robo-Drummer", link: null },
-                { cn: "音爆曜星", en: "Obsidian - Soundburst", link: null }] },
-            { name: "精灵之声", nameEn: "Sound of Spirits", characters: [{ cn: "精灵莉斯尔", en: "Liesl",
-                    link: null }, { cn: "水母尤莱亚", en: "Yuliya", link: null }, { cn: "八音盒温妮",
-                    en: "Winnie", link: null }, { cn: "水母莱莱", en: "Layla", link: null }] },
-            { name: "勇闯龙蛋岛", nameEn: "Dino Egg Island Tour", characters: [{ cn: "暴龙崽崽", en: "Rexie",
-                    link: null }, { cn: "甲龙晶晶", en: "Crystal", link: null }, { cn: "三角龙小萨",
-                    en: "Sarre", link: null }, { cn: "宝石甲龙晶晶", en: "Precious Crystal", link: null }] },
-            { name: "太空奇遇", nameEn: "Outta This World", characters: [{ cn: "太空船长贝贝",
-                    en: "Bay, the Space Captain", link: "https://baike.baidu.com/item/%E5%A4%AA%E7%A9%BA%E8%88%B9%E9%95%BF%E8%B4%9D%E8%B4%9D/67645325" },
-                { cn: "航天员莱卡", en: "Lyca, the Astronaut",
-                    link: "https://baike.baidu.com/item/%E8%88%AA%E5%A4%A9%E5%91%98%E8%8E%B1%E5%8D%A1/67967264" },
-                { cn: "机械师维迪", en: "Vidi, the Mechanic",
-                    link: "https://baike.baidu.com/item/%E6%9C%BA%E6%A2%B0%E5%B8%88%E7%BB%B4%E8%BF%AA/67664115" },
-                { cn: "星云船长洛洛", en: "Lolo, the Nebula Captain", link: null }] },
-            { name: "梦幻星遇", nameEn: "Stellar Encounter Season", characters: [{ cn: "捕梦软软",
-                    en: "Dreamcatcher Softie", link: "https://baike.baidu.com/item/%E6%8D%95%E6%A2%A6%E8%BD%AF%E8%BD%AF/64330762" },
-                { cn: "星云咩咩", en: "Nebula Sheep",
-                    link: "https://baike.baidu.com/item/%E6%98%9F%E4%BA%91%E5%92%AA%E5%92%AA/63730228" },
-                { cn: "海藻偷偷", en: "Seaweed Burglar", link: null }, { cn: "萤火偷偷", en: "Firefly Burglar",
-                    link: null }] },
-            { name: "寻秘狂欢", nameEn: "Mysteries Galore Season", characters: [{ cn: "流火精灵舞舞",
-                    en: "Ignis the Flame Spirit", link: "https://baike.baidu.com/item/%E6%B5%81%E7%81%AB%E7%B2%BE%E7%81%B5%E8%88%9E%E8%88%9E/67643865" },
-                { cn: "魔灯闪闪", en: "Shiny the Magic Lamp", link: null }, { cn: "吟游诗人弥亚",
-                    en: "Mia the Bard",
-                    link: "https://baike.baidu.com/item/%E5%90%9F%E6%B8%B8%E8%AF%97%E4%BA%BA%E5%BC%A5%E4%BA%9A/67643868" },
-                { cn: "灵灯闪闪", en: "Shiny the Spirit Lamp", link: null }] },
-            { name: "午夜魅影", nameEn: "Phantom Night", characters: [{ cn: "剧院院长魅影",
-                    en: "Theater Manager Phantom", link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%99%A2%E9%95%BF%E9%AD%85%E5%BD%B1/67643266" },
-                { cn: "小演员露希", en: "Lucy the Actress",
-                    link: "https://baike.baidu.com/item/%E5%B0%8F%E6%BC%94%E5%91%98%E9%9C%B2%E5%B8%8C/67643265" },
-                { cn: "道具师芙芙", en: "Fufu the Prop Master",
-                    link: "https://baike.baidu.com/item/%E9%81%93%E5%85%B7%E5%B8%88%E8%8A%99%E8%8A%99/67643261" },
-                { cn: "剧院首席露希", en: "Lucy the Star",
-                    link: "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%A6%96%E5%B8%AD%E9%9C%B2%E5%B8%8C/67643740" }] },
-            { name: "寻光冰雪", nameEn: "Rime Light Season", characters: [{ cn: "雪原之心伊芙",
-                    en: "Eve the Snowheart", link: "https://baike.baidu.com/item/%E9%9B%AA%E5%8E%9F%E4%B9%8B%E5%BF%83%E4%BC%8A%E8%8A%99/67646010" },
-                { cn: "北极兔卢米", en: "Lumi the Arctic Bunny",
-                    link: "https://baike.baidu.com/item/%E5%8C%97%E6%9E%81%E5%85%94%E5%8D%A2%E7%B1%B3/67799835" },
-                { cn: "雪怪瓦图鲁", en: "Watulu the Yeti",
-                    link: "https://baike.baidu.com/item/%E9%9B%AA%E6%80%AA%E7%93%A6%E5%9B%BE%E9%B2%81/67800612" },
-                { cn: "北极狐卢比", en: "Lubi the Arctic Fox", link: null }] },
-            { name: "玩具历险", nameEn: "Playtime Egg-scapades", characters: [{ cn: "独角兽芬妮亚",
-                    en: "Fenia the Unicorn", link: "https://baike.baidu.com/item/%E7%8B%AC%E8%A7%92%E5%85%BD%E8%8A%AC%E5%A6%AE%E4%BA%9A/67967268" },
-                { cn: "飞天小猪班尼", en: "Benny the Flying Pig", link: null }, { cn: "音乐家蕾利",
-                    en: "Riley the Musician",
-                    link: "https://baike.baidu.com/item/%E9%9F%B3%E4%B9%90%E5%AE%B6%E8%95%BE%E5%88%A9/67967355" },
-                { cn: "小国王蕾利", en: "Riley the Little King", link: null }] },
-            { name: "潮玩大作战", nameEn: "Artsy Toy Tussle", characters: [{ cn: "鲨莉娃", en: "Sharkie",
-                    link: null }, { cn: "猴吼吼", en: "Chim Pan-Z", link: null }, { cn: "发美美",
-                    en: "Adrianna", link: null }, { cn: "美奇娅", en: "Angrianna", link: null }] },
-            { name: "宝船拍卖夜", nameEn: "Treasure Ship Auction Night", characters: [{ cn: "人鱼歌姬赛然",
-                    en: "Siren the Mermaid", link: null }, { cn: "石心船长苏勒", en: "Captain Stoneheart Soule",
-                    link: null }, { cn: "波泡儿", en: "Bubbler", link: null }, { cn: "船魔苏心",
-                    en: "Susie the Ship Demon", link: null }] },
-            { name: "深海逐金宴", nameEn: "Deep Sea Gold Rush", characters: [{ cn: "浪花黛露珊",
-                    en: "Wavy Nereida", link: null }, { cn: "大亨波利", en: "Magnate Polly", link: null },
-                { cn: "幽猎塞莉诺", en: "Shadow Hunter Serena", link: null }, { cn: "鎏金奥莉安娜",
-                    en: "Gilded Oriana", link: null }] },
-            { name: "圆月哥特", nameEn: "Plenilune Gothic Season", characters: [{ cn: "暗夜皇女德茜拉",
-                    en: "Princess of Darkness Desira", link: null }, { cn: "狼执事柯尔特",
-                    en: "Deacon Wolf Colt", link: null }, { cn: "幽灵猫妮莎", en: "Ghost Cat Nissa",
-                    link: null }, { cn: "暗夜皇子德古拉", en: "Prince of Darkness Dracula", link: null }] },
-            { name: "龙与剑之诗", nameEn: "A Ballad of Dragons & Steels", characters: [{ cn: "焰心龙女芙瑞",
-                    en: "Fieryheart Furrey", link: null }, { cn: "精灵法师月歌", en: "Elf Mage Lunariah",
-                    link: null }, { cn: "破誓骑士凯恩", en: "Oathbreaker Knight Kaine", link: null },
-                { cn: "曙光龙女芙瑞", en: "Dawnlight Drakaina Fyre", link: null }] },
-            { name: "时之回响", nameEn: "Echoes of Time", characters: [{ cn: "烛光精灵夜清",
-                    en: "Candlelight Spirit Nyx", link: null }, { cn: "执法官布谷", en: "Enforcer Cuckoo",
-                    link: null }, { cn: "渡鸦阿舍尔", en: "Raven Asher", link: null }, { cn: "雾隐精灵夜清",
-                    en: "Mistveil Spirit Nyx", link: null }, { cn: "灵鸦阿舍尔", en: "Divine Raven Asher",
-                    link: null }] },
-            { name: "金字塔传奇", nameEn: "Pyramid Legend", characters: [{ cn: "神裁者安努斯",
-                    en: "Annos the Arbiter", link: null }, { cn: "舞女洛弥诗", en: "Lomis the Dancer",
-                    link: null }, { cn: "小狮子图蒙", en: "Thumon the Lion", link: null }, { cn: "月神碧丝特",
-                    en: "Moon Goddess Bastet", link: null }] },
-            { name: "绘梦校园", nameEn: "Campus Palette", characters: [{ cn: "执笔少女露离",
-                    en: "Luli the Pen-Wielding Girl", link: null }, { cn: "布偶米米", en: "Plush Mimi",
-                    link: null }, { cn: "控球手迅风", en: "Swifty the Dribbler", link: null },
-                { cn: "绘心画灵安然", en: "Anran the Paint Spirit", link: null }] },
-            { name: "蜜糖海迷踪", nameEn: "Candyfall Riddle", characters: [{ cn: "棉花糖芙米拉",
-                    en: "Marshmallow Fumira", link: null }, { cn: "柠檬汽水啵啵", en: "Lemon Soda Poppa",
-                    link: null }, { cn: "海盐布丁嘟嘟", en: "Sea Salt Pudding Dudu", link: null },
-                { cn: "跳跳糖米拉芙", en: "Popping Candy Miraph", link: null }] },
-            { name: "博物馆狂想", nameEn: "Museum Mania", characters: [{ cn: "王冠精灵莉奥拉",
-                    en: "Crown Spirit Leora", link: null }, { cn: "暴龙化石斯坦", en: "T-Rex Fossil Stan",
-                    link: null }, { cn: "爱神丘比特", en: "Cupid the God of Love", link: null },
-                { cn: "春", en: "Spring", link: null }] },
-            { name: "国宝归乡", nameEn: "Treasures' Homecoming", characters: [{ cn: "衔花香使璎珞",
-                    en: "Floral Envoy Yingluo", link: null }, { cn: "青花瓷盖宝儿", en: "Porcelain Gaibao",
-                    link: null }, { cn: "卷中美人芳仪", en: "Painted Beauty Fangyi", link: null },
-                { cn: "衔花司使辛夷", en: "Floral Emisary Xinyi", link: null }] },
-            { name: "织梦寻星", nameEn: "", characters: [{ cn: "命运星使薇", en: "", link: null },
-                { cn: "风铃星语刹那", en: "", link: null }, { cn: "玫瑰星缘芙蕾", en: "", link: null },
-                { cn: "织梦星灵莎尔", en: "", link: null }] },
-            { name: "奇迹大马戏", nameEn: "", characters: [{ cn: "大魔术师梨嘉", en: "", link: null },
-                { cn: "马戏乐手咻咻", en: "", link: null }, { cn: "魔术助手KK", en: "", link: null },
-                { cn: "大戏法师艾洛", en: "", link: null }] }
-        ];
+        async function fetchEncyclopediaData() {
+            try {
+                const response = await fetch('encyclopedia-data.json');
+                if (!response.ok) throw new Error('网络响应异常');
+                encyclopediaData = await response.json();
+                switchEncyclopediaTab('skin');
+            } catch (error) {
+                console.error('加载百科数据失败:', error);
+                document.getElementById('encyclopediaContainer').innerHTML = 
+                    '<div style="text-align:center;padding:30px;color:#ff6b6b;">⚠️ 百科数据加载失败，请检查 encyclopedia-data.json 是否存在且路径正确。</div>';
+            }
+        }
 
-        // ============================================================
-        // 9. 渲染蛋仔百科
-        // ============================================================
-        function renderEncyclopedia(filterText) {
-            filterText = filterText || "";
-            var container = document.getElementById('encyclopediaContainer');
-            var lowerFilter = filterText.toLowerCase();
-            var html = "";
-            for (var i = 0; i < fullSeasonsData.length; i++) {
-                var season = fullSeasonsData[i];
-                var matchedChars = [];
-                for (var j = 0; j < season.characters.length; j++) {
-                    var c = season.characters[j];
-                    if (c.cn.toLowerCase().indexOf(lowerFilter) !== -1 || c.en.toLowerCase().indexOf(lowerFilter) !== -1) {
-                        matchedChars.push(c);
+        function switchEncyclopediaTab(type) {
+            currentTab = type;
+            renderedCount = 0;
+            currentDataFiltered = [];
+
+            var tabSkin = document.getElementById('tabSkin');
+            var tabAbby = document.getElementById('tabAbby');
+            var contentSkin = document.getElementById('skinEncyclopediaContent');
+            var contentAbby = document.getElementById('abbyEncyclopediaContent');
+            
+            if (!tabSkin || !tabAbby || !contentSkin || !contentAbby) return;
+
+            if (type === 'skin') {
+                tabSkin.classList.add('active');
+                tabAbby.classList.remove('active');
+                contentSkin.style.display = 'block';
+                contentAbby.style.display = 'none';
+            } else {
+                tabSkin.classList.remove('active');
+                tabAbby.classList.add('active');
+                contentSkin.style.display = 'none';
+                contentAbby.style.display = 'block';
+            }
+
+            currentDataFiltered = encyclopediaData.filter(item => item.type === type);
+            
+            var container = document.getElementById(type === 'skin' ? 'encyclopediaContainer' : 'abbyGridContainer');
+            if (container) container.innerHTML = '';
+
+            var loader = document.getElementById(type === 'skin' ? 'loadingSkin' : 'loadingAbby');
+            if (loader) loader.classList.remove('active');
+
+            renderNextBatch();
+        }
+
+        function renderNextBatch() {
+            if (isLoading || renderedCount >= currentDataFiltered.length) return;
+            isLoading = true;
+
+            var container = document.getElementById(currentTab === 'skin' ? 'encyclopediaContainer' : 'abbyGridContainer');
+            var loader = document.getElementById(currentTab === 'skin' ? 'loadingSkin' : 'loadingAbby');
+            if (loader) loader.classList.add('active');
+
+            setTimeout(() => {
+                var nextData = currentDataFiltered.slice(renderedCount, renderedCount + PAGE_SIZE);
+                var html = '';
+
+                for (var i = 0; i < nextData.length; i++) {
+                    var item = nextData[i];
+                    if (item.type === 'skin') {
+                        html += renderSkinCard(item, renderedCount + i);
+                    } else {
+                        html += renderAbbyCard(item, renderedCount + i);
                     }
                 }
-                var seasonMatch = season.name.toLowerCase().indexOf(lowerFilter) !== -1 || (season.nameEn && season.nameEn
-                    .toLowerCase().indexOf(lowerFilter) !== -1);
-                if (!filterText) {
-                    html += renderSeasonCard(season, true);
+
+                if (container) container.insertAdjacentHTML('beforeend', html);
+
+                renderedCount += nextData.length;
+                isLoading = false;
+
+                if (renderedCount >= currentDataFiltered.length) {
+                    if (loader) loader.classList.remove('active');
                 } else {
-                    if (seasonMatch) {
-                        html += renderSeasonCard(season, true);
-                    } else if (matchedChars.length > 0) {
-                        html += renderSeasonCard(season, false, matchedChars);
-                    }
+                    checkScrollAndLoad();
                 }
-            }
-            if (!html) {
-                html = '<div style="text-align:center;padding:30px;">' + texts[currentLang].noEncyclopediaFound + '</div>';
-            }
-            container.innerHTML = html;
-            var cards = document.querySelectorAll('.encyclopedia-card');
-            if (cards.length) {
-                var observer = new IntersectionObserver(function(entries) {
-                    for (var k = 0; k < entries.length; k++) {
-                        var entry = entries[k];
-                        if (entry.isIntersecting) entry.target.classList.add('visible');
-                        else entry.target.classList.remove('visible');
-                    }
-                }, { threshold: 0.1 });
-                for (var l = 0; l < cards.length; l++) {
-                    observer.observe(cards[l]);
-                }
+            }, 100);
+        }
+
+        // 【修改点 1】皮肤卡片：改为显示 summary 简介，不再直接堆砌角色列表
+        function renderSkinCard(item, index) {
+            var t = texts[currentLang];
+            var summaryText = item.summary ? item.summary : '探索该赛季的精彩角色';
+            return '<div class="encyclopedia-card" data-index="' + index + '">' +
+                '<div class="card-header">' + escapeHtml(item.name) +
+                '<span class="season-en">' + escapeHtml(item.nameEn) + '</span></div>' +
+                '<div class="abby-summary" style="padding: 12px 14px; font-size: 0.95rem; line-height: 1.7; color: var(--text-color); text-align: justify; text-indent: 2em; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; min-height: 4.7em;">' + escapeHtml(summaryText) + '</div>' +
+                '<div style="text-align:center; padding: 12px 0 16px;">' +
+                '<button class="view-detail-btn" onclick="openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button>' +
+                '</div></div>';
+        }
+
+        function renderAbbyCard(item, index) {
+            var t = texts[currentLang];
+            return '<div class="abby-card" data-index="' + index + '">' +
+                '<div class="abby-header">' +
+                    '<span class="abby-name">' + escapeHtml(item.name) + '</span>' +
+                    '<div class="abby-meta">' +
+                        '<span>编号：' + escapeHtml(item.idNum) + '</span>' +
+                        '<span>体型：' + escapeHtml(item.size) + '</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="abby-summary">' + escapeHtml(item.summary) + '</div>' +
+                '<div style="text-align:center;">' +
+                '<button class="view-detail-btn" onclick="openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button>' +
+                '</div></div>';
+        }
+
+        function checkScrollAndLoad() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var windowHeight = window.innerHeight;
+            var docHeight = document.documentElement.scrollHeight;
+            if (scrollTop + windowHeight >= docHeight - 300) {
+                renderNextBatch();
             }
         }
 
-        function renderSeasonCard(season, showAll, filteredChars) {
-            var chars = showAll ? season.characters : filteredChars;
-            var t = texts[currentLang];
-            var html = '<div class="encyclopedia-card"><div class="card-header">' + escapeHtml(season.name) +
-                '<span class="season-en">' + escapeHtml(season.nameEn) + '</span></div><div class="card-list">';
-            for (var i = 0; i < chars.length; i++) {
-                var c = chars[i];
-                var linkHtml = c.link ? '<a href="' + c.link + '" target="_blank" class="baike-link">' + t.viewBaike +
-                    '</a>' : '<span class="not-ready">' + t.notReady + '</span>';
-                html += '<li><span class="char-name">' + escapeHtml(c.cn) + ' <small>' + escapeHtml(c.en) +
-                    '</small></span>' + linkHtml + '</li>';
+        window.addEventListener('scroll', checkScrollAndLoad);
+
+        // ============================================================
+        // 9. FLIP 弹窗详情逻辑
+        // ============================================================
+        var detailModal = document.getElementById('detailModal');
+        var detailOverlay = document.getElementById('detailOverlay');
+        var detailTitle = document.getElementById('detailTitle');
+        var detailBody = document.getElementById('detailBody');
+        var detailMeta = document.getElementById('detailMeta');
+        var detailContent = document.getElementById('detailContent');
+        var detailCloseBtn = document.getElementById('detailCloseBtn');
+
+        var currentSourceCard = null;
+        var isDetailOpen = false;
+
+        function openDetailModal(id) {
+            var item = encyclopediaData.find(d => d.id === id);
+            if (!item) return;
+
+            var allCards = document.querySelectorAll('.encyclopedia-card, .abby-card');
+            for (var i = 0; i < allCards.length; i++) {
+                var card = allCards[i];
+                if (card.getAttribute('data-index') !== null) {
+                    var idx = parseInt(card.getAttribute('data-index'));
+                    var filtered = encyclopediaData.filter(d => d.type === currentTab);
+                    if (filtered[idx] && filtered[idx].id === id) {
+                        currentSourceCard = card;
+                        break;
+                    }
+                }
             }
-            html += '</div></div>';
-            return html;
+
+            if (!currentSourceCard) return;
+
+            var firstRect = currentSourceCard.getBoundingClientRect();
+
+            detailTitle.innerText = item.name;
+            if (item.type === 'skin') {
+                detailMeta.innerHTML = '<span>赛季名称：' + escapeHtml(item.name) + '</span>' +
+                    '<span>英文名：' + escapeHtml(item.nameEn) + '</span>';
+                // 【修改点 2】在详情中先展示 summary，再展示角色列表
+                var summaryHtml = item.summary ? '<p style="text-indent: 2em; line-height: 1.8; margin-bottom: 16px;">' + escapeHtml(item.summary) + '</p>' : '';
+                var chars = item.characters || [];
+                var charHtml = '<ul class="detail-char-list">';
+                for (var j = 0; j < chars.length; j++) {
+                    var c = chars[j];
+                    var linkHtml = c.link ? '<a href="' + c.link + '" target="_blank" class="baike-link">' + texts[currentLang].viewBaike + '</a>' : '<span class="not-ready">' + texts[currentLang].notReady + '</span>';
+                    charHtml += '<li><span class="char-cn">' + escapeHtml(c.cn) + '</span><span class="char-en">' + escapeHtml(c.en) + '</span>' + linkHtml + '</li>';
+                }
+                charHtml += '</ul>';
+                detailContent.innerHTML = summaryHtml + charHtml;
+            } else {
+                detailMeta.innerHTML = '<span>编号：' + escapeHtml(item.idNum) + '</span>' +
+                    '<span>体型：' + escapeHtml(item.size) + '</span>';
+                detailContent.innerHTML = '<p style="text-indent: 2em; line-height: 1.8;">' + escapeHtml(item.details) + '</p>';
+            }
+
+            var targetWidth = window.innerWidth * 0.75;
+            var targetHeight = window.innerHeight * 0.75;
+            var targetLeft = (window.innerWidth - targetWidth) / 2;
+            var targetTop = (window.innerHeight - targetHeight) / 2;
+
+            if (window.innerWidth <= 768) {
+                targetWidth = window.innerWidth * 0.9;
+                targetHeight = window.innerHeight * 0.85;
+                targetLeft = (window.innerWidth - targetWidth) / 2;
+                targetTop = (window.innerHeight - targetHeight) / 2;
+            }
+
+            detailModal.style.transition = 'none';
+            detailModal.style.width = firstRect.width + 'px';
+            detailModal.style.height = firstRect.height + 'px';
+            detailModal.style.left = firstRect.left + 'px';
+            detailModal.style.top = firstRect.top + 'px';
+            detailModal.style.borderRadius = '20px';
+            detailModal.style.opacity = '1';
+
+            detailOverlay.classList.add('active');
+            detailModal.offsetHeight;
+
+            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            detailModal.style.width = targetWidth + 'px';
+            detailModal.style.height = targetHeight + 'px';
+            detailModal.style.left = targetLeft + 'px';
+            detailModal.style.top = targetTop + 'px';
+            detailModal.style.borderRadius = '24px';
+
+            isDetailOpen = true;
+            document.body.style.overflow = 'hidden';
         }
+
+        function closeDetailModal() {
+            if (!isDetailOpen) return;
+            // 防止卡片被销毁时弹窗关不掉
+            if (!currentSourceCard) {
+                detailModal.style.display = 'none';
+                detailOverlay.classList.remove('active');
+                isDetailOpen = false;
+                document.body.style.overflow = '';
+                return;
+            }
+
+            var firstRect = currentSourceCard.getBoundingClientRect();
+
+            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            detailModal.style.width = firstRect.width + 'px';
+            detailModal.style.height = firstRect.height + 'px';
+            detailModal.style.left = firstRect.left + 'px';
+            detailModal.style.top = firstRect.top + 'px';
+            detailModal.style.borderRadius = '20px';
+
+            detailOverlay.classList.remove('active');
+
+            setTimeout(function() {
+                detailModal.style.transition = 'none';
+                detailModal.style.width = '0';
+                detailModal.style.height = '0';
+                isDetailOpen = false;
+                currentSourceCard = null;
+                document.body.style.overflow = '';
+            }, 400);
+        }
+
+        detailCloseBtn.addEventListener('click', closeDetailModal);
+        detailOverlay.addEventListener('click', closeDetailModal);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isDetailOpen) {
+                closeDetailModal();
+            }
+        });
 
         // ============================================================
         // 10. 音乐推荐
@@ -1116,58 +1370,7 @@
         }
 
         // ============================================================
-        // 12. 评论系统（保留全部逻辑，但界面已关闭）
-        // ============================================================
-        var STORAGE_KEY = 'egg_comments';
-        var isOwner = false;
-
-        var autoFixSuggestions = {
-            '艹': '🌱', '操': '🏋️', '傻逼': '🤪', 'SB': '⭐', 'sb': '⭐', '弱智': '😅', '白痴': '😶',
-            '废物': '💪', '垃圾': '♻️', '死妈': '🙏', '死爹': '🙏', '你妈': '您', '你爸': '您', '祖宗': '先辈'
-        };
-
-        function getComments() {
-            try {
-                var data = localStorage.getItem(STORAGE_KEY);
-                return data ? JSON.parse(data) : [];
-            } catch (e) { return []; }
-        }
-
-        function saveComments(comments) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-        }
-
-        function getAutoFixSuggestion(text) {
-            var suggestion = text;
-            var hasIssue = false;
-            for (var key in autoFixSuggestions) {
-                if (text.indexOf(key) !== -1) {
-                    suggestion = suggestion.replace(new RegExp(key, 'g'), autoFixSuggestions[key]);
-                    hasIssue = true;
-                }
-            }
-            return { original: text, suggestion: suggestion, hasIssue: hasIssue };
-        }
-
-        function renderComments() {
-            var container = document.getElementById('commentList');
-            if (!container) return;  // 评论列表已移除，直接返回
-            // ... 其余代码不变（但不会执行）
-        }
-
-        function getCurrentUser() {
-            var nameInput = document.getElementById('commentNameInput');
-            return nameInput ? nameInput.value.trim() || '匿名用户' : '匿名用户';
-        }
-
-        function addComment(text) { /* 保留空函数，防止调用报错 */ }
-        function toggleLike(idx) { /* 保留空函数 */ }
-        function addReply(idx, text) { /* 保留空函数 */ }
-        function deleteComment(idx) { /* 保留空函数 */ }
-        function deleteReply(commentIdx, replyIdx) { /* 保留空函数 */ }
-
-        // ============================================================
-        // 13. 页面导航
+        // 12. 页面导航
         // ============================================================
         var pages = {
             home: document.getElementById('homePage'),
@@ -1191,10 +1394,14 @@
             }
             if (p === 'season') renderSeasonVideos();
             if (p === 'encyclopedia') {
-                var inp = document.getElementById('encyclopediaSearch');
-                renderEncyclopedia(inp ? inp.value : "");
+                if (encyclopediaData.length === 0) {
+                    fetchEncyclopediaData();
+                } else {
+                    if (document.getElementById('encyclopediaContainer').children.length === 0) {
+                        switchEncyclopediaTab(currentTab);
+                    }
+                }
             }
-            if (p === 'social') renderComments();
             document.getElementById('searchResultsArea').classList.remove('active');
             document.getElementById('navMenu').classList.remove('open');
         }
@@ -1208,12 +1415,15 @@
         }
 
         // ============================================================
-        // 14. 事件绑定
+        // 13. 事件绑定
         // ============================================================
         document.getElementById('langToggle').addEventListener('click', function() {
             currentLang = currentLang === 'zh-CN' ? 'zh-TW' : 'zh-CN';
             localStorage.setItem('lang', currentLang);
             applyLanguage();
+            if (encyclopediaData.length > 0) {
+                switchEncyclopediaTab(currentTab);
+            }
         });
 
         var themeToggle = document.getElementById('themeToggle');
@@ -1237,79 +1447,6 @@
             setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
         });
 
-        // 所有者验证（保留）
-        var ownerLoginBtn = document.getElementById('ownerLoginBtn');
-        if (ownerLoginBtn) {
-            ownerLoginBtn.addEventListener('click', function() {
-                var password = document.getElementById('ownerPassword').value;
-                var statusEl = document.getElementById('ownerStatus');
-                var t = texts[currentLang];
-
-                if (!password) {
-                    statusEl.textContent = '请先输入密码';
-                    statusEl.className = 'owner-status inactive';
-                    return;
-                }
-                if (!OWNER_PASSWORD_HASH) {
-                    statusEl.textContent = '⏳ 系统初始化中，请稍后重试...';
-                    statusEl.className = 'owner-status inactive';
-                    return;
-                }
-                crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))
-                    .then(hashBuffer => {
-                        const hashArray = Array.from(new Uint8Array(hashBuffer));
-                        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                        if (hashHex === OWNER_PASSWORD_HASH) {
-                            isOwner = true;
-                            statusEl.textContent = '✅ ' + t.ownerLoginSuccess;
-                            statusEl.className = 'owner-status active';
-                            document.getElementById('ownerPassword').value = '';
-                            renderComments();
-                        } else {
-                            isOwner = false;
-                            statusEl.textContent = '❌ ' + t.ownerLoginFailed;
-                            statusEl.className = 'owner-status inactive';
-                        }
-                    })
-                    .catch(err => {
-                        console.error('哈希计算失败:', err);
-                        statusEl.textContent = '⚠️ 验证过程出错';
-                        statusEl.className = 'owner-status inactive';
-                    });
-            });
-        }
-
-        var ownerPasswordInput = document.getElementById('ownerPassword');
-        if (ownerPasswordInput) {
-            ownerPasswordInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('ownerLoginBtn').click();
-                }
-            });
-        }
-
-        // 评论提交与输入（界面已关闭，改为条件绑定）
-        var commentSubmitBtn = document.getElementById('commentSubmitBtn');
-        if (commentSubmitBtn) {
-            commentSubmitBtn.addEventListener('click', function() {
-                var input = document.getElementById('commentInput');
-                var text = input ? input.value.trim() : '';
-                if (text) {
-                    // 原有提交逻辑（但不会执行，因为按钮已移除）
-                }
-            });
-        }
-
-        var commentInput = document.getElementById('commentInput');
-        if (commentInput) {
-            commentInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    var btn = document.getElementById('commentSubmitBtn');
-                    if (btn) btn.click();
-                }
-            });
-        }
-
         // 搜索功能
         var mainSearchInput = document.getElementById('mainSearchInput');
         var searchSuggestions = document.getElementById('searchSuggestions');
@@ -1325,32 +1462,26 @@
                             suggestions.push({ text: v.title, type: '🎬 视频' });
                         }
                     }
-                    for (var j = 0; j < fullSeasonsData.length; j++) {
-                        var season = fullSeasonsData[j];
-                        for (var k = 0; k < season.characters.length; k++) {
-                            var c = season.characters[k];
-                            if (c.cn.indexOf(val) !== -1 && suggestions.length < 8) {
-                                suggestions.push({ text: c.cn, type: '📖 百科' });
+                    if (encyclopediaData.length > 0) {
+                        for (var j = 0; j < encyclopediaData.length; j++) {
+                            var d = encyclopediaData[j];
+                            if (d.name.indexOf(val) !== -1 && suggestions.length < 8) {
+                                suggestions.push({ text: d.name, type: d.type === 'skin' ? '📖 赛季' : '🏝️ 艾比' });
                             }
-                        }
-                        if (season.name.indexOf(val) !== -1 && suggestions.length < 8) {
-                            suggestions.push({ text: season.name, type: '📖 赛季' });
                         }
                     }
                     var seenS = {};
                     var uniqueS = [];
                     for (var m = 0; m < suggestions.length; m++) {
                         var key = suggestions[m].text;
-                        if (!seenS[key]) { seenS[key] = true;
-                            uniqueS.push(suggestions[m]); }
+                        if (!seenS[key]) { seenS[key] = true; uniqueS.push(suggestions[m]); }
                     }
                     if (uniqueS.length) {
                         var html = '';
                         for (var n = 0; n < uniqueS.length; n++) {
                             var s = uniqueS[n];
                             html += '<div class="suggestion-item" data-text="' + escapeHtml(s.text) +
-                                '"><span class="s-tag">' + s.type + '</span><span>' + escapeHtml(s.text) +
-                                '</span></div>';
+                                '"><span class="s-tag">' + s.type + '</span><span>' + escapeHtml(s.text) + '</span></div>';
                         }
                         searchSuggestions.innerHTML = html;
                         searchSuggestions.classList.add('active');
@@ -1371,32 +1502,27 @@
             });
         }
 
-        var mainSearchBtn = document.getElementById('mainSearchBtn');
-        if (mainSearchBtn) {
-            mainSearchBtn.addEventListener('click', function() {
-                var val = mainSearchInput.value.trim();
+        document.getElementById('mainSearchBtn').addEventListener('click', function() {
+            var val = mainSearchInput.value.trim();
+            if (val) {
+                searchSuggestions.classList.remove('active');
+                performSearch(val);
+            }
+        });
+
+        mainSearchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                var val = this.value.trim();
                 if (val) {
                     searchSuggestions.classList.remove('active');
                     performSearch(val);
                 }
-            });
-        }
-
-        if (mainSearchInput) {
-            mainSearchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    var val = this.value.trim();
-                    if (val) {
-                        searchSuggestions.classList.remove('active');
-                        performSearch(val);
-                    }
-                }
-            });
-        }
+            }
+        });
 
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.main-search')) {
-                if (searchSuggestions) searchSuggestions.classList.remove('active');
+                searchSuggestions.classList.remove('active');
             }
         });
 
@@ -1409,11 +1535,21 @@
             });
         }
 
-        // 百科搜索
+        // 百科搜索（只在皮肤百科中有效）
         var encSearch2 = document.getElementById('encyclopediaSearch');
         if (encSearch2) {
             encSearch2.addEventListener('input', function(e) {
-                renderEncyclopedia(e.target.value);
+                var keyword = e.target.value.toLowerCase().trim();
+                if (currentTab === 'skin') {
+                    currentDataFiltered = encyclopediaData.filter(item => 
+                        item.type === 'skin' && 
+                        (item.name.toLowerCase().indexOf(keyword) !== -1 || 
+                         (item.nameEn && item.nameEn.toLowerCase().indexOf(keyword) !== -1))
+                    );
+                    renderedCount = 0;
+                    document.getElementById('encyclopediaContainer').innerHTML = '';
+                    renderNextBatch();
+                }
             });
         }
 
@@ -1495,21 +1631,15 @@
                     results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName });
                 }
             }
-            for (var k = 0; k < fullSeasonsData.length; k++) {
-                var season = fullSeasonsData[k];
-                for (var l = 0; l < season.characters.length; l++) {
-                    var c = season.characters[l];
-                    if (c.cn.indexOf(trimmed) !== -1 || c.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) {
-                        results.push({ type: '📖 百科角色', title: c.cn, desc: season.name + ' · ' + c.en,
-                            seasonName: season.name });
+            if (encyclopediaData.length > 0) {
+                for (var k = 0; k < encyclopediaData.length; k++) {
+                    var item = encyclopediaData[k];
+                    if (item.name.indexOf(trimmed) !== -1 || (item.nameEn && item.nameEn.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) {
+                        results.push({ type: item.type === 'skin' ? '📖 赛季百科' : '🏝️ 艾比百科', title: item.name, desc: item.summary ? item.summary.substring(0, 50) + '...' : '', id: item.id, typeVal: item.type });
                     }
                 }
-                if (season.name.indexOf(trimmed) !== -1 || (season.nameEn && season.nameEn.toLowerCase().indexOf(trimmed
-                        .toLowerCase()) !== -1)) {
-                    results.push({ type: '📖 百科赛季', title: season.name, desc: season.nameEn || '',
-                        seasonName: season.name });
-                }
             }
+
             var seen = {};
             var uniqueResults = [];
             for (var m = 0; m < results.length; m++) {
@@ -1529,7 +1659,7 @@
             for (var n = 0; n < maxShow; n++) {
                 var r = uniqueResults[n];
                 html += '<div class="result-item" data-type="' + r.type + '" data-title="' + escapeHtml(r.title) +
-                    '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '">' +
+                    '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '" data-id="' + (r.id || '') + '" data-typeval="' + (r.typeVal || '') + '">' +
                     '<div class="r-type">' + r.type + '</div>' +
                     '<div class="r-title">' + escapeHtml(r.title) + '</div>' +
                     '<div class="r-desc">' + escapeHtml(r.desc) + '</div></div>';
@@ -1542,7 +1672,8 @@
                     var type = this.getAttribute('data-type');
                     var title = this.getAttribute('data-title');
                     var fileName = this.getAttribute('data-file');
-                    var seasonName = this.getAttribute('data-season');
+                    var id = this.getAttribute('data-id');
+                    var typeVal = this.getAttribute('data-typeval');
                     if (type.indexOf('赛季动画') !== -1 && fileName) {
                         showPage('season');
                         var searchInput = document.getElementById('seasonSearchInput');
@@ -1552,45 +1683,27 @@
                             renderSeasonVideos();
                             document.getElementById('seasonPage').scrollIntoView({ behavior: 'smooth' });
                         }
-                    } else if (type.indexOf('百科') !== -1) {
+                    } else if (type.indexOf('百科') !== -1 && id) {
                         showPage('encyclopedia');
-                        var encSearch = document.getElementById('encyclopediaSearch');
-                        if (encSearch) {
-                            encSearch.value = title;
-                            renderEncyclopedia(title);
-                        }
-                        document.getElementById('encyclopediaPage').scrollIntoView({ behavior: 'smooth' });
+                        switchEncyclopediaTab(typeVal === 'skin' ? 'skin' : 'abby');
+                        setTimeout(function() {
+                            openDetailModal(id);
+                        }, 500);
                     }
                 });
             }
         }
 
         // ============================================================
-        // 15. 初始化（包含自动计算密码哈希）
+        // 14. 初始化
         // ============================================================
         (function init() {
             var savedLang = localStorage.getItem('lang');
             if (savedLang === 'zh-TW') currentLang = 'zh-TW';
             else currentLang = 'zh-CN';
 
-            async function setupPasswordHash() {
-                try {
-                    const msg = new TextEncoder().encode('SoliderDrop2935');
-                    const hashBuffer = await crypto.subtle.digest('SHA-256', msg);
-                    const hashArray = Array.from(new Uint8Array(hashBuffer));
-                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                    OWNER_PASSWORD_HASH = hashHex;
-                    console.log('✅ 密码哈希已自动设置:', OWNER_PASSWORD_HASH);
-                } catch (err) {
-                    console.error('⚠️ 自动计算哈希失败，请刷新重试:', err);
-                }
-            }
-
-            setupPasswordHash().then(() => {
-                applyLanguage();
-                showPage('home');
-                renderComments();
-            });
+            applyLanguage();
+            showPage('home');
         })();
     </script>
 </body>
