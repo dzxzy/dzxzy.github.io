@@ -1,0 +1,403 @@
+[
+  {
+    "id": "skin_s1",
+    "type": "skin",
+    "name": "怪奇工厂",
+    "nameEn": "Strange Factory",
+    "summary": "蛋仔岛的建立离不开它们",
+    "characters": [
+      { "cn": "艾瑞和巴蒂", "en": "Ivory and Buddy", "link": null },
+      { "cn": "小蓝帽", "en": "Blu", "link": null },
+      { "cn": "法拉帝", "en": "Ferretti", "link": null },
+      { "cn": "透明小蓝帽", "en": "Cyber Blu", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s2",
+    "type": "skin",
+    "name": "惊奇游乐园",
+    "nameEn": "Playground of Wonders",
+    "summary": "欢迎来到怪象丛生的游乐园",
+    "characters": [
+      { "cn": "欢宴园长", "en": "Ringmaster", "link": null },
+      { "cn": "蟹船长", "en": "Captain Crab", "link": null },
+      { "cn": "胆小鬼", "en": "Sheetz", "link": null },
+      { "cn": "黎月园长", "en": "Crescent Director", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s3",
+    "type": "skin",
+    "name": "疯狂马戏团",
+    "nameEn": "A Day at the Circus",
+    "summary": "这里的表演一定会让你流连忘返",
+    "characters": [
+      { "cn": "惑心小丑", "en": "Dark Jester", "link": null },
+      { "cn": "布偶狮", "en": "Lionel", "link": null },
+      { "cn": "木偶波露", "en": "Mary O. Nette", "link": null },
+      { "cn": "暗匿小丑", "en": "Sneaky Jester", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s4",
+    "type": "skin",
+    "name": "汪汪向前冲",
+    "nameEn": "Doggy Dash!",
+    "summary": "勇敢汪汪向前冲",
+    "characters": [
+      { "cn": "闪电阿存", "en": "Sparky", "link": null },
+      { "cn": "极真阿莉", "en": "Ari (Judo Uniform)", "link": null },
+      { "cn": "投手阿豪", "en": "Ase", "link": null },
+      { "cn": "甜酷阿莉", "en": "Ari (Street Clothes)", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s5",
+    "type": "skin",
+    "name": "糖果甜心",
+    "nameEn": "Candy Sweethearts",
+    "summary": "尽情享受糖果的甜蜜吧",
+    "characters": [
+      { "cn": "彩虹糖魔女", "en": "Rainbow Witch", "link": null },
+      { "cn": "祈愿精灵", "en": "Wish Fairy", "link": null },
+      { "cn": "砂糖熊王子", "en": "Honey Prince", "link": null },
+      { "cn": "织梦精灵", "en": "Dream Spirit", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s6",
+    "type": "skin",
+    "name": "蛋糕密语",
+    "nameEn": "Take the Cake",
+    "summary": "聆听蛋糕们的奇幻蜜语",
+    "characters": [
+      { "cn": "蛋糕龙嗝嗝", "en": "Hiccup, the Cake Dragon", "link": null },
+      { "cn": "巧脆骑士", "en": "Crunchy Knight", "link": null },
+      { "cn": "抹茶游侠", "en": "Matcha Ranger", "link": null },
+      { "cn": "冰霜骑士", "en": "Frosty Knight", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s7",
+    "type": "skin",
+    "name": "音乐星企划",
+    "nameEn": "Rock and Roll",
+    "summary": "这首歌，带来爱与勇气的力量",
+    "characters": [
+      { "cn": "主唱曜星", "en": "Obsidian - Main Vocalist", "link": null },
+      { "cn": "吉他手卡萝", "en": "Carol, the Guitarist", "link": null },
+      { "cn": "机械鼓手贝克", "en": "Baker, the Robo-Drummer", "link": null },
+      { "cn": "音爆曜星", "en": "Obsidian - Soundburst", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s8",
+    "type": "skin",
+    "name": "精灵之声",
+    "nameEn": "Sound of Spirits",
+    "summary": "传说中的精灵，拥有振奋人心的力量",
+    "characters": [
+      { "cn": "精灵莉斯尔", "en": "Liesl", "link": null },
+      { "cn": "水母尤莱亚", "en": "Yuliya", "link": null },
+      { "cn": "八音盒温妮", "en": "Winnie", "link": null },
+      { "cn": "水母莱莱", "en": "Layla", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s9",
+    "type": "skin",
+    "name": "勇闯龙蛋岛",
+    "nameEn": "Dino Egg Island Tour",
+    "summary": "来自远古丛林的神秘客人",
+    "characters": [
+      { "cn": "暴龙崽崽", "en": "Rexie", "link": null },
+      { "cn": "甲龙晶晶", "en": "Crystal", "link": null },
+      { "cn": "三角龙小萨", "en": "Sarre", "link": null },
+      { "cn": "宝石甲龙晶晶", "en": "Precious Crystal", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s10",
+    "type": "skin",
+    "name": "太空奇遇",
+    "nameEn": "Outta This World",
+    "summary": "和太空小队一起穿越浪漫星河",
+    "characters": [
+      { "cn": "太空船长贝贝", "en": "Bay, the Space Captain", "link": "https://baike.baidu.com/item/%E5%A4%AA%E7%A9%BA%E8%88%B9%E9%95%BF%E8%B4%9D%E8%B4%9D/67645325" },
+      { "cn": "航天员莱卡", "en": "Lyca, the Astronaut", "link": "https://baike.baidu.com/item/%E8%88%AA%E5%A4%A9%E5%91%98%E8%8E%B1%E5%8D%A1/67967264" },
+      { "cn": "机械师维迪", "en": "Vidi, the Mechanic", "link": "https://baike.baidu.com/item/%E6%9C%BA%E6%A2%B0%E5%B8%88%E7%BB%B4%E8%BF%AA/67664115" },
+      { "cn": "星云船长洛洛", "en": "Lolo, the Nebula Captain", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s11",
+    "type": "skin",
+    "name": "梦幻星遇",
+    "nameEn": "Stellar Encounter Season",
+    "summary": "美梦守护联盟，点亮你的每个梦境",
+    "characters": [
+      { "cn": "捕梦软软", "en": "Dreamcatcher Softie", "link": "https://baike.baidu.com/item/%E6%8D%95%E6%A2%A6%E8%BD%AF%E8%BD%AF/64330762" },
+      { "cn": "星云咩咩", "en": "Nebula Sheep", "link": "https://baike.baidu.com/item/%E6%98%9F%E4%BA%91%E5%92%AA%E5%92%AA/63730228" },
+      { "cn": "海藻偷偷", "en": "Seaweed Burglar", "link": null },
+      { "cn": "萤火偷偷", "en": "Firefly Burglar", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s12",
+    "type": "skin",
+    "name": "寻秘狂欢",
+    "nameEn": "Mysteries Galore Season",
+    "summary": "探寻隐秘故事，徜徉童话世界",
+    "characters": [
+      { "cn": "流火精灵舞舞", "en": "Ignis the Flame Spirit", "link": "https://baike.baidu.com/item/%E6%B5%81%E7%81%AB%E7%B2%BE%E7%81%B5%E8%88%9E%E8%88%9E/67643865" },
+      { "cn": "魔灯闪闪", "en": "Shiny the Magic Lamp", "link": null },
+      { "cn": "吟游诗人弥亚", "en": "Mia the Bard", "link": "https://baike.baidu.com/item/%E5%90%9F%E6%B8%B8%E8%AF%97%E4%BA%BA%E5%BC%A5%E4%BA%9A/67643868" },
+      { "cn": "灵灯闪闪", "en": "Shiny the Spirit Lamp", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s13",
+    "type": "skin",
+    "name": "午夜魅影",
+    "nameEn": "Phantom Night",
+    "summary": "穿越午夜迷雾，点亮幽暗的梦之舞台",
+    "characters": [
+      { "cn": "剧院院长魅影", "en": "Theater Manager Phantom", "link": "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%99%A2%E9%95%BF%E9%AD%85%E5%BD%B1/67643266" },
+      { "cn": "小演员露希", "en": "Lucy the Actress", "link": "https://baike.baidu.com/item/%E5%B0%8F%E6%BC%94%E5%91%98%E9%9C%B2%E5%B8%8C/67643265" },
+      { "cn": "道具师芙芙", "en": "Fufu the Prop Master", "link": "https://baike.baidu.com/item/%E9%81%93%E5%85%B7%E5%B8%88%E8%8A%99%E8%8A%99/67643261" },
+      { "cn": "剧院首席露希", "en": "Lucy the Star", "link": "https://baike.baidu.com/item/%E5%89%A7%E9%99%A2%E9%A6%96%E5%B8%AD%E9%9C%B2%E5%B8%8C/67643740" }
+    ]
+  },
+  {
+    "id": "skin_s14",
+    "type": "skin",
+    "name": "寻光冰雪",
+    "nameEn": "Rime Light Season",
+    "summary": "踏上未知的旅程，追寻自然的微光",
+    "characters": [
+      { "cn": "雪原之心伊芙", "en": "Eve the Snowheart", "link": "https://baike.baidu.com/item/%E9%9B%AA%E5%8E%9F%E4%B9%8B%E5%BF%83%E4%BC%8A%E8%8A%99/67646010" },
+      { "cn": "北极兔卢米", "en": "Lumi the Arctic Bunny", "link": "https://baike.baidu.com/item/%E5%8C%97%E6%9E%81%E5%85%94%E5%8D%A2%E7%B1%B3/67799835" },
+      { "cn": "雪怪瓦图鲁", "en": "Watulu the Yeti", "link": "https://baike.baidu.com/item/%E9%9B%AA%E6%80%AA%E7%93%A6%E5%9B%BE%E9%B2%81/67800612" },
+      { "cn": "北极狐卢比", "en": "Lubi the Arctic Fox", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s15",
+    "type": "skin",
+    "name": "玩具历险",
+    "nameEn": "Playtime Egg-scapades",
+    "summary": "穿过奇妙玩具世界，寻找神秘心愿瀑布",
+    "characters": [
+      { "cn": "独角兽芬妮亚", "en": "Fenia the Unicorn", "link": "https://baike.baidu.com/item/%E7%8B%AC%E8%A7%92%E5%85%BD%E8%8A%AC%E5%A6%AE%E4%BA%9A/67967268" },
+      { "cn": "飞天小猪班尼", "en": "Benny the Flying Pig", "link": null },
+      { "cn": "音乐家蕾利", "en": "Riley the Musician", "link": "https://baike.baidu.com/item/%E9%9F%B3%E4%B9%90%E5%AE%B6%E8%95%BE%E5%88%A9/67967355" },
+      { "cn": "小国王蕾利", "en": "Riley the Little King", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s16",
+    "type": "skin",
+    "name": "潮玩大作战",
+    "nameEn": "Artsy Toy Tussle",
+    "summary": "误入惊叫之旅，开启极限逃生",
+    "characters": [
+      { "cn": "鲨莉娃", "en": "Sharkie", "link": null },
+      { "cn": "猴吼吼", "en": "Chim Pan-Z", "link": null },
+      { "cn": "发美美", "en": "Adrianna", "link": null },
+      { "cn": "美奇娅", "en": "Angrianna", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s17",
+    "type": "skin",
+    "name": "宝船拍卖夜",
+    "nameEn": "Treasure Ship Auction Night",
+    "summary": "载满珍宝的游船，现已为你靠岸",
+    "characters": [
+      { "cn": "人鱼歌姬赛然", "en": "Siren the Mermaid", "link": null },
+      { "cn": "石心船长苏勒", "en": "Captain Stoneheart Soule", "link": null },
+      { "cn": "波泡儿", "en": "Bubbler", "link": null },
+      { "cn": "船魔苏心", "en": "Susie the Ship Demon", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s18",
+    "type": "skin",
+    "name": "深海逐金宴",
+    "nameEn": "Deep Sea Gold Rush",
+    "summary": "深海的罪恶，皆因黄金的引诱",
+    "characters": [
+      { "cn": "浪花黛露珊", "en": "Wavy Nereida", "link": null },
+      { "cn": "大亨波利", "en": "Magnate Polly", "link": null },
+      { "cn": "幽猎塞莉诺", "en": "Shadow Hunter Serena", "link": null },
+      { "cn": "鎏金奥莉安娜", "en": "Gilded Oriana", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s19",
+    "type": "skin",
+    "name": "圆月哥特",
+    "nameEn": "Plenilune Gothic Season",
+    "summary": "神秘的古堡中流传着怎样的传说",
+    "characters": [
+      { "cn": "暗夜皇女德茜拉", "en": "Princess of Darkness Desira", "link": null },
+      { "cn": "狼执事柯尔特", "en": "Deacon Wolf Colt", "link": null },
+      { "cn": "幽灵猫妮莎", "en": "Ghost Cat Nissa", "link": null },
+      { "cn": "暗夜皇子德古拉", "en": "Prince of Darkness Dracula", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s20",
+    "type": "skin",
+    "name": "龙与剑之诗",
+    "nameEn": "A Ballad of Dragons & Steels",
+    "summary": "我们的诗歌将流传后世",
+    "characters": [
+      { "cn": "焰心龙女芙瑞", "en": "Fieryheart Furrey", "link": null },
+      { "cn": "精灵法师月歌", "en": "Elf Mage Lunariah", "link": null },
+      { "cn": "破誓骑士凯恩", "en": "Oathbreaker Knight Kaine", "link": null },
+      { "cn": "曙光龙女芙瑞", "en": "Dawnlight Drakaina Fyre", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s21",
+    "type": "skin",
+    "name": "时之回响",
+    "nameEn": "Echoes of Time",
+    "summary": "时针指向二十一，一切都会推倒重来",
+    "characters": [
+      { "cn": "烛光精灵夜清", "en": "Candlelight Spirit Nyx", "link": null },
+      { "cn": "执法官布谷", "en": "Enforcer Cuckoo", "link": null },
+      { "cn": "渡鸦阿舍尔", "en": "Raven Asher", "link": null },
+      { "cn": "雾隐精灵夜清", "en": "Mistveil Spirit Nyx", "link": null },
+      { "cn": "灵鸦阿舍尔", "en": "Divine Raven Asher", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s22",
+    "type": "skin",
+    "name": "金字塔传奇",
+    "nameEn": "Pyramid Legend",
+    "summary": "探秘金字塔，书写新的传奇",
+    "characters": [
+      { "cn": "神裁者安努斯", "en": "Annos the Arbiter", "link": null },
+      { "cn": "舞女洛弥诗", "en": "Lomis the Dancer", "link": null },
+      { "cn": "小狮子图蒙", "en": "Thumon the Lion", "link": null },
+      { "cn": "月神碧丝特", "en": "Moon Goddess Bastet", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s23",
+    "type": "skin",
+    "name": "绘梦校园",
+    "nameEn": "Campus Palette",
+    "summary": "体验奇异的校园冒险",
+    "characters": [
+      { "cn": "执笔少女露离", "en": "Luli the Pen-Wielding Girl", "link": null },
+      { "cn": "布偶米米", "en": "Plush Mimi", "link": null },
+      { "cn": "控球手迅风", "en": "Swifty the Dribbler", "link": null },
+      { "cn": "绘心画灵安然", "en": "Anran the Paint Spirit", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s24",
+    "type": "skin",
+    "name": "蜜糖海迷踪",
+    "nameEn": "Candyfall Riddle",
+    "summary": "遨游神秘的蜜糖之海",
+    "characters": [
+      { "cn": "棉花糖芙米拉", "en": "Marshmallow Fumira", "link": null },
+      { "cn": "柠檬汽水啵啵", "en": "Lemon Soda Poppa", "link": null },
+      { "cn": "海盐布丁嘟嘟", "en": "Sea Salt Pudding Dudu", "link": null },
+      { "cn": "跳跳糖米拉芙", "en": "Popping Candy Miraph", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s25",
+    "type": "skin",
+    "name": "博物馆狂想",
+    "nameEn": "Museum Mania",
+    "summary": "在博物馆度过奇妙之夜",
+    "characters": [
+      { "cn": "王冠精灵莉奥拉", "en": "Crown Spirit Leora", "link": null },
+      { "cn": "暴龙化石斯坦", "en": "T-Rex Fossil Stan", "link": null },
+      { "cn": "爱神丘比特", "en": "Cupid the God of Love", "link": null },
+      { "cn": "春", "en": "Spring", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s26",
+    "type": "skin",
+    "name": "国宝归乡",
+    "nameEn": "Treasures' Homecoming",
+    "summary": "带国宝回家",
+    "characters": [
+      { "cn": "衔花香使璎珞", "en": "Floral Envoy Yingluo", "link": null },
+      { "cn": "青花瓷盖宝儿", "en": "Porcelain Gaibao", "link": null },
+      { "cn": "卷中美人芳仪", "en": "Painted Beauty Fangyi", "link": null },
+      { "cn": "衔花司使辛夷", "en": "Floral Emisary Xinyi", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s27",
+    "type": "skin",
+    "name": "织梦寻星",
+    "nameEn": "",
+    "summary": "点亮通往幸福的星图",
+    "characters": [
+      { "cn": "命运星使薇", "en": "", "link": null },
+      { "cn": "风铃星语刹那", "en": "", "link": null },
+      { "cn": "玫瑰星缘芙蕾", "en": "", "link": null },
+      { "cn": "织梦星灵莎尔", "en": "", "link": null }
+    ]
+  },
+  {
+    "id": "skin_s28",
+    "type": "skin",
+    "name": "奇迹大马戏",
+    "nameEn": "",
+    "summary": "爱是最伟大的奇迹",
+    "characters": [
+      { "cn": "大魔术师梨嘉", "en": "", "link": null },
+      { "cn": "马戏乐手咻咻", "en": "", "link": null },
+      { "cn": "魔术助手KK", "en": "", "link": null },
+      { "cn": "大戏法师艾洛", "en": "", "link": null }
+    ]
+  },
+  {
+    "id": "abby_0001",
+    "type": "abby",
+    "name": "兔萝萝",
+    "idNum": "0001",
+    "size": "小型",
+    "summary": "兔萝萝，草属性小型艾比。虽然外观是兔子的模样，平时也喜欢蹦蹦跳跳，但摸起来的手感并非毛茸茸，而是更像表皮光滑的多肉植物。",
+    "details": "兔萝萝，草属性小型艾比。虽然外观是兔子的模样，平时也喜欢蹦蹦跳跳，但摸起来的手感并非毛茸茸，而是更像表皮光滑的多肉植物。它们粉粉的耳朵不仅可以跟随动作一摇一晃，还可以变成竹蜻蜓螺旋起飞，是非常美观又实用的器官。不管是什么季节，只要进入森林，都有可能遇到正在开派对的兔萝萝家族。兔萝萝的家族体系之庞大，甚至可以与森林地下盘根错节的树枝根茎相媲美。它们的大家庭中多数维持着良好的社会关系，时刻准备着与家族中的其他成员向外开拓探索。兔萝萝的性格开朗活泼，虽然对世界充满好奇，也乐于分享，但是性格上较为“保守”，非常容易受到惊吓。这似乎是它们刻在基因里的一种条件反射。这样的性格也成为了兔萝萝家族在守护森林之路上的最大阻力之一，只要碰到稍显惊吓的事情，就会集体缩到土里，露出两只肉肉的粉色耳朵。只要走进森林，各处都有可能看见兔萝萝的身影。不过需要注意的是，一定要怀着温柔之心接近兔萝萝，因为只要听到稍有异常的凤吹草动，它们就会钻进地里，从兔萝萝变成土萝萝。——《艾比通讯绘本·兔萝萝篇》"
+  },
+  {
+    "id": "abby_0002",
+    "type": "abby",
+    "name": "爆爆狐",
+    "idNum": "0002",
+    "size": "小型",
+    "summary": "爆爆狐，火属性小型艾比。它们常生活在高温区域，外表是红彤彤的小狐狸，一生气头顶就会冒火，天生性格傲娇，不喜和其他生物亲近，服从性差。",
+    "details": "爆爆狐，火属性小型艾比。它们常生活在高温区域，外表是红彤彤的小狐狸，一生气头顶就会冒火，天生性格傲娇，不喜和其他生物亲近，服从性差。但对自己喜欢的伙伴，会展现出极高的忠诚度。外表难以接近的爆爆狐内心却十分柔软，一旦选中了自己的伙伴，便会一直忠诚守护，不允许自己的伙伴受到任何伤害。若它的伙伴在自己和其他艾比太过亲近，爆爆狐则会表现出吃醋的态度，头顶冒出火焰。爆爆狐的毛发十分柔顺，并没有因为常年的灼烧而干枯，其对火焰的掌控力是爆爆狐种族最神奇的特性。路过河边时，会经常看到爆爆狐将自己的脑袋插在水中，这是它们主动灭火的方式——让自己冷静下来。若你见到一只湿漉漉的爆爆狐，可以尝试帮助它们擦干毛发，因为此时是接近它们，培养信任的最好机会。说不定从此以后，你也会拥有一只脾气火爆，但内心温柔的小狐狸了！——《艾比通讯绘本·爆爆狐篇》"
+  },
+  {
+    "id": "abby_0003",
+    "type": "abby",
+    "name": "水捏捏",
+    "idNum": "0003",
+    "size": "小型",
+    "summary": "水捏捏，水属性小型艾比。水润好捏，表面覆盖着一层黏状皮肤，但是接触水之后又会变得很光滑，手感像是一种解压类玩具，外观则像是长着耳朵的小水球。",
+    "details": "水捏捏，水属性小型艾比。水润好捏，表面覆盖着一层黏状皮肤，但是接触水之后又会变得很光滑，手感像是一种解压类玩具，外观则像是长着耳朵的小水球，是较为少见的稀有艾比。水捏捏的性格曾被某些生物学家判定为“软弱”。据说，这样的性格判定是因为太可爱了所以经常被其他艾比“欺负”，曾有人目睹它被其他艾比压扁喷出水柱，但它没有生气，似乎还因为跟大家一起玩而感到开心呢，是性格超好的一类艾比。水捏捏是喜欢群居的艾比，有天生的群体意识与守护欲。只要是它认定的伙伴，让它做什么都可以哦。战斗的意义是守护，工作的意义是……大家在一起！（所以爱屋及乌也喜欢上工作了。不过，让它独自工作的话，会很低沉失落。）水捏捏常年情绪稳定，偶尔也会忧郁失落，一般是觉得自己很没用的时候，那个时候请你给它一些爱抚和鼓励吧~水捏捏经常出没在有水的地方，要跟它成为伙伴的话，请多多观察某些水域！——《艾比通讯绘本·水捏捏篇》"
+  },
+  {
+    "id": "abby_0004",
+    "type": "abby",
+    "name": "米亚",
+    "idNum": "0004",
+    "size": "小型",
+    "summary": "米亚，普通属性小型艾比，艾比界中的超级幸运星，自然界真正的宠儿。绒毛耳朵是宽大的翅膀造型，从正面看就像是一个蝴蝶结，尾巴尖是爱心形状。",
+    "details": "米亚，普通属性小型艾比，艾比界中的超级幸运星，自然界真正的宠儿。绒毛耳朵是宽大的翅膀造型，从正面看就像是一个蝴蝶结，尾巴尖是爱心形状。大而柔软的耳朵可以让米亚敏锐地听见远处的声音，随时随地保持警觉性。长长的心形尾巴不仅可以保持平衡，还拥有意想不到的奇妙作用——是的，它的尾巴可以与锹锹共鸣，如果你们成为了共同生活的伙伴，米亚甚至可以用尾巴定位到你们的位置，这是独属于你们之间的心灵感应。米亚天性活泼友善，它们最喜欢做的事情，就是和其他生物居住在一块。它们具有化解争端的神奇魔力，充满热情的探险精神也让米亚在与其他生物相处的过程中收获到满满的喜爱。有米亚出现的地方，势必也会充满着欢声笑语。它们的一举一动都充满可爱的动感韵律，朝气蓬勃的淘气精神与天真软萌的外表完美结合，毫无疑问，米亚的到来是一份天赐的礼物。面对战斗，米亚从不退缩。它们战斗的实力同样不容小觑，一颗跃动的光球，足以让轻视米亚可爱外表的对手狠狠吃上一记苦头。而与米亚一起工作，是一件开心的事，它们的活力，可以带动周围的所有生物，营造轻松的气氛。在米亚可爱的外表之下，也隐藏着秘密。它身上的神秘力量来源何处，还需要持续探寻……作为艾比世界幸运值最高的艾比，想和米亚做朋友的生物数不胜数，不仅是因为和米亚做朋友就可以获得幸运，变得好运，也因为它们的罕见。想要与米亚成为伙伴的话，我只有一个建议——希望你足够幸运。——《艾比通讯绘本·米亚篇》"
+  }
+]
