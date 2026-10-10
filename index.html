@@ -7,6 +7,7 @@
     <link rel="preload" as="image" href="assets/bg.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ---------- 基础样式 ---------- */
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--gov-main-color:#0A3369;--gov-accent-color:#FFB800;--card-bg-light:rgba(255,255,255,0.95);--card-bg-dark:rgba(30,35,55,0.85);--text-light:#1F2D3D;--text-dark:#EEF2FF;--shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 8px 24px rgba(0,0,0,0.12);--transition:all 0.25s ease}
         body.light{background:linear-gradient(135deg,#F0F4FA 0%,#E8EDF5 100%);background-attachment:fixed;--card-bg:rgba(255,255,255,0.92);--card-border:1px solid #E5E9F0;--text-color:var(--text-light);--title-color:var(--gov-main-color)}
@@ -935,7 +936,6 @@
                 const response = await fetch('encyclopedia-data.json');
                 if (!response.ok) throw new Error('网络响应异常');
                 encyclopediaData = await response.json();
-                switchEncyclopediaTab('skin');
             } catch (error) {
                 console.error('加载百科数据失败:', error);
                 document.getElementById('encyclopediaContainer').innerHTML = 
@@ -982,7 +982,14 @@
                     html += renderAbbyCard(item, i);
                 }
             }
-            if (container) container.innerHTML = html;
+            if (container) {
+                container.innerHTML = html;
+                // 关键修复：让所有卡片立即可见
+                var cards = container.querySelectorAll('.encyclopedia-card, .abby-card');
+                for (var j = 0; j < cards.length; j++) {
+                    cards[j].classList.add('visible');
+                }
+            }
         }
 
         function renderSkinCard(item, index) {
@@ -1219,7 +1226,9 @@
             if (p === 'season') renderSeasonVideos();
             if (p === 'encyclopedia') {
                 if (encyclopediaData.length === 0) {
-                    fetchEncyclopediaData();
+                    fetchEncyclopediaData().then(function() {
+                        switchEncyclopediaTab(currentTab);
+                    });
                 } else {
                     switchEncyclopediaTab(currentTab);
                 }
@@ -1285,6 +1294,14 @@
                             var d = encyclopediaData[j];
                             if (d.name.indexOf(val) !== -1 && suggestions.length < 8) {
                                 suggestions.push({ text: d.name, type: d.type === 'skin' ? '📖 赛季' : '🏝️ 艾比' });
+                            }
+                            if (d.type === 'skin' && d.characters) {
+                                for (var c = 0; c < d.characters.length; c++) {
+                                    var char = d.characters[c];
+                                    if (char.cn.indexOf(val) !== -1 && suggestions.length < 8) {
+                                        suggestions.push({ text: char.cn, type: '📖 角色' });
+                                    }
+                                }
                             }
                         }
                     }
@@ -1360,13 +1377,18 @@
                     var filtered = encyclopediaData.filter(item => 
                         item.type === 'skin' && 
                         (item.name.toLowerCase().indexOf(keyword) !== -1 || 
-                         (item.nameEn && item.nameEn.toLowerCase().indexOf(keyword) !== -1))
+                         (item.nameEn && item.nameEn.toLowerCase().indexOf(keyword) !== -1) ||
+                         (item.characters && item.characters.some(c => c.cn.toLowerCase().indexOf(keyword) !== -1 || (c.en && c.en.toLowerCase().indexOf(keyword) !== -1))))
                     );
                     var html = '';
                     for (var i = 0; i < filtered.length; i++) {
                         html += renderSkinCard(filtered[i], i);
                     }
                     document.getElementById('encyclopediaContainer').innerHTML = html;
+                    var cards = document.getElementById('encyclopediaContainer').querySelectorAll('.encyclopedia-card');
+                    for (var j = 0; j < cards.length; j++) {
+                        cards[j].classList.add('visible');
+                    }
                 }
             });
         }
@@ -1410,7 +1432,10 @@
             if (e.target === document.getElementById('videoModal')) closeModal();
         };
 
-        function performSearch(query) {
+        async function performSearch(query) {
+            if (encyclopediaData.length === 0) {
+                await fetchEncyclopediaData();
+            }
             var trimmed = query.trim();
             var resultsArea = document.getElementById('searchResultsArea');
             var resultGrid = document.getElementById('searchResultGrid');
@@ -1452,6 +1477,14 @@
                     var item = encyclopediaData[k];
                     if (item.name.indexOf(trimmed) !== -1 || (item.nameEn && item.nameEn.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) {
                         results.push({ type: item.type === 'skin' ? '📖 赛季百科' : '🏝️ 艾比百科', title: item.name, desc: item.summary ? item.summary.substring(0, 50) + '...' : '', id: item.id, typeVal: item.type });
+                    }
+                    if (item.type === 'skin' && item.characters) {
+                        for (var c = 0; c < item.characters.length; c++) {
+                            var char = item.characters[c];
+                            if (char.cn.indexOf(trimmed) !== -1 || (char.en && char.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) {
+                                results.push({ type: '📖 赛季角色', title: char.cn, desc: item.name + ' · ' + char.en, id: item.id, typeVal: 'skin', seasonName: item.name });
+                            }
+                        }
                     }
                 }
             }
@@ -1517,6 +1550,8 @@
 
             applyLanguage();
             showPage('home');
+            // 预加载百科数据，避免搜索时等待
+            fetchEncyclopediaData();
         })();
     </script>
 </body>
