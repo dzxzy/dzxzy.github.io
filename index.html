@@ -7,7 +7,6 @@
     <link rel="preload" as="image" href="assets/bg.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ---------- 基础样式 ---------- */
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--gov-main-color:#0A3369;--gov-accent-color:#FFB800;--card-bg-light:rgba(255,255,255,0.95);--card-bg-dark:rgba(30,35,55,0.85);--text-light:#1F2D3D;--text-dark:#EEF2FF;--shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 8px 24px rgba(0,0,0,0.12);--transition:all 0.25s ease}
         body.light{background:linear-gradient(135deg,#F0F4FA 0%,#E8EDF5 100%);background-attachment:fixed;--card-bg:rgba(255,255,255,0.92);--card-border:1px solid #E5E9F0;--text-color:var(--text-light);--title-color:var(--gov-main-color)}
@@ -38,7 +37,7 @@
         .header-tools{display:flex;align-items:center;gap:8px;flex-shrink:0}
         .theme-switch,.lang-switch{background:rgba(0,0,0,0.2);border-radius:30px;padding:4px 12px;cursor:pointer;border:var(--card-border);font-weight:500;font-size:0.8rem}
         .hamburger{display:none;font-size:1.4rem;cursor:pointer;background:none;border:none;color:var(--text-color);padding:4px 8px}
-        .main-content{flex:1;padding:30px 0}
+        .main-content{flex:1;padding:30px 0;padding-bottom: 120px;} /* 底部留出空间，防止悬浮窗遮挡 */
         .page{display:none;animation:fadeIn .3s ease}
         .page.active-page{display:block}
         @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -80,15 +79,22 @@
         .video-card .card-info{padding:14px}
         .video-card .card-title{font-weight:bold;font-size:1rem;margin-bottom:4px}
         .video-card .download-btn{display:inline-block;background:#2a5f8a;padding:4px 14px;border-radius:40px;text-decoration:none;color:#fff;font-size:.75rem;margin-top:8px}
-        .encyclopedia-card .card-header{padding:12px 14px 6px;font-weight:bold;font-size:1.1rem;color:var(--title-color);border-bottom:2px solid var(--card-border)}
-        .encyclopedia-card .season-en{font-size:.85rem;font-weight:normal;opacity:.8;display:block;margin-top:2px}
-        .encyclopedia-card .card-list{padding:12px 14px;list-style:none}
+        /* 修改卡片样式 */
+        .encyclopedia-card{display: flex;flex-direction: column;align-items: center;padding: 16px 12px;}
+        .encyclopedia-card .card-header{padding:12px 14px 6px;font-weight:bold;font-size:1.1rem;color:var(--title-color);border-bottom:2px solid var(--card-border);text-align: center;width: 100%;}
+        .encyclopedia-card .season-en{font-size:.85rem;font-weight:normal;opacity:.8;display:block;margin-top:2px;text-align: center;}
+        .encyclopedia-card .card-list{padding:12px 14px;list-style:none;width: 100%;}
         .encyclopedia-card .card-list li{padding:8px 0;border-bottom:1px dashed rgba(128,128,128,0.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;font-size:0.9rem}
         .encyclopedia-card .char-name{font-weight:500;display:flex;flex-direction:column;gap:2px}
         .encyclopedia-card .char-name small{font-size:.7rem;opacity:.7;font-weight:normal}
         .encyclopedia-card .baike-link,.encyclopedia-card .not-ready{white-space:nowrap;margin-left:10px;font-size:.8rem}
         .encyclopedia-card .baike-link{background:none;border:none;color:var(--title-color);cursor:pointer;text-decoration:underline}
         .not-ready{color:#999;font-style:italic}
+        /* 修改卡片介绍文字居中，并缩减高度 */
+        .encyclopedia-card .abby-summary {padding: 8px 14px 4px 14px; font-size: 0.95rem; line-height: 1.6; color: var(--text-color); text-align: center; text-indent: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 8px;}
+        /* 缩小查看详情按钮 */
+        .view-detail-btn {align-self: center; padding: 6px 16px; border-radius: 30px; background: var(--title-color); color: #fff; border: none; font-weight: 600; cursor: pointer; transition: var(--transition); font-size: 0.85rem; margin-bottom: 4px;}
+        .view-detail-btn:hover {opacity: 0.8; transform: scale(0.97);}
         .music-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin:24px 0}
         .song-card{background:var(--card-bg);backdrop-filter:blur(8px);border-radius:28px;overflow:hidden;transition:transform .3s;border:var(--card-border);padding:20px}
         .song-card:hover{transform:translateY(-5px)}
@@ -185,212 +191,37 @@
         .owner-status{font-size:0.75rem;padding:4px 12px;border-radius:20px}
         .owner-status.active{background:rgba(107,203,119,0.2);color:#6bcb77}
         .owner-status.inactive{background:rgba(255,107,107,0.2);color:#ff6b6b}
-        
         .encyclopedia-tabs{display:flex;justify-content:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
         .ency-tab-btn{padding:10px 28px;border-radius:40px;border:var(--card-border);background:var(--card-bg);color:var(--text-color);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition)}
         .ency-tab-btn:hover{opacity:0.8;transform:scale(0.97)}
         .ency-tab-btn.active{background:var(--title-color);color:#fff;border-color:var(--title-color)}
-
-        .abby-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin: 24px 0;
-        }
-        .abby-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 24px;
-            border: var(--card-border);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .abby-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 28px;
-            border-color: rgba(255, 215, 0, 0.5);
-            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255,255,255,0.95) 100%);
-        }
-        body.dark .abby-card:hover {
-            background: linear-gradient(135deg, rgba(40,50,70,0.9) 0%, rgba(50,60,80,0.95) 100%);
-        }
-        .abby-card .abby-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px dashed rgba(128,128,128,0.2);
-        }
-        .abby-card .abby-name {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--title-color);
-            letter-spacing: 1px;
-        }
-        .abby-card .abby-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 0.85rem;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-        .abby-card .abby-meta span {
-            background: rgba(128,128,128,0.1);
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-        .abby-card .abby-summary {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-color);
-            text-align: justify;
-            text-indent: 2em;
-            flex: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-        .view-detail-btn {
-            align-self: center;
-            padding: 8px 24px;
-            border-radius: 30px;
-            background: var(--title-color);
-            color: #fff;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-        .view-detail-btn:hover {
-            opacity: 0.8;
-            transform: scale(0.97);
-        }
-
-        .detail-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-        .detail-overlay.active {
-            display: block;
-            opacity: 1;
-        }
-        .detail-modal {
-            position: fixed;
-            z-index: 2001;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(128,128,128,0.2);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-        .detail-modal .detail-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(128,128,128,0.15);
-            flex-shrink: 0;
-        }
-        .detail-modal .detail-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--title-color);
-        }
-        .detail-modal .detail-close {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--text-color);
-            opacity: 0.6;
-            transition: opacity 0.2s, transform 0.2s;
-            line-height: 1;
-            padding: 4px;
-        }
-        .detail-modal .detail-close:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .detail-modal .detail-body {
-            padding: 24px;
-            overflow-y: auto;
-            flex: 1;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-color);
-        }
-        .detail-modal .detail-body::-webkit-scrollbar {
-            width: 6px;
-        }
-        .detail-modal .detail-body::-webkit-scrollbar-thumb {
-            background: rgba(128,128,128,0.3);
-            border-radius: 3px;
-        }
-        .detail-modal .detail-meta {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .detail-modal .detail-meta span {
-            background: rgba(128,128,128,0.1);
-            padding: 6px 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-        }
-        .detail-modal .detail-char-list {
-            list-style: none;
-            padding: 0;
-        }
-        .detail-modal .detail-char-list li {
-            padding: 12px 0;
-            border-bottom: 1px dashed rgba(128,128,128,0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .detail-modal .detail-char-list li .char-cn {
-            font-weight: 600;
-            color: var(--title-color);
-        }
-        .detail-modal .detail-char-list li .char-en {
-            opacity: 0.8;
-            font-size: 0.85rem;
-        }
-
-        .loading-indicator {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-color);
-            opacity: 0.7;
-            font-size: 0.9rem;
-            display: none;
-        }
-        .loading-indicator.active {
-            display: block;
-        }
-
+        .abby-grid {display: grid;grid-template-columns: repeat(2, 1fr);gap: 24px;margin: 24px 0;}
+        .abby-card {background: var(--card-bg);backdrop-filter: blur(12px);border-radius: 20px;padding: 24px;border: var(--card-border);box-shadow: var(--shadow-sm);transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);cursor: pointer;position: relative;overflow: hidden;display: flex;flex-direction: column;}
+        .abby-card:hover {transform: translateY(-8px) scale(1.02);box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.1);border-radius: 28px;border-color: rgba(255, 215, 0, 0.5);background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255,255,255,0.95) 100%);}
+        body.dark .abby-card:hover {background: linear-gradient(135deg, rgba(40,50,70,0.9) 0%, rgba(50,60,80,0.95) 100%);}
+        .abby-card .abby-header {display: flex;justify-content: space-between;align-items: center;margin-bottom: 16px;padding-bottom: 12px;border-bottom: 2px dashed rgba(128,128,128,0.2);}
+        .abby-card .abby-name {font-size: 1.4rem;font-weight: 800;color: var(--title-color);letter-spacing: 1px;}
+        .abby-card .abby-meta {display: flex;gap: 12px;font-size: 0.85rem;color: var(--text-color);opacity: 0.8;}
+        .abby-card .abby-meta span {background: rgba(128,128,128,0.1);padding: 4px 10px;border-radius: 12px;}
+        .abby-card .abby-summary {font-size: 0.95rem;line-height: 1.7;color: var(--text-color);text-align: justify;text-indent: 2em;flex: 1;display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;margin-bottom: 16px;}
+        .detail-overlay {position: fixed;inset: 0;background: rgba(0,0,0,0.5);z-index: 2000;display: none;opacity: 0;transition: opacity 0.3s ease;backdrop-filter: blur(4px);}
+        .detail-overlay.active {display: block;opacity: 1;}
+        .detail-modal {position: fixed;z-index: 2001;background: var(--card-bg);backdrop-filter: blur(20px);border: 1px solid rgba(128,128,128,0.2);box-shadow: 0 25px 50px rgba(0,0,0,0.3);display: none;flex-direction: column;overflow: hidden;border-radius: 20px;}
+        .detail-modal .detail-header {display: flex;justify-content: space-between;align-items: center;padding: 20px 24px;border-bottom: 1px solid rgba(128,128,128,0.15);flex-shrink: 0;}
+        .detail-modal .detail-title {font-size: 1.4rem;font-weight: 800;color: var(--title-color);}
+        .detail-modal .detail-close {background: none;border: none;font-size: 1.8rem;cursor: pointer;color: var(--text-color);opacity: 0.6;transition: opacity 0.2s, transform 0.2s;line-height: 1;padding: 4px;}
+        .detail-modal .detail-close:hover {opacity: 1;transform: scale(1.1);}
+        .detail-modal .detail-body {padding: 24px;overflow-y: auto;flex: 1;font-size: 1rem;line-height: 1.8;color: var(--text-color);}
+        .detail-modal .detail-body::-webkit-scrollbar {width: 6px;}
+        .detail-modal .detail-body::-webkit-scrollbar-thumb {background: rgba(128,128,128,0.3);border-radius: 3px;}
+        .detail-modal .detail-meta {display: flex;gap: 12px;margin-bottom: 20px;flex-wrap: wrap;}
+        .detail-modal .detail-meta span {background: rgba(128,128,128,0.1);padding: 6px 14px;border-radius: 12px;font-size: 0.9rem;}
+        .detail-modal .detail-char-list {list-style: none;padding: 0;}
+        .detail-modal .detail-char-list li {padding: 12px 0;border-bottom: 1px dashed rgba(128,128,128,0.2);display: flex;justify-content: space-between;align-items: center;flex-wrap: wrap;}
+        .detail-modal .detail-char-list li .char-cn {font-weight: 600;color: var(--title-color);}
+        .detail-modal .detail-char-list li .char-en {opacity: 0.8;font-size: 0.85rem;}
+        .loading-indicator {text-align: center;padding: 20px;color: var(--text-color);opacity: 0.7;font-size: 0.9rem;display: none;}
+        .loading-indicator.active {display: block;}
         @media (max-width:1200px){.season-grid,.encyclopedia-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
         @media (max-width:992px){.nav-menu{gap:12px}.header{flex-wrap:wrap;height:auto;padding:8px 12px}.logo-area{flex:1}.header-tools{flex:0 1 auto}}
         @media (max-width:768px){.hamburger{display:block}.nav-menu{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:var(--card-bg);padding:16px;border-bottom:var(--card-border);gap:12px;backdrop-filter:blur(12px);z-index:999}.nav-menu.open{display:flex}.nav-menu .nav-link{font-size:1rem}.footer-content{flex-direction:column;text-align:center}.footer-left{justify-content:center}.music-grid{grid-template-columns:1fr}.season-grid,.encyclopedia-grid{grid-template-columns:1fr;gap:14px}.modal-body{flex-direction:column}.modal-video{max-height:45vh}.header{padding:0 12px}.trial-popup{max-width:260px;padding:12px 16px;bottom:16px;right:16px}.song-card .card-cover{width:120px;height:120px}.song-card .card-title{font-size:1.2rem}.comment-input-area{flex-direction:column}.comment-input-area input[type="text"]{width:100%}.comment-input-area .name-input{flex:1;min-width:100px}.main-search .search-wrapper{flex-direction:column;border-radius:30px;padding:6px}.main-search input{width:100%;padding:10px 14px}.main-search .search-btn{width:100%;padding:8px;border-radius:30px}.search-suggestions{position:static;margin-top:4px}.back-to-top{bottom:70px;right:16px;width:36px;height:36px;font-size:1rem}.side-cards{grid-template-columns:1fr}.friend-card{flex-direction:column;text-align:center;padding:24px}.friend-card .friend-link{white-space:normal;width:100%;text-align:center}.friend-card img{width:80px;height:80px}.friend-card .friend-info .fname{font-size:1.4rem}.friend-section{padding:24px 20px}.abby-grid{grid-template-columns:1fr}.detail-modal{width: 90vw !important; height: 85vh !important;}}
@@ -415,7 +246,6 @@
                 <li><a class="nav-link" data-page="encyclopedia">📖 蛋仔百科</a></li>
                 <li><a class="nav-link" data-page="anniversary">🎂 周年庆大合照</a></li>
                 <li><a class="nav-link" data-page="social">📱 互动交流</a></li>
-                <li><a class="nav-link" data-page="friend">👥 关于好友</a></li>
             </ul>
             <div class="header-tools">
                 <div class="lang-switch" id="langToggle">繁</div>
@@ -504,6 +334,9 @@
             </div>
 
             <div id="abbyEncyclopediaContent" style="display:none;">
+                <div class="search-bar">
+                    <input type="text" id="abbySearchInput" placeholder="🔍 搜索艾比名字或编号">
+                </div>
                 <div class="abby-grid" id="abbyGridContainer"></div>
                 <div class="loading-indicator" id="loadingAbby">加载中...</div>
             </div>
@@ -546,10 +379,7 @@
                 <div style="font-size:1.3rem;font-weight:bold;">🎉 关于作者</div>
                 <div id="authorText"></div>
             </div>
-        </div>
-
-        <div id="friendPage" class="page">
-            <h2 style="text-align:center;font-size:2rem;margin-bottom:32px;">👥 关于好友</h2>
+            <!-- 合并进来的“关于好友” -->
             <div class="friend-section">
                 <h3>🌟 我的好友</h3>
                 <div class="friend-card">
@@ -615,68 +445,49 @@
 
     <script>
         var OWNER_PASSWORD_HASH = '';
-
-        var zhMap = {
-            '简': '簡', '繁': '繁', '体': '體', '中': '中', '文': '文', '网': '網', '站': '站', '首': '首', '页': '頁', '关': '關', '于': '於', '作': '作', '者': '者', '合': '合', '建': '建', '议': '議', '邮': '郵', '箱': '箱', '社': '社', '交': '交', '平': '平', '台': '台', '互': '互', '动': '動', '流': '流', '素': '素', '材': '材', '推': '推', '荐': '薦', '留': '留', '言': '言', '调': '調', '试': '試', '期': '期', '待': '待', '视': '視', '频': '頻', '标': '標', '题': '題', '介': '介', '搜': '搜', '索': '索', '赛': '賽', '季': '季', '画': '畫', '歌': '歌', '单': '單', '蛋': '蛋', '仔': '仔', '派': '派', '对': '對', '厅': '廳', '音': '音', '乐': '樂', '更': '更', '多': '多', '正': '正', '在': '在', '加': '加', '入': '入', '敬': '敬', '请': '請', '以': '以', '上': '上', '所': '所', '来': '來', '源': '源', '均': '均', '自': '自', '易': '易', '云': '雲', '百': '百', '科': '科', '暂': '暫', '未': '未', '引': '引', '入': '入', '查': '查', '看': '看', '下': '下', '载': '載', '点': '點', '击': '擊', '进': '進', '入': '入', '全': '全', '部': '部', '支': '支', '持': '持', '预': '預', '览': '覽', '和': '和', '该': '該', '功': '功', '能': '能', '还': '還', '完': '完', '善': '善', '移': '移', '步': '步', '方': '方', '的': '的', '专': '專', '属': '屬', '每': '每', '部': '部', '皆': '皆', '无': '無', '需': '需', '付': '付', '费': '費', '实': '實', '时': '時', '新': '新', '即': '即', '传': '傳', '吧': '吧', '没': '沒', '有': '有', '找': '找', '到': '到', '相': '相', '关': '關', '内': '內', '容': '容', '运': '運', '行': '行', '馈': '饋', '反': '反', '回': '回', '顶': '頂', '部': '部', '热': '熱', '门': '門', '词': '詞', '条': '條', '庆': '慶', '周': '週', '年': '年', '快': '快', '乐': '樂'
-        };
-
+        var zhMap = { '简': '簡', '繁': '繁', '体': '體', '中': '中', '文': '文', '网': '網', '站': '站', '首': '首', '页': '頁', '关': '關', '于': '於', '作': '作', '者': '者', '合': '合', '建': '建', '议': '議', '邮': '郵', '箱': '箱', '社': '社', '交': '交', '平': '平', '台': '台', '互': '互', '动': '動', '流': '流', '素': '素', '材': '材', '推': '推', '荐': '薦', '留': '留', '言': '言', '调': '調', '试': '試', '期': '期', '待': '待', '视': '視', '频': '頻', '标': '標', '题': '題', '介': '介', '搜': '搜', '索': '索', '赛': '賽', '季': '季', '画': '畫', '歌': '歌', '单': '單', '蛋': '蛋', '仔': '仔', '派': '派', '对': '對', '厅': '廳', '音': '音', '乐': '樂', '更': '更', '多': '多', '正': '正', '在': '在', '加': '加', '入': '入', '敬': '敬', '请': '請', '以': '以', '上': '上', '所': '所', '来': '來', '源': '源', '均': '均', '自': '自', '易': '易', '云': '雲', '百': '百', '科': '科', '暂': '暫', '未': '未', '引': '引', '入': '入', '查': '查', '看': '看', '下': '下', '载': '載', '点': '點', '击': '擊', '进': '進', '入': '入', '全': '全', '部': '部', '支': '支', '持': '持', '预': '預', '览': '覽', '和': '和', '该': '該', '功': '功', '能': '能', '还': '還', '完': '完', '善': '善', '移': '移', '步': '步', '方': '方', '的': '的', '专': '專', '属': '屬', '每': '每', '部': '部', '皆': '皆', '无': '無', '需': '需', '付': '付', '费': '費', '实': '實', '时': '時', '新': '新', '即': '即', '传': '傳', '吧': '吧', '没': '沒', '有': '有', '找': '找', '到': '到', '相': '相', '关': '關', '内': '內', '容': '容', '运': '運', '行': '行', '馈': '饋', '反': '反', '回': '回', '顶': '頂', '部': '部', '热': '熱', '门': '門', '词': '詞', '条': '條', '庆': '慶', '周': '週', '年': '年', '快': '快', '乐': '樂' };
         function toTraditional(text) { if (!text) return text; return text.replace(/[一-龥]/g, function(ch) { return zhMap[ch] || ch; }); }
         function toSimplified(text) { var tradMap = {}; for (var k in zhMap) { tradMap[zhMap[k]] = k; } if (!text) return text; return text.replace(/[一-龥]/g, function(ch) { return tradMap[ch] || ch; }); }
 
         var currentLang = 'zh-CN';
-
         var texts = {
             'zh-CN': {
-                siteTitle: '蛋仔小鄒呀 | 个人公开网站',
-                navHome: '🏠 首页', navSeason: '🎬 赛季动画PV', navMusic: '🎵 推荐歌单', navEncyclopedia: '📖 蛋仔百科',
-                navAnniversary: '🎂 周年庆大合照', navSocial: '📱 互动交流', navFriend: '👥 关于好友',
-                themeToggleNight: '夜晚', themeToggleDay: '白天', langToggle: '繁', heroDomain: 'dzxzy.github.io',
-                searchPlaceholder: '搜索赛季、角色、视频...', newsTitle: '📢 最新公告',
+                siteTitle: '蛋仔小鄒呀 | 个人公开网站', navHome: '🏠 首页', navSeason: '🎬 赛季动画PV', navMusic: '🎵 推荐歌单', navEncyclopedia: '📖 蛋仔百科', navAnniversary: '🎂 周年庆大合照', navSocial: '📱 互动交流',
+                themeToggleNight: '夜晚', themeToggleDay: '白天', langToggle: '繁', heroDomain: 'dzxzy.github.io', searchPlaceholder: '搜索赛季、角色、视频...', newsTitle: '📢 最新公告',
                 newsItems: [
                     { date: '2026-09-01', content: '🎬 新增S32赛季动画PV「惊魂盛典」！' },
                     { date: '2026-06-13', content: '📖 新增蛋仔百科一栏。（部分功能仍在试运行中。）' },
                     { date: '2026-06-10', content: '🎵 歌单推荐新增「蛋仔派对艾比大陆背景音乐」歌单' },
                     { date: '2026-06-01', content: '✨ 网站开启试运行，部分功能持续优化中，感谢支持！' }
                 ],
-                seasonTitle: '🎬 蛋仔派对赛季动画PV 🎬', seasonSearchPlaceholder: '🔍 搜索视频标题...',
-                musicTitle: '🎵 推荐歌单 🎵', musicFooterNote: '更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。',
-                encyclopediaTitle: '📖 蛋仔百科 📖', encyclopediaTabSkin: '派对季皮肤百科', encyclopediaTabAbby: '艾比百科',
-                encyclopediaSearchPlaceholder: '🔍 搜索赛季名或角色名', socialTitle: '📱 互动交流',
-                aboutAuthorTitle: '🎉 关于作者',
+                seasonTitle: '🎬 蛋仔派对赛季动画PV 🎬', seasonSearchPlaceholder: '🔍 搜索视频标题...', musicTitle: '🎵 推荐歌单 🎵', musicFooterNote: '更多歌单正在加入中，敬请期待。<br>以上所推荐歌单来源均来自于网易云音乐。',
+                encyclopediaTitle: '📖 蛋仔百科 📖', encyclopediaTabSkin: '派对季皮肤百科', encyclopediaTabAbby: '艾比百科', encyclopediaSearchPlaceholder: '🔍 搜索赛季名或角色名', abbySearchPlaceholder: '🔍 搜索艾比名字或编号',
+                socialTitle: '📱 互动交流', aboutAuthorTitle: '🎉 关于作者',
                 aboutAuthorText: '🎮 《蛋仔派对》S11玩家<br>📹 所有素材均通过特殊渠道获得，可用作视频二创、剪辑，也可用作收藏<br>💡 免费使用，但请务必标注出处 —— 你的支持是我更新的动力<br>📩 合作建议：邮箱1127205258@qq.com📮，也可通过上方社交平台找到我～',
                 footerLeft: '📱 找到我', footerCopyright: '网站所有 © 蛋仔小鄒呀',
                 trialTitle: '⚠️ 试运行公告', trialText: '本网站目前处于试运行阶段，部分功能仍在完善中。<br>赛季动画及彩蛋搜索已可用，更多精彩内容即将上线，感谢您的支持！',
-                trialAutoClose: '弹窗将在5秒后自动关闭', downloadBtn: '⬇️ 下载', musicListen: '🎧 去网易云听歌 →',
-                noVideoFound: '😭 没有找到相关视频', noEncyclopediaFound: '😭 没有找到相关内容',
+                trialAutoClose: '弹窗将在5秒后自动关闭', downloadBtn: '⬇️ 下载', musicListen: '🎧 去网易云听歌 →', noVideoFound: '😭 没有找到相关视频', noEncyclopediaFound: '😭 没有找到相关内容',
                 viewBaike: '查看百科', notReady: '暂未引入', encyHotSearchLabel: '🔥 热词搜索：', noSearchResult: '😭 没有找到相关内容',
-                friendTitle: '👥 关于好友', friendName: '搞电脑的查拉', friendDesc: '💻 电脑技术爱好者 · 蛋仔派对玩家', friendLink: '去她的网站 →',
-                viewDetail: '查看详情', abbyName: '艾比百科', charList: '收录角色'
+                friendTitle: '👥 关于好友', friendName: '搞电脑的查拉', friendDesc: '💻 电脑技术爱好者 · 蛋仔派对玩家', friendLink: '去她的网站 →', viewDetail: '查看详情'
             },
             'zh-TW': {
-                siteTitle: '蛋仔小鄒呀 | 個人公開網站',
-                navHome: '🏠 首頁', navSeason: '🎬 賽季動畫PV', navMusic: '🎵 推薦歌單', navEncyclopedia: '📖 蛋仔百科',
-                navAnniversary: '🎂 週年慶大合照', navSocial: '📱 互動交流', navFriend: '👥 關於好友',
-                themeToggleNight: '夜晚', themeToggleDay: '白天', langToggle: '简', heroDomain: 'dzxzy.github.io',
-                searchPlaceholder: '搜索賽季、角色、視頻...', newsTitle: '📢 最新公告',
+                siteTitle: '蛋仔小鄒呀 | 個人公開網站', navHome: '🏠 首頁', navSeason: '🎬 賽季動畫PV', navMusic: '🎵 推薦歌單', navEncyclopedia: '📖 蛋仔百科', navAnniversary: '🎂 週年慶大合照', navSocial: '📱 互動交流',
+                themeToggleNight: '夜晚', themeToggleDay: '白天', langToggle: '简', heroDomain: 'dzxzy.github.io', searchPlaceholder: '搜索賽季、角色、視頻...', newsTitle: '📢 最新公告',
                 newsItems: [
                     { date: '2026-09-01', content: '🎬 新增S32賽季動畫PV「驚魂盛典」！' },
                     { date: '2026-06-13', content: '📖 新增蛋仔百科一欄。（部分功能仍在試運行中。）' },
                     { date: '2026-06-10', content: '🎵 歌單推薦新增「蛋仔派對艾比大陸背景音樂」歌單' },
                     { date: '2026-06-01', content: '✨ 網站開啟試運行，部分功能持續優化中，感謝支持！' }
                 ],
-                seasonTitle: '🎬 蛋仔派對賽季動畫PV 🎬', seasonSearchPlaceholder: '🔍 搜索視頻標題...',
-                musicTitle: '🎵 推薦歌單 🎵', musicFooterNote: '更多歌單正在加入中，敬請期待。<br>以上所推薦歌單來源均來自於網易雲音樂。',
-                encyclopediaTitle: '📖 蛋仔百科 📖', encyclopediaTabSkin: '派對季皮膚百科', encyclopediaTabAbby: '艾比百科',
-                encyclopediaSearchPlaceholder: '🔍 搜索賽季名或角色名', socialTitle: '📱 互動交流',
-                aboutAuthorTitle: '🎉 關於作者',
+                seasonTitle: '🎬 蛋仔派對賽季動畫PV 🎬', seasonSearchPlaceholder: '🔍 搜索視頻標題...', musicTitle: '🎵 推薦歌單 🎵', musicFooterNote: '更多歌單正在加入中，敬請期待。<br>以上所推薦歌單來源均來自於網易雲音樂。',
+                encyclopediaTitle: '📖 蛋仔百科 📖', encyclopediaTabSkin: '派對季皮膚百科', encyclopediaTabAbby: '艾比百科', encyclopediaSearchPlaceholder: '🔍 搜索賽季名或角色名', abbySearchPlaceholder: '🔍 搜索艾比名字或編號',
+                socialTitle: '📱 互動交流', aboutAuthorTitle: '🎉 關於作者',
                 aboutAuthorText: '🎮 《蛋仔派對》S11玩家<br>📹 所有素材均通過特殊渠道獲得，可用作視頻二創、剪輯，也可用作收藏<br>💡 免費使用，但請務必標註出處 —— 你的支持是我更新的動力<br>📩 合作建議：郵箱1127205258@qq.com📮，也可通過上方社交平台找到我～',
                 footerLeft: '📱 找到我', footerCopyright: '網站所有 © 蛋仔小鄒呀',
                 trialTitle: '⚠️ 試運行公告', trialText: '本網站目前處於試運行階段，部分功能仍在完善中。<br>賽季動畫及彩蛋搜索已可用，更多精彩內容即將上線，感謝您的支持！',
-                trialAutoClose: '彈窗將在5秒後自動關閉', downloadBtn: '⬇️ 下載', musicListen: '🎧 去網易雲聽歌 →',
-                noVideoFound: '😭 沒有找到相關視頻', noEncyclopediaFound: '😭 沒有找到相關內容',
+                trialAutoClose: '彈窗將在5秒後自動關閉', downloadBtn: '⬇️ 下載', musicListen: '🎧 去網易雲聽歌 →', noVideoFound: '😭 沒有找到相關視頻', noEncyclopediaFound: '😭 沒有找到相關內容',
                 viewBaike: '查看百科', notReady: '暫未引入', encyHotSearchLabel: '🔥 熱詞搜索：', noSearchResult: '😭 沒有找到相關內容',
-                friendTitle: '👥 關於好友', friendName: '搞電腦的查拉', friendDesc: '💻 電腦技術愛好者 · 蛋仔派對玩家', friendLink: '去她的網站 →',
-                viewDetail: '查看詳情', abbyName: '艾比百科', charList: '收錄角色'
+                friendTitle: '👥 關於好友', friendName: '搞電腦的查拉', friendDesc: '💻 電腦技術愛好者 · 蛋仔派對玩家', friendLink: '去她的網站 →', viewDetail: '查看詳情'
             }
         };
 
@@ -687,688 +498,223 @@
             var t = texts[currentLang];
             document.title = t.siteTitle;
             var navLinks = document.querySelectorAll('.nav-menu .nav-link[data-page]');
-            var navMap = { home: t.navHome, season: t.navSeason, music: t.navMusic, encyclopedia: t.navEncyclopedia,
-                anniversary: t.navAnniversary, social: t.navSocial, friend: t.navFriend };
+            var navMap = { home: t.navHome, season: t.navSeason, music: t.navMusic, encyclopedia: t.navEncyclopedia, anniversary: t.navAnniversary, social: t.navSocial };
             for (var i = 0; i < navLinks.length; i++) {
                 var page = navLinks[i].getAttribute('data-page');
                 if (navMap[page]) navLinks[i].innerHTML = navMap[page];
             }
             var themeBtn = document.getElementById('themeToggle');
-            if (themeBtn) {
-                if (document.body.classList.contains('light')) themeBtn.innerHTML = t.themeToggleDay;
-                else themeBtn.innerHTML = t.themeToggleNight;
-            }
+            if (themeBtn) { if (document.body.classList.contains('light')) themeBtn.innerHTML = t.themeToggleDay; else themeBtn.innerHTML = t.themeToggleNight; }
             var langBtn = document.getElementById('langToggle');
             if (langBtn) langBtn.innerHTML = currentLang === 'zh-CN' ? '繁' : '简';
-            var siteDomain = document.querySelector('.site-domain');
-            if (siteDomain) siteDomain.innerText = t.heroDomain;
-            var mainSearch = document.getElementById('mainSearchInput');
-            if (mainSearch) mainSearch.placeholder = t.searchPlaceholder;
-            var seasonTitle = document.querySelector('#seasonPage h2');
-            if (seasonTitle) seasonTitle.innerHTML = t.seasonTitle;
-            var seasonSearch = document.getElementById('seasonSearchInput');
-            if (seasonSearch) seasonSearch.placeholder = t.seasonSearchPlaceholder;
-            var musicTitle = document.querySelector('#musicPage h2');
-            if (musicTitle) musicTitle.innerHTML = t.musicTitle;
-            var musicFooter = document.getElementById('musicFooterNote');
-            if (musicFooter) musicFooter.innerHTML = t.musicFooterNote;
-            
-            var encTitle = document.getElementById('encyclopediaPageTitle');
-            if (encTitle) encTitle.innerHTML = t.encyclopediaTitle;
-            var tabSkinBtn = document.getElementById('tabSkin');
-            if (tabSkinBtn) tabSkinBtn.innerText = t.encyclopediaTabSkin;
-            var tabAbbyBtn = document.getElementById('tabAbby');
-            if (tabAbbyBtn) tabAbbyBtn.innerText = t.encyclopediaTabAbby;
-
-            var encSearch = document.getElementById('encyclopediaSearch');
-            if (encSearch) encSearch.placeholder = t.encyclopediaSearchPlaceholder;
-            var socialTitleElem = document.querySelector('#socialPage h2');
-            if (socialTitleElem) socialTitleElem.innerHTML = t.socialTitle;
-            var authorTitleElem = document.querySelector('#aboutAuthor > div:first-child');
-            if (authorTitleElem) authorTitleElem.innerHTML = t.aboutAuthorTitle;
-            var authorTextElem = document.getElementById('authorText');
-            if (authorTextElem) authorTextElem.innerHTML = t.aboutAuthorText;
-            var footerLeftSpan = document.querySelector('.footer-left > span');
-            if (footerLeftSpan) footerLeftSpan.innerHTML = t.footerLeft;
-            var footerCopy = document.querySelector('.footer-copyright');
-            if (footerCopy) footerCopy.innerHTML = t.footerCopyright;
+            var siteDomain = document.querySelector('.site-domain'); if (siteDomain) siteDomain.innerText = t.heroDomain;
+            var mainSearch = document.getElementById('mainSearchInput'); if (mainSearch) mainSearch.placeholder = t.searchPlaceholder;
+            var seasonTitle = document.querySelector('#seasonPage h2'); if (seasonTitle) seasonTitle.innerHTML = t.seasonTitle;
+            var seasonSearch = document.getElementById('seasonSearchInput'); if (seasonSearch) seasonSearch.placeholder = t.seasonSearchPlaceholder;
+            var musicTitle = document.querySelector('#musicPage h2'); if (musicTitle) musicTitle.innerHTML = t.musicTitle;
+            var musicFooter = document.getElementById('musicFooterNote'); if (musicFooter) musicFooter.innerHTML = t.musicFooterNote;
+            var encTitle = document.getElementById('encyclopediaPageTitle'); if (encTitle) encTitle.innerHTML = t.encyclopediaTitle;
+            var tabSkinBtn = document.getElementById('tabSkin'); if (tabSkinBtn) tabSkinBtn.innerText = t.encyclopediaTabSkin;
+            var tabAbbyBtn = document.getElementById('tabAbby'); if (tabAbbyBtn) tabAbbyBtn.innerText = t.encyclopediaTabAbby;
+            var encSearch = document.getElementById('encyclopediaSearch'); if (encSearch) encSearch.placeholder = t.encyclopediaSearchPlaceholder;
+            var abbySearch = document.getElementById('abbySearchInput'); if (abbySearch) abbySearch.placeholder = t.abbySearchPlaceholder;
+            var socialTitleElem = document.querySelector('#socialPage h2'); if (socialTitleElem) socialTitleElem.innerHTML = t.socialTitle;
+            var authorTitleElem = document.querySelector('#aboutAuthor > div:first-child'); if (authorTitleElem) authorTitleElem.innerHTML = t.aboutAuthorTitle;
+            var authorTextElem = document.getElementById('authorText'); if (authorTextElem) authorTextElem.innerHTML = t.aboutAuthorText;
+            var footerLeftSpan = document.querySelector('.footer-left > span'); if (footerLeftSpan) footerLeftSpan.innerHTML = t.footerLeft;
+            var footerCopy = document.querySelector('.footer-copyright'); if (footerCopy) footerCopy.innerHTML = t.footerCopyright;
             var trialPopup = document.getElementById('trialPopup');
             if (trialPopup) {
-                var titleSpan = trialPopup.querySelector('.popup-header strong');
-                if (titleSpan) titleSpan.innerHTML = t.trialTitle;
+                var titleSpan = trialPopup.querySelector('.popup-header strong'); if (titleSpan) titleSpan.innerHTML = t.trialTitle;
                 var pElems = trialPopup.querySelectorAll('p');
-                if (pElems.length >= 2) {
-                    var parts = t.trialText.split('<br>');
-                    pElems[0].innerHTML = parts[0] || '';
-                    pElems[1].innerHTML = parts[1] || '';
-                    if (pElems[2]) pElems[2].innerHTML = t.trialAutoClose;
-                }
+                if (pElems.length >= 2) { var parts = t.trialText.split('<br>'); pElems[0].innerHTML = parts[0] || ''; pElems[1].innerHTML = parts[1] || ''; if (pElems[2]) pElems[2].innerHTML = t.trialAutoClose; }
             }
-            var friendTitle = document.querySelector('#friendPage h2');
-            if (friendTitle) friendTitle.innerHTML = t.friendTitle;
-            var fname = document.querySelector('.friend-card .fname');
-            if (fname) fname.innerHTML = t.friendName;
-            var fdesc = document.querySelector('.friend-card .fdesc');
-            if (fdesc) fdesc.innerHTML = t.friendDesc;
-            var flink = document.querySelector('.friend-card .friend-link');
-            if (flink) flink.innerHTML = t.friendLink;
-
-            renderNews();
-            renderSeasonVideos();
-            renderMusic();
-            renderSocialLinks();
+            var friendTitle = document.querySelector('#socialPage .friend-section h3'); if (friendTitle) friendTitle.innerHTML = t.friendTitle;
+            var fname = document.querySelector('#socialPage .friend-card .fname'); if (fname) fname.innerHTML = t.friendName;
+            var fdesc = document.querySelector('#socialPage .friend-card .fdesc'); if (fdesc) fdesc.innerHTML = t.friendDesc;
+            var flink = document.querySelector('#socialPage .friend-card .friend-link'); if (flink) flink.innerHTML = t.friendLink;
+            renderNews(); renderSeasonVideos(); renderMusic(); renderSocialLinks();
         }
 
         function renderNews() {
-            var t = texts[currentLang];
-            var container = document.getElementById('newsList');
-            if (!container) return;
-            var html = '';
-            for (var i = 0; i < t.newsItems.length; i++) {
-                var item = t.newsItems[i];
-                html += '<div class="news-item"><span class="news-date">' + item.date + '</span><span class="news-content">' + item.content + '</span></div>';
-            }
+            var t = texts[currentLang]; var container = document.getElementById('newsList'); if (!container) return;
+            var html = ''; for (var i = 0; i < t.newsItems.length; i++) { var item = t.newsItems[i]; html += '<div class="news-item"><span class="news-date">' + item.date + '</span><span class="news-content">' + item.content + '</span></div>'; }
             container.innerHTML = html;
             var items = document.querySelectorAll('.news-item');
-            if (items.length) {
-                items[0].addEventListener('click', function() {
-                    var modal = document.getElementById('videoModal');
-                    var mv = document.getElementById('modalVideo');
-                    var s32 = normalVideos.find(v => v.fileName === 'S32-惊魂盛典.mp4');
-                    if (s32) {
-                        mv.src = VIDEO_BASE_PATH + s32.fileName;
-                        document.getElementById('modalTitle').innerText = s32.title;
-                        document.getElementById('modalDesc').innerText = s32.description;
-                        modal.style.display = 'flex';
-                        mv.play();
-                    }
-                });
-            }
+            if (items.length) { items[0].addEventListener('click', function() { var modal = document.getElementById('videoModal'); var mv = document.getElementById('modalVideo'); var s32 = normalVideos.find(v => v.fileName === 'S32-惊魂盛典.mp4'); if (s32) { mv.src = VIDEO_BASE_PATH + s32.fileName; document.getElementById('modalTitle').innerText = s32.title; document.getElementById('modalDesc').innerText = s32.description; modal.style.display = 'flex'; mv.play(); } }); }
         }
 
         var normalVideos = [
-            { title: "S1-怪奇工厂", description: "蛋仔岛的建立离不开它们", fileName: "S01-怪奇工厂.mp4" },
-            { title: "S2-惊奇游乐园", description: "欢迎来到怪象丛生的游乐园", fileName: "S02-惊奇游乐园.mp4" },
-            { title: "S3-疯狂马戏团", description: "这里的表演一定会让你流连忘返", fileName: "S03-疯狂马戏团.mp4" },
-            { title: "S4-汪汪向前冲", description: "勇敢汪汪向前冲", fileName: "S04-汪汪向前冲.mp4" },
-            { title: "S5-糖果甜心", description: "尽情享受糖果的甜蜜吧", fileName: "S05-糖果甜心.mp4" },
-            { title: "S6-蛋糕蜜语", description: "聆听蛋糕们的奇幻蜜语", fileName: "S06-蛋糕蜜语.mp4" },
-            { title: "S7-音乐星企划", description: "这首歌，带来爱与勇气的力量", fileName: "S07-音乐星企划.mp4" },
-            { title: "S8-精灵之声", description: "传说中的精灵，拥有振奋人心的力量", fileName: "S08-精灵之声.mp4" },
-            { title: "S9-勇闯龙蛋岛", description: "来自远古丛林的神秘客人", fileName: "S09-勇闯龙蛋岛.mp4" },
-            { title: "S10-太空奇遇", description: "和太空小队一起穿越浪漫星河", fileName: "S10-太空奇遇.mp4" },
-            { title: "S11-梦幻星遇", description: "美梦守护联盟，点亮你的每个梦境", fileName: "S11-梦幻星遇.mp4" },
-            { title: "S12-寻秘狂欢", description: "探寻隐秘故事，徜徉童话世界", fileName: "S12-寻秘狂欢.mp4" },
-            { title: "S13-午夜魅影", description: "穿越午夜迷雾，点亮幽暗的梦之舞台", fileName: "S13-午夜魅影.mp4" },
-            { title: "S14-寻光冰雪", description: "踏上未知的旅程，追寻自然的微光", fileName: "S14-寻光冰雪.mp4" },
-            { title: "S15-玩具历险", description: "穿过奇妙玩具世界，寻找神秘心愿瀑布", fileName: "S15-玩具历险.mp4" },
-            { title: "S16-潮玩大作战", description: "误入惊叫之旅，开启极限逃生", fileName: "S16-潮玩大作战.mp4" },
-            { title: "S17-宝船拍卖夜", description: "载满珍宝的游船，现已为你靠岸", fileName: "S17-宝船拍卖夜.mp4" },
-            { title: "S18-深海逐金宴", description: "深海的罪恶，皆因黄金的引诱", fileName: "S18-深海逐金宴.mp4" },
-            { title: "S19-圆月哥特", description: "神秘的古堡中流传着怎样的传说", fileName: "S19-圆月哥特.mp4" },
-            { title: "S20-龙与剑之诗", description: "我们的诗歌将流传后世", fileName: "S20-龙与剑之诗.mp4" },
-            { title: "S21-时之回响", description: "时针指向二十一，一切都会推倒重来", fileName: "S21-时之回响.mp4" },
-            { title: "S22-金字塔传奇", description: "探秘金字塔，书写新的传奇", fileName: "S22-金字塔传奇.mp4" },
-            { title: "S23-绘梦校园", description: "体验奇异的校园冒险", fileName: "S23-绘梦校园.mp4" },
-            { title: "S24-蜜糖海迷踪", description: "遨游神秘的蜜糖之海", fileName: "S24-蜜糖海迷踪.mp4" },
-            { title: "S25-博物馆狂想", description: "在博物馆度过奇妙之夜", fileName: "S25-博物馆狂想.mp4" },
-            { title: "S26-国宝归乡", description: "带国宝回家", fileName: "S26-国宝归乡.mp4" },
-            { title: "S27-织梦寻星", description: "点亮通往幸福的星图", fileName: "S27-织梦寻星.mp4" },
-            { title: "S28-奇迹大马戏", description: "爱是最伟大的奇迹", fileName: "S28-奇迹大马戏.mp4" },
-            { title: "S29-心动魔法", description: "泪与魔法，华丽变身", fileName: "S29-心动魔法.mp4" },
-            { title: "S30-元气零食", description: "一口零食，元气满满", fileName: "S30-元气零食.mp4" },
-            { title: "S31-西湖寻缘", description: "寻缘断桥上，相逢烟雨中", fileName: "S31-西湖寻缘.mp4" },
-            { title: "S32-惊魂盛典", description: "欢迎参加惊魂明星云集的晚宴", fileName: "S32-惊魂盛典.mp4" }
+            { title: "S1-怪奇工厂", description: "蛋仔岛的建立离不开它们", fileName: "S01-怪奇工厂.mp4" }, { title: "S2-惊奇游乐园", description: "欢迎来到怪象丛生的游乐园", fileName: "S02-惊奇游乐园.mp4" }, { title: "S3-疯狂马戏团", description: "这里的表演一定会让你流连忘返", fileName: "S03-疯狂马戏团.mp4" }, { title: "S4-汪汪向前冲", description: "勇敢汪汪向前冲", fileName: "S04-汪汪向前冲.mp4" }, { title: "S5-糖果甜心", description: "尽情享受糖果的甜蜜吧", fileName: "S05-糖果甜心.mp4" }, { title: "S6-蛋糕蜜语", description: "聆听蛋糕们的奇幻蜜语", fileName: "S06-蛋糕蜜语.mp4" }, { title: "S7-音乐星企划", description: "这首歌，带来爱与勇气的力量", fileName: "S07-音乐星企划.mp4" }, { title: "S8-精灵之声", description: "传说中的精灵，拥有振奋人心的力量", fileName: "S08-精灵之声.mp4" }, { title: "S9-勇闯龙蛋岛", description: "来自远古丛林的神秘客人", fileName: "S09-勇闯龙蛋岛.mp4" }, { title: "S10-太空奇遇", description: "和太空小队一起穿越浪漫星河", fileName: "S10-太空奇遇.mp4" }, { title: "S11-梦幻星遇", description: "美梦守护联盟，点亮你的每个梦境", fileName: "S11-梦幻星遇.mp4" }, { title: "S12-寻秘狂欢", description: "探寻隐秘故事，徜徉童话世界", fileName: "S12-寻秘狂欢.mp4" }, { title: "S13-午夜魅影", description: "穿越午夜迷雾，点亮幽暗的梦之舞台", fileName: "S13-午夜魅影.mp4" }, { title: "S14-寻光冰雪", description: "踏上未知的旅程，追寻自然的微光", fileName: "S14-寻光冰雪.mp4" }, { title: "S15-玩具历险", description: "穿过奇妙玩具世界，寻找神秘心愿瀑布", fileName: "S15-玩具历险.mp4" }, { title: "S16-潮玩大作战", description: "误入惊叫之旅，开启极限逃生", fileName: "S16-潮玩大作战.mp4" }, { title: "S17-宝船拍卖夜", description: "载满珍宝的游船，现已为你靠岸", fileName: "S17-宝船拍卖夜.mp4" }, { title: "S18-深海逐金宴", description: "深海的罪恶，皆因黄金的引诱", fileName: "S18-深海逐金宴.mp4" }, { title: "S19-圆月哥特", description: "神秘的古堡中流传着怎样的传说", fileName: "S19-圆月哥特.mp4" }, { title: "S20-龙与剑之诗", description: "我们的诗歌将流传后世", fileName: "S20-龙与剑之诗.mp4" }, { title: "S21-时之回响", description: "时针指向二十一，一切都会推倒重来", fileName: "S21-时之回响.mp4" }, { title: "S22-金字塔传奇", description: "探秘金字塔，书写新的传奇", fileName: "S22-金字塔传奇.mp4" }, { title: "S23-绘梦校园", description: "体验奇异的校园冒险", fileName: "S23-绘梦校园.mp4" }, { title: "S24-蜜糖海迷踪", description: "遨游神秘的蜜糖之海", fileName: "S24-蜜糖海迷踪.mp4" }, { title: "S25-博物馆狂想", description: "在博物馆度过奇妙之夜", fileName: "S25-博物馆狂想.mp4" }, { title: "S26-国宝归乡", description: "带国宝回家", fileName: "S26-国宝归乡.mp4" }, { title: "S27-织梦寻星", description: "点亮通往幸福的星图", fileName: "S27-织梦寻星.mp4" }, { title: "S28-奇迹大马戏", description: "爱是最伟大的奇迹", fileName: "S28-奇迹大马戏.mp4" }, { title: "S29-心动魔法", description: "泪与魔法，华丽变身", fileName: "S29-心动魔法.mp4" }, { title: "S30-元气零食", description: "一口零食，元气满满", fileName: "S30-元气零食.mp4" }, { title: "S31-西湖寻缘", description: "寻缘断桥上，相逢烟雨中", fileName: "S31-西湖寻缘.mp4" }, { title: "S32-惊魂盛典", description: "欢迎参加惊魂明星云集的晚宴", fileName: "S32-惊魂盛典.mp4" }
         ];
-
         var easterEggs = [
-            { keyword: "一周年", title: "🎂 蛋仔派对一周年", content: "蛋仔派对一周年大合照", img: "assets/yzn.jpg" },
-            { keyword: "二周年", title: "🎂 蛋仔派对二周年", content: "蛋仔派对二周年大合照", img: "assets/ezn.jpg" },
-            { keyword: "三周年", title: "🎂 蛋仔派对三周年", content: "蛋仔派对三周年大合照", img: "assets/szn.jpg" },
-            { keyword: "四周年", title: "🎂 蛋仔派对四周年", content: "蛋仔派对四周年大合照", img: "assets/sizn.jpg" }
+            { keyword: "一周年", title: "🎂 蛋仔派对一周年", content: "蛋仔派对一周年大合照", img: "assets/yzn.jpg" }, { keyword: "二周年", title: "🎂 蛋仔派对二周年", content: "蛋仔派对二周年大合照", img: "assets/ezn.jpg" }, { keyword: "三周年", title: "🎂 蛋仔派对三周年", content: "蛋仔派对三周年大合照", img: "assets/szn.jpg" }, { keyword: "四周年", title: "🎂 蛋仔派对四周年", content: "蛋仔派对四周年大合照", img: "assets/sizn.jpg" }
         ];
-
-        var VIDEO_BASE_PATH = "videos/";
-        var currentSeasonFilter = "";
-
-        function escapeHtml(s) {
-            if (!s) return '';
-            return s.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
+        var VIDEO_BASE_PATH = "videos/"; var currentSeasonFilter = "";
+        function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
 
         function renderSeasonVideos() {
-            var container = document.getElementById('videoContainer');
-            var keyword = currentSeasonFilter.toLowerCase().trim();
-            var t = texts[currentLang];
-            var matchedEaster = [];
-            for (var i = 0; i < easterEggs.length; i++) {
-                if (easterEggs[i].keyword === keyword) matchedEaster.push(easterEggs[i]);
-            }
-            if (matchedEaster.length > 0) {
-                var html = '';
-                for (var j = 0; j < matchedEaster.length; j++) {
-                    var egg = matchedEaster[j];
-                    html += '<div class="easter-egg"><img src="' + egg.img + '" alt="彩蛋"><div><h4>' + escapeHtml(egg.title) + '</h4><p>' + escapeHtml(egg.content) + '</p></div></div>';
-                }
-                container.innerHTML = html;
-                return;
-            }
-            var filtered = [];
-            for (var k = 0; k < normalVideos.length; k++) {
-                var v = normalVideos[k];
-                if (v.title.toLowerCase().indexOf(keyword) !== -1 || v.description.toLowerCase().indexOf(keyword) !== -1) {
-                    filtered.push(v);
-                }
-            }
-            if (filtered.length === 0) {
-                container.innerHTML = '<div style="text-align:center;padding:30px;">' + t.noVideoFound + '</div>';
-                return;
-            }
-            var html = '';
-            for (var m = 0; m < filtered.length; m++) {
-                var v = filtered[m];
-                var url = VIDEO_BASE_PATH + v.fileName;
-                html += '<div class="video-card" data-video-url="' + url + '" data-title="' + escapeHtml(v.title) + '" data-desc="' + escapeHtml(v.description) + '"><video preload="none" poster=""><source data-src="' + url + '" type="video/mp4"></video><div class="card-info"><div class="card-title">' + escapeHtml(v.title) + '</div><div>' + escapeHtml(v.description) + '</div><a href="' + url + '" download class="download-btn">' + t.downloadBtn + '</a></div></div>';
-            }
-            container.innerHTML = html;
-            initVideoLazyLoad();
-            bindVideoClick();
+            var container = document.getElementById('videoContainer'); var keyword = currentSeasonFilter.toLowerCase().trim(); var t = texts[currentLang];
+            var matchedEaster = []; for (var i = 0; i < easterEggs.length; i++) { if (easterEggs[i].keyword === keyword) matchedEaster.push(easterEggs[i]); }
+            if (matchedEaster.length > 0) { var html = ''; for (var j = 0; j < matchedEaster.length; j++) { var egg = matchedEaster[j]; html += '<div class="easter-egg"><img src="' + egg.img + '" alt="彩蛋"><div><h4>' + escapeHtml(egg.title) + '</h4><p>' + escapeHtml(egg.content) + '</p></div></div>'; } container.innerHTML = html; return; }
+            var filtered = []; for (var k = 0; k < normalVideos.length; k++) { var v = normalVideos[k]; if (v.title.toLowerCase().indexOf(keyword) !== -1 || v.description.toLowerCase().indexOf(keyword) !== -1) { filtered.push(v); } }
+            if (filtered.length === 0) { container.innerHTML = '<div style="text-align:center;padding:30px;">' + t.noVideoFound + '</div>'; return; }
+            var html = ''; for (var m = 0; m < filtered.length; m++) { var v = filtered[m]; var url = VIDEO_BASE_PATH + v.fileName; html += '<div class="video-card" data-video-url="' + url + '" data-title="' + escapeHtml(v.title) + '" data-desc="' + escapeHtml(v.description) + '"><video preload="none" poster=""><source data-src="' + url + '" type="video/mp4"></video><div class="card-info"><div class="card-title">' + escapeHtml(v.title) + '</div><div>' + escapeHtml(v.description) + '</div><a href="' + url + '" download class="download-btn">' + t.downloadBtn + '</a></div></div>'; }
+            container.innerHTML = html; initVideoLazyLoad(); bindVideoClick();
         }
 
-        function initVideoLazyLoad() {
-            var cards = document.querySelectorAll('.video-card');
-            if (!cards.length) return;
-            var obs = new IntersectionObserver(function(entries) {
-                for (var i = 0; i < entries.length; i++) {
-                    var entry = entries[i];
-                    var c = entry.target;
-                    if (entry.isIntersecting) {
-                        var ve = c.querySelector('video');
-                        var se = ve ? ve.querySelector('source') : null;
-                        var ds = se ? se.getAttribute('data-src') : null;
-                        if (ds && !ve.src) {
-                            se.setAttribute('src', ds);
-                            ve.load();
-                            ve.preload = 'metadata';
-                            se.removeAttribute('data-src');
-                        }
-                        c.classList.add('visible');
-                    } else {
-                        c.classList.remove('visible');
-                    }
-                }
-            }, { rootMargin: "100px", threshold: 0.1 });
-            for (var j = 0; j < cards.length; j++) {
-                obs.observe(cards[j]);
-            }
-        }
+        function initVideoLazyLoad() { var cards = document.querySelectorAll('.video-card'); if (!cards.length) return; var obs = new IntersectionObserver(function(entries) { for (var i = 0; i < entries.length; i++) { var entry = entries[i]; var c = entry.target; if (entry.isIntersecting) { var ve = c.querySelector('video'); var se = ve ? ve.querySelector('source') : null; var ds = se ? se.getAttribute('data-src') : null; if (ds && !ve.src) { se.setAttribute('src', ds); ve.load(); ve.preload = 'metadata'; se.removeAttribute('data-src'); } c.classList.add('visible'); } else { c.classList.remove('visible'); } } }, { rootMargin: "100px", threshold: 0.1 }); for (var j = 0; j < cards.length; j++) { obs.observe(cards[j]); } }
 
-        function bindVideoClick() {
-            var modal = document.getElementById('videoModal');
-            var mv = document.getElementById('modalVideo');
-            var mt = document.getElementById('modalTitle');
-            var md = document.getElementById('modalDesc');
-            var cards = document.querySelectorAll('.video-card');
-            for (var i = 0; i < cards.length; i++) {
-                cards[i].addEventListener('click', function(e) {
-                    if (e.target.closest('.download-btn')) return;
-                    var url = this.getAttribute('data-video-url');
-                    var title = this.getAttribute('data-title');
-                    var desc = this.getAttribute('data-desc');
-                    if (url) {
-                        mv.src = url;
-                        mt.innerText = title;
-                        md.innerText = desc;
-                        modal.style.display = 'flex';
-                        mv.play();
-                    }
-                });
-            }
-        }
+        function bindVideoClick() { var modal = document.getElementById('videoModal'); var mv = document.getElementById('modalVideo'); var mt = document.getElementById('modalTitle'); var md = document.getElementById('modalDesc'); var cards = document.querySelectorAll('.video-card'); for (var i = 0; i < cards.length; i++) { cards[i].addEventListener('click', function(e) { if (e.target.closest('.download-btn')) return; var url = this.getAttribute('data-video-url'); var title = this.getAttribute('data-title'); var desc = this.getAttribute('data-desc'); if (url) { mv.src = url; mt.innerText = title; md.innerText = desc; modal.style.display = 'flex'; mv.play(); } }); } }
 
         async function fetchEncyclopediaData() {
-            try {
-                const response = await fetch('encyclopedia-data.json');
-                if (!response.ok) throw new Error('网络响应异常');
-                encyclopediaData = await response.json();
-            } catch (error) {
-                console.error('加载百科数据失败:', error);
-                document.getElementById('encyclopediaContainer').innerHTML = 
-                    '<div style="text-align:center;padding:30px;color:#ff6b6b;">⚠️ 百科数据加载失败，请检查 encyclopedia-data.json 是否存在且路径正确（注意：必须在服务器环境访问，例如 GitHub Pages）。</div>';
-            }
+            try { const response = await fetch('encyclopedia-data.json'); if (!response.ok) throw new Error('网络响应异常'); encyclopediaData = await response.json(); }
+            catch (error) { console.error('加载百科数据失败:', error); document.getElementById('encyclopediaContainer').innerHTML = '<div style="text-align:center;padding:30px;color:#ff6b6b;">⚠️ 百科数据加载失败，请检查 encyclopedia-data.json 是否存在且路径正确（注意：必须在服务器环境访问，例如 GitHub Pages）。</div>'; }
         }
 
         function switchEncyclopediaTab(type) {
             currentTab = type;
-
-            var tabSkin = document.getElementById('tabSkin');
-            var tabAbby = document.getElementById('tabAbby');
-            var contentSkin = document.getElementById('skinEncyclopediaContent');
-            var contentAbby = document.getElementById('abbyEncyclopediaContent');
-            
+            var tabSkin = document.getElementById('tabSkin'), tabAbby = document.getElementById('tabAbby'), contentSkin = document.getElementById('skinEncyclopediaContent'), contentAbby = document.getElementById('abbyEncyclopediaContent');
             if (!tabSkin || !tabAbby || !contentSkin || !contentAbby) return;
-
-            if (type === 'skin') {
-                tabSkin.classList.add('active');
-                tabAbby.classList.remove('active');
-                contentSkin.style.display = 'block';
-                contentAbby.style.display = 'none';
-            } else {
-                tabSkin.classList.remove('active');
-                tabAbby.classList.add('active');
-                contentSkin.style.display = 'none';
-                contentAbby.style.display = 'block';
-            }
-
+            if (type === 'skin') { tabSkin.classList.add('active'); tabAbby.classList.remove('active'); contentSkin.style.display = 'block'; contentAbby.style.display = 'none'; }
+            else { tabSkin.classList.remove('active'); tabAbby.classList.add('active'); contentSkin.style.display = 'none'; contentAbby.style.display = 'block'; }
             var filtered = encyclopediaData.filter(item => item.type === type);
-            
             var container = document.getElementById(type === 'skin' ? 'encyclopediaContainer' : 'abbyGridContainer');
             if (container) container.innerHTML = '';
-
             var loader = document.getElementById(type === 'skin' ? 'loadingSkin' : 'loadingAbby');
             if (loader) loader.classList.remove('active');
-
             var html = '';
             for (var i = 0; i < filtered.length; i++) {
                 var item = filtered[i];
-                if (item.type === 'skin') {
-                    html += renderSkinCard(item, i);
-                } else {
-                    html += renderAbbyCard(item, i);
-                }
+                if (item.type === 'skin') html += renderSkinCard(item, i);
+                else html += renderAbbyCard(item, i);
             }
-            if (container) {
-                container.innerHTML = html;
-                // 关键修复：让所有卡片立即可见
-                var cards = container.querySelectorAll('.encyclopedia-card, .abby-card');
-                for (var j = 0; j < cards.length; j++) {
-                    cards[j].classList.add('visible');
-                }
-            }
+            if (container) { container.innerHTML = html; var cards = container.querySelectorAll('.encyclopedia-card, .abby-card'); for (var j = 0; j < cards.length; j++) { cards[j].classList.add('visible'); } }
         }
 
         function renderSkinCard(item, index) {
-            var t = texts[currentLang];
-            var summaryText = item.summary ? item.summary : '探索该赛季的精彩角色';
+            var t = texts[currentLang]; var summaryText = item.summary ? item.summary : '探索该赛季的精彩角色';
             return '<div class="encyclopedia-card" data-index="' + index + '" onclick="openDetailModal(\'' + item.id + '\')">' +
-                '<div class="card-header">' + escapeHtml(item.name) +
-                '<span class="season-en">' + escapeHtml(item.nameEn) + '</span></div>' +
-                '<div class="abby-summary" style="padding: 12px 14px; font-size: 0.95rem; line-height: 1.7; color: var(--text-color); text-align: justify; text-indent: 2em; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; min-height: 4.7em;">' + escapeHtml(summaryText) + '</div>' +
-                '<div style="text-align:center; padding: 12px 0 16px;">' +
-                '<button class="view-detail-btn" onclick="event.stopPropagation(); openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button>' +
-                '</div></div>';
+                '<div class="card-header">' + escapeHtml(item.name) + '<span class="season-en">' + escapeHtml(item.nameEn) + '</span></div>' +
+                '<div class="abby-summary">' + escapeHtml(summaryText) + '</div>' +
+                '<div style="text-align:center; padding: 8px 0 12px;"><button class="view-detail-btn" onclick="event.stopPropagation(); openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button></div></div>';
         }
 
         function renderAbbyCard(item, index) {
             var t = texts[currentLang];
             return '<div class="abby-card" data-index="' + index + '" onclick="openDetailModal(\'' + item.id + '\')">' +
-                '<div class="abby-header">' +
-                    '<span class="abby-name">' + escapeHtml(item.name) + '</span>' +
-                    '<div class="abby-meta">' +
-                        '<span>编号：' + escapeHtml(item.idNum) + '</span>' +
-                        '<span>体型：' + escapeHtml(item.size) + '</span>' +
-                    '</div>' +
-                '</div>' +
+                '<div class="abby-header"><span class="abby-name">' + escapeHtml(item.name) + '</span><div class="abby-meta"><span>编号：' + escapeHtml(item.idNum) + '</span><span>体型：' + escapeHtml(item.size) + '</span></div></div>' +
                 '<div class="abby-summary">' + escapeHtml(item.summary) + '</div>' +
-                '<div style="text-align:center;">' +
-                '<button class="view-detail-btn" onclick="event.stopPropagation(); openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button>' +
-                '</div></div>';
+                '<div style="text-align:center;"><button class="view-detail-btn" onclick="event.stopPropagation(); openDetailModal(\'' + item.id + '\')">' + t.viewDetail + '</button></div></div>';
         }
 
-        var detailModal = document.getElementById('detailModal');
-        var detailOverlay = document.getElementById('detailOverlay');
-        var detailTitle = document.getElementById('detailTitle');
-        var detailMeta = document.getElementById('detailMeta');
-        var detailContent = document.getElementById('detailContent');
-        var detailCloseBtn = document.getElementById('detailCloseBtn');
-
-        var currentSourceCard = null;
-        var isDetailOpen = false;
+        var detailModal = document.getElementById('detailModal'), detailOverlay = document.getElementById('detailOverlay'), detailTitle = document.getElementById('detailTitle'), detailMeta = document.getElementById('detailMeta'), detailContent = document.getElementById('detailContent'), detailCloseBtn = document.getElementById('detailCloseBtn');
+        var currentSourceCard = null, isDetailOpen = false;
 
         function openDetailModal(id) {
-            var item = encyclopediaData.find(d => d.id === id);
-            if (!item) return;
-
+            var item = encyclopediaData.find(d => d.id === id); if (!item) return;
             var allCards = document.querySelectorAll('.encyclopedia-card, .abby-card');
-            for (var i = 0; i < allCards.length; i++) {
-                var card = allCards[i];
-                if (card.getAttribute('data-index') !== null) {
-                    var idx = parseInt(card.getAttribute('data-index'));
-                    var filtered = encyclopediaData.filter(d => d.type === currentTab);
-                    if (filtered[idx] && filtered[idx].id === id) {
-                        currentSourceCard = card;
-                        break;
-                    }
-                }
-            }
-
+            for (var i = 0; i < allCards.length; i++) { var card = allCards[i]; if (card.getAttribute('data-index') !== null) { var idx = parseInt(card.getAttribute('data-index')); var filtered = encyclopediaData.filter(d => d.type === currentTab); if (filtered[idx] && filtered[idx].id === id) { currentSourceCard = card; break; } } }
             if (!currentSourceCard) return;
-
             var firstRect = currentSourceCard.getBoundingClientRect();
-
             detailTitle.innerText = item.name;
             if (item.type === 'skin') {
-                detailMeta.innerHTML = '<span>赛季名称：' + escapeHtml(item.name) + '</span>' +
-                    '<span>英文名：' + escapeHtml(item.nameEn) + '</span>';
-                var summaryHtml = item.summary ? '<p style="text-indent: 2em; line-height: 1.8; margin-bottom: 16px;">' + escapeHtml(item.summary) + '</p>' : '';
-                var chars = item.characters || [];
-                var charHtml = '<ul class="detail-char-list">';
-                for (var j = 0; j < chars.length; j++) {
-                    var c = chars[j];
-                    var linkHtml = c.link ? '<a href="' + c.link + '" target="_blank" class="baike-link">' + texts[currentLang].viewBaike + '</a>' : '<span class="not-ready">' + texts[currentLang].notReady + '</span>';
-                    charHtml += '<li><span class="char-cn">' + escapeHtml(c.cn) + '</span><span class="char-en">' + escapeHtml(c.en) + '</span>' + linkHtml + '</li>';
-                }
-                charHtml += '</ul>';
-                detailContent.innerHTML = summaryHtml + charHtml;
+                detailMeta.innerHTML = '<span>赛季名称：' + escapeHtml(item.name) + '</span><span>英文名：' + escapeHtml(item.nameEn) + '</span>';
+                var summaryHtml = item.summary ? '<p style="text-indent: 2em; line-height: 1.8; margin-bottom: 16px; text-align: center;">' + escapeHtml(item.summary) + '</p>' : '';
+                var chars = item.characters || []; var charHtml = '<ul class="detail-char-list">';
+                for (var j = 0; j < chars.length; j++) { var c = chars[j]; var linkHtml = c.link ? '<a href="' + c.link + '" target="_blank" class="baike-link">' + texts[currentLang].viewBaike + '</a>' : '<span class="not-ready">' + texts[currentLang].notReady + '</span>'; charHtml += '<li><span class="char-cn">' + escapeHtml(c.cn) + '</span><span class="char-en">' + escapeHtml(c.en) + '</span>' + linkHtml + '</li>'; }
+                charHtml += '</ul>'; detailContent.innerHTML = summaryHtml + charHtml;
             } else {
-                detailMeta.innerHTML = '<span>编号：' + escapeHtml(item.idNum) + '</span>' +
-                    '<span>体型：' + escapeHtml(item.size) + '</span>';
+                detailMeta.innerHTML = '<span>编号：' + escapeHtml(item.idNum) + '</span><span>体型：' + escapeHtml(item.size) + '</span>';
                 detailContent.innerHTML = '<p style="text-indent: 2em; line-height: 1.8;">' + escapeHtml(item.details) + '</p>';
             }
-
-            var targetWidth = window.innerWidth * 0.75;
-            var targetHeight = window.innerHeight * 0.75;
-            var targetLeft = (window.innerWidth - targetWidth) / 2;
-            var targetTop = (window.innerHeight - targetHeight) / 2;
-
-            if (window.innerWidth <= 768) {
-                targetWidth = window.innerWidth * 0.9;
-                targetHeight = window.innerHeight * 0.85;
-                targetLeft = (window.innerWidth - targetWidth) / 2;
-                targetTop = (window.innerHeight - targetHeight) / 2;
-            }
-
-            detailModal.style.display = 'flex';
-            detailModal.style.transition = 'none';
-            detailModal.style.width = firstRect.width + 'px';
-            detailModal.style.height = firstRect.height + 'px';
-            detailModal.style.left = firstRect.left + 'px';
-            detailModal.style.top = firstRect.top + 'px';
-            detailModal.style.borderRadius = '20px';
-            detailModal.style.opacity = '1';
-
-            detailOverlay.classList.add('active');
-            detailModal.offsetHeight;
-
-            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-            detailModal.style.width = targetWidth + 'px';
-            detailModal.style.height = targetHeight + 'px';
-            detailModal.style.left = targetLeft + 'px';
-            detailModal.style.top = targetTop + 'px';
-            detailModal.style.borderRadius = '24px';
-
-            isDetailOpen = true;
-            document.body.style.overflow = 'hidden';
+            var targetWidth = window.innerWidth * 0.75, targetHeight = window.innerHeight * 0.75, targetLeft = (window.innerWidth - targetWidth) / 2, targetTop = (window.innerHeight - targetHeight) / 2;
+            if (window.innerWidth <= 768) { targetWidth = window.innerWidth * 0.9; targetHeight = window.innerHeight * 0.85; targetLeft = (window.innerWidth - targetWidth) / 2; targetTop = (window.innerHeight - targetHeight) / 2; }
+            detailModal.style.display = 'flex'; detailModal.style.transition = 'none'; detailModal.style.width = firstRect.width + 'px'; detailModal.style.height = firstRect.height + 'px'; detailModal.style.left = firstRect.left + 'px'; detailModal.style.top = firstRect.top + 'px'; detailModal.style.borderRadius = '20px'; detailModal.style.opacity = '1';
+            detailOverlay.classList.add('active'); detailModal.offsetHeight;
+            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; detailModal.style.width = targetWidth + 'px'; detailModal.style.height = targetHeight + 'px'; detailModal.style.left = targetLeft + 'px'; detailModal.style.top = targetTop + 'px'; detailModal.style.borderRadius = '24px';
+            isDetailOpen = true; document.body.style.overflow = 'hidden';
         }
 
         function closeDetailModal() {
-            if (!isDetailOpen) return;
-
-            var firstRect = currentSourceCard.getBoundingClientRect();
-
-            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-            detailModal.style.width = firstRect.width + 'px';
-            detailModal.style.height = firstRect.height + 'px';
-            detailModal.style.left = firstRect.left + 'px';
-            detailModal.style.top = firstRect.top + 'px';
-            detailModal.style.borderRadius = '20px';
-
+            if (!isDetailOpen) return; var firstRect = currentSourceCard.getBoundingClientRect();
+            detailModal.style.transition = 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; detailModal.style.width = firstRect.width + 'px'; detailModal.style.height = firstRect.height + 'px'; detailModal.style.left = firstRect.left + 'px'; detailModal.style.top = firstRect.top + 'px'; detailModal.style.borderRadius = '20px';
             detailOverlay.classList.remove('active');
-
-            setTimeout(function() {
-                detailModal.style.display = 'none';
-                detailModal.style.transition = 'none';
-                detailModal.style.width = '0';
-                detailModal.style.height = '0';
-                isDetailOpen = false;
-                currentSourceCard = null;
-                document.body.style.overflow = '';
-            }, 400);
+            setTimeout(function() { detailModal.style.display = 'none'; detailModal.style.transition = 'none'; detailModal.style.width = '0'; detailModal.style.height = '0'; isDetailOpen = false; currentSourceCard = null; document.body.style.overflow = ''; }, 400);
         }
-
-        detailCloseBtn.addEventListener('click', closeDetailModal);
-        detailOverlay.addEventListener('click', closeDetailModal);
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && isDetailOpen) {
-                closeDetailModal();
-            }
-        });
+        detailCloseBtn.addEventListener('click', closeDetailModal); detailOverlay.addEventListener('click', closeDetailModal);
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && isDetailOpen) closeDetailModal(); });
 
         function renderMusic() {
-            var grid = document.getElementById('musicGrid');
-            if (!grid) return;
-            var t = texts[currentLang];
-            var playlists = [
-                { cover: "assets/gdtx.jpg", title: "蛋仔派对部分赛季大厅音乐",
-                    desc: "此歌单包含了从S1至今的部分赛季蛋仔岛音乐。",
-                    link: "https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=" },
-                { cover: "assets/abyy.jpg", title: "蛋仔派对艾比大陆背景音乐",
-                    desc: "追光而遇，沐光而行——艾比们祝你前行路上事事顺！",
-                    link: "https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA=" }
-            ];
-            var html = '';
-            for (var i = 0; i < playlists.length; i++) {
-                var p = playlists[i];
-                html += '<div class="song-card"><div class="card-inner"><img class="card-cover" src="' + p.cover +
-                    '" alt="歌单封面" onerror="this.src=\'https://placehold.co/180x180/2c3e50/ffd966?text=Cover\'"><div class="card-info"><div class="card-title">' +
-                    escapeHtml(p.title) + '</div><div class="card-desc">' + escapeHtml(p.desc) +
-                    '</div><a href="' + p.link + '" target="_blank" class="download-btn">' + t.musicListen +
-                    '</a></div></div></div>';
-            }
-            grid.innerHTML = html;
+            var grid = document.getElementById('musicGrid'); if (!grid) return; var t = texts[currentLang];
+            var playlists = [ { cover: "assets/gdtx.jpg", title: "蛋仔派对部分赛季大厅音乐", desc: "此歌单包含了从S1至今的部分赛季蛋仔岛音乐。", link: "https://music.163.com/playlist?id=10006957310&uct2=U2FsdGVkX18vBwNjZrmdOl1FCSZuiONcpEncPH41uRk=" }, { cover: "assets/abyy.jpg", title: "蛋仔派对艾比大陆背景音乐", desc: "追光而遇，沐光而行——艾比们祝你前行路上事事顺！", link: "https://music.163.com/playlist?id=12465167263&uct2=U2FsdGVkX18ZVr0RlfkjAXFkROXmY2aSB9KYgTEThjA=" } ];
+            var html = ''; for (var i = 0; i < playlists.length; i++) { var p = playlists[i]; html += '<div class="song-card"><div class="card-inner"><img class="card-cover" src="' + p.cover + '" alt="歌单封面" onerror="this.src=\'https://placehold.co/180x180/2c3e50/ffd966?text=Cover\'"><div class="card-info"><div class="card-title">' + escapeHtml(p.title) + '</div><div class="card-desc">' + escapeHtml(p.desc) + '</div><a href="' + p.link + '" target="_blank" class="download-btn">' + t.musicListen + '</a></div></div></div>'; } grid.innerHTML = html;
         }
 
         function renderSocialLinks() {
-            var container = document.getElementById('footerSocial');
-            if (!container) return;
-            container.innerHTML = '';
-            var socials = [
-                { name: "BiliBili", url: "https://b23.tv/Y9D2tR9",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg" },
-                { name: "抖音", url: "https://v.douyin.com/YuEr0aR3RSM/",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" },
-                { name: "快手", url: "https://v.kuaishou.com/KG1pc49y",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg" },
-                { name: "小红书", url: "https://xhslink.com/m/2PO9N97jXhn",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg" },
-                { name: "LOFTER", url: "https://xz1127205258.lofter.com",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg" },
-                { name: "网易云音乐", url: "https://y.music.163.com/m/user?id=7808133486",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg" },
-                { name: "X (Twitter)", url: "https://x.com/dzpddzxzy",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" },
-                { name: "YouTube", url: "https://youtube.com/@蛋仔小鄒呀",
-                    icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" }
-            ];
-            for (var i = 0; i < socials.length; i++) {
-                var s = socials[i];
-                var a = document.createElement('a');
-                a.href = s.url;
-                a.target = '_blank';
-                a.setAttribute('data-url', s.url);
-                a.innerHTML = '<img src="' + s.icon + '" alt="' + s.name + '" width="24" height="24"><span>' + s.name + '</span><div class="qr-popup"></div>';
-                var qrDiv = a.querySelector('.qr-popup');
-                var qrImg = document.createElement('img');
-                qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=' + encodeURIComponent(s.url);
-                qrImg.style.width = '60px';
-                qrImg.style.height = '60px';
-                qrDiv.appendChild(qrImg);
-                container.appendChild(a);
-            }
+            var container = document.getElementById('footerSocial'); if (!container) return; container.innerHTML = '';
+            var socials = [ { name: "BiliBili", url: "https://b23.tv/Y9D2tR9", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg" }, { name: "抖音", url: "https://v.douyin.com/YuEr0aR3RSM/", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" }, { name: "快手", url: "https://v.kuaishou.com/KG1pc49y", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/kuaishou.svg" }, { name: "小红书", url: "https://xhslink.com/m/2PO9N97jXhn", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/xiaohongshu.svg" }, { name: "LOFTER", url: "https://xz1127205258.lofter.com", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/lofter.svg" }, { name: "网易云音乐", url: "https://y.music.163.com/m/user?id=7808133486", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/neteasecloudmusic.svg" }, { name: "X (Twitter)", url: "https://x.com/dzpddzxzy", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" }, { name: "YouTube", url: "https://youtube.com/@蛋仔小鄒呀", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" } ];
+            for (var i = 0; i < socials.length; i++) { var s = socials[i]; var a = document.createElement('a'); a.href = s.url; a.target = '_blank'; a.setAttribute('data-url', s.url); a.innerHTML = '<img src="' + s.icon + '" alt="' + s.name + '" width="24" height="24"><span>' + s.name + '</span><div class="qr-popup"></div>'; var qrDiv = a.querySelector('.qr-popup'); var qrImg = document.createElement('img'); qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=' + encodeURIComponent(s.url); qrImg.style.width = '60px'; qrImg.style.height = '60px'; qrDiv.appendChild(qrImg); container.appendChild(a); }
         }
 
-        var pages = {
-            home: document.getElementById('homePage'),
-            season: document.getElementById('seasonPage'),
-            music: document.getElementById('musicPage'),
-            encyclopedia: document.getElementById('encyclopediaPage'),
-            anniversary: document.getElementById('anniversaryPage'),
-            social: document.getElementById('socialPage'),
-            friend: document.getElementById('friendPage')
-        };
+        var pages = { home: document.getElementById('homePage'), season: document.getElementById('seasonPage'), music: document.getElementById('musicPage'), encyclopedia: document.getElementById('encyclopediaPage'), anniversary: document.getElementById('anniversaryPage'), social: document.getElementById('socialPage') };
 
         function showPage(p) {
-            for (var key in pages) {
-                if (pages[key]) pages[key].classList.remove('active-page');
-            }
+            for (var key in pages) { if (pages[key]) pages[key].classList.remove('active-page'); }
             if (pages[p]) pages[p].classList.add('active-page');
             var navLinks = document.querySelectorAll('.nav-link[data-page]');
-            for (var i = 0; i < navLinks.length; i++) {
-                navLinks[i].classList.remove('active');
-                if (navLinks[i].getAttribute('data-page') === p) navLinks[i].classList.add('active');
-            }
+            for (var i = 0; i < navLinks.length; i++) { navLinks[i].classList.remove('active'); if (navLinks[i].getAttribute('data-page') === p) navLinks[i].classList.add('active'); }
             if (p === 'season') renderSeasonVideos();
-            if (p === 'encyclopedia') {
-                if (encyclopediaData.length === 0) {
-                    fetchEncyclopediaData().then(function() {
-                        switchEncyclopediaTab(currentTab);
-                    });
-                } else {
-                    switchEncyclopediaTab(currentTab);
-                }
-            }
-            document.getElementById('searchResultsArea').classList.remove('active');
-            document.getElementById('navMenu').classList.remove('open');
+            if (p === 'encyclopedia') { if (encyclopediaData.length === 0) { fetchEncyclopediaData().then(function() { switchEncyclopediaTab(currentTab); }); } else { switchEncyclopediaTab(currentTab); } }
+            document.getElementById('searchResultsArea').classList.remove('active'); document.getElementById('navMenu').classList.remove('open');
         }
 
         var navLinksAll = document.querySelectorAll('.nav-link[data-page]');
-        for (var i = 0; i < navLinksAll.length; i++) {
-            navLinksAll[i].addEventListener('click', function(e) {
-                e.preventDefault();
-                showPage(this.getAttribute('data-page'));
-            });
-        }
+        for (var i = 0; i < navLinksAll.length; i++) { navLinksAll[i].addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); }); }
 
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'zh-CN' ? 'zh-TW' : 'zh-CN';
-            localStorage.setItem('lang', currentLang);
-            applyLanguage();
-            if (encyclopediaData.length > 0) {
-                switchEncyclopediaTab(currentTab);
-            }
-        });
+        document.getElementById('langToggle').addEventListener('click', function() { currentLang = currentLang === 'zh-CN' ? 'zh-TW' : 'zh-CN'; localStorage.setItem('lang', currentLang); applyLanguage(); if (encyclopediaData.length > 0) switchEncyclopediaTab(currentTab); });
 
         var themeToggle = document.getElementById('themeToggle');
-
-        function setTheme(t) {
-            if (t === 'light') {
-                document.body.classList.remove('dark');
-                document.body.classList.add('light');
-                themeToggle.innerHTML = texts[currentLang].themeToggleDay;
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.classList.remove('light');
-                document.body.classList.add('dark');
-                themeToggle.innerHTML = texts[currentLang].themeToggleNight;
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        var savedTheme = localStorage.getItem('theme');
-        setTheme(savedTheme === 'dark' ? 'dark' : 'light');
-        themeToggle.addEventListener('click', function() {
-            setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
-        });
+        function setTheme(t) { if (t === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); themeToggle.innerHTML = texts[currentLang].themeToggleDay; localStorage.setItem('theme', 'light'); } else { document.body.classList.remove('light'); document.body.classList.add('dark'); themeToggle.innerHTML = texts[currentLang].themeToggleNight; localStorage.setItem('theme', 'dark'); } }
+        var savedTheme = localStorage.getItem('theme'); setTheme(savedTheme === 'dark' ? 'dark' : 'light');
+        themeToggle.addEventListener('click', function() { setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'); });
 
         var mainSearchInput = document.getElementById('mainSearchInput');
         var searchSuggestions = document.getElementById('searchSuggestions');
-
         if (mainSearchInput) {
             mainSearchInput.addEventListener('input', function() {
                 var val = this.value.trim();
                 if (val.length > 0) {
                     var suggestions = [];
-                    for (var i = 0; i < normalVideos.length; i++) {
-                        var v = normalVideos[i];
-                        if (v.title.indexOf(val) !== -1 && suggestions.length < 8) {
-                            suggestions.push({ text: v.title, type: '🎬 视频' });
-                        }
-                    }
+                    for (var i = 0; i < normalVideos.length; i++) { var v = normalVideos[i]; if (v.title.indexOf(val) !== -1 && suggestions.length < 8) suggestions.push({ text: v.title, type: '🎬 视频' }); }
                     if (encyclopediaData.length > 0) {
                         for (var j = 0; j < encyclopediaData.length; j++) {
                             var d = encyclopediaData[j];
-                            if (d.name.indexOf(val) !== -1 && suggestions.length < 8) {
-                                suggestions.push({ text: d.name, type: d.type === 'skin' ? '📖 赛季' : '🏝️ 艾比' });
-                            }
-                            if (d.type === 'skin' && d.characters) {
-                                for (var c = 0; c < d.characters.length; c++) {
-                                    var char = d.characters[c];
-                                    if (char.cn.indexOf(val) !== -1 && suggestions.length < 8) {
-                                        suggestions.push({ text: char.cn, type: '📖 角色' });
-                                    }
-                                }
-                            }
+                            if (d.name.indexOf(val) !== -1 && suggestions.length < 8) suggestions.push({ text: d.name, type: d.type === 'skin' ? '📖 赛季' : '🏝️ 艾比' });
+                            if (d.type === 'skin' && d.characters) { for (var c = 0; c < d.characters.length; c++) { var char = d.characters[c]; if (char.cn.indexOf(val) !== -1 && suggestions.length < 8) suggestions.push({ text: char.cn, type: '📖 角色' }); } }
                         }
                     }
-                    var seenS = {};
-                    var uniqueS = [];
-                    for (var m = 0; m < suggestions.length; m++) {
-                        var key = suggestions[m].text;
-                        if (!seenS[key]) { seenS[key] = true; uniqueS.push(suggestions[m]); }
-                    }
+                    var seenS = {}; var uniqueS = [];
+                    for (var m = 0; m < suggestions.length; m++) { var key = suggestions[m].text; if (!seenS[key]) { seenS[key] = true; uniqueS.push(suggestions[m]); } }
                     if (uniqueS.length) {
                         var html = '';
-                        for (var n = 0; n < uniqueS.length; n++) {
-                            var s = uniqueS[n];
-                            html += '<div class="suggestion-item" data-text="' + escapeHtml(s.text) +
-                                '"><span class="s-tag">' + s.type + '</span><span>' + escapeHtml(s.text) + '</span></div>';
-                        }
-                        searchSuggestions.innerHTML = html;
-                        searchSuggestions.classList.add('active');
+                        for (var n = 0; n < uniqueS.length; n++) { var s = uniqueS[n]; html += '<div class="suggestion-item" data-text="' + escapeHtml(s.text) + '"><span class="s-tag">' + s.type + '</span><span>' + escapeHtml(s.text) + '</span></div>'; }
+                        searchSuggestions.innerHTML = html; searchSuggestions.classList.add('active');
                         var items = searchSuggestions.querySelectorAll('.suggestion-item');
-                        for (var p = 0; p < items.length; p++) {
-                            items[p].addEventListener('click', function() {
-                                mainSearchInput.value = this.getAttribute('data-text');
-                                searchSuggestions.classList.remove('active');
-                                performSearch(this.getAttribute('data-text'));
-                            });
-                        }
-                    } else {
-                        searchSuggestions.classList.remove('active');
-                    }
-                } else {
-                    searchSuggestions.classList.remove('active');
-                }
+                        for (var p = 0; p < items.length; p++) { items[p].addEventListener('click', function() { mainSearchInput.value = this.getAttribute('data-text'); searchSuggestions.classList.remove('active'); performSearch(this.getAttribute('data-text')); }); }
+                    } else { searchSuggestions.classList.remove('active'); }
+                } else { searchSuggestions.classList.remove('active'); }
             });
         }
 
-        document.getElementById('mainSearchBtn').addEventListener('click', function() {
-            var val = mainSearchInput.value.trim();
-            if (val) {
-                searchSuggestions.classList.remove('active');
-                performSearch(val);
-            }
-        });
-
-        mainSearchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                var val = this.value.trim();
-                if (val) {
-                    searchSuggestions.classList.remove('active');
-                    performSearch(val);
-                }
-            }
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.main-search')) {
-                searchSuggestions.classList.remove('active');
-            }
-        });
+        document.getElementById('mainSearchBtn').addEventListener('click', function() { var val = mainSearchInput.value.trim(); if (val) { searchSuggestions.classList.remove('active'); performSearch(val); } });
+        mainSearchInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { var val = this.value.trim(); if (val) { searchSuggestions.classList.remove('active'); performSearch(val); } } });
+        document.addEventListener('click', function(e) { if (!e.target.closest('.main-search')) { searchSuggestions.classList.remove('active'); } });
 
         var seasonSearch = document.getElementById('seasonSearchInput');
-        if (seasonSearch) {
-            seasonSearch.addEventListener('input', function(e) {
-                currentSeasonFilter = e.target.value;
-                renderSeasonVideos();
-            });
-        }
+        if (seasonSearch) { seasonSearch.addEventListener('input', function(e) { currentSeasonFilter = e.target.value; renderSeasonVideos(); }); }
 
+        // 皮肤百科搜索
         var encSearch2 = document.getElementById('encyclopediaSearch');
         if (encSearch2) {
             encSearch2.addEventListener('input', function(e) {
@@ -1376,182 +722,79 @@
                 if (currentTab === 'skin') {
                     var filtered = encyclopediaData.filter(item => 
                         item.type === 'skin' && 
-                        (item.name.toLowerCase().indexOf(keyword) !== -1 || 
-                         (item.nameEn && item.nameEn.toLowerCase().indexOf(keyword) !== -1) ||
+                        (item.name.toLowerCase().indexOf(keyword) !== -1 || (item.nameEn && item.nameEn.toLowerCase().indexOf(keyword) !== -1) ||
                          (item.characters && item.characters.some(c => c.cn.toLowerCase().indexOf(keyword) !== -1 || (c.en && c.en.toLowerCase().indexOf(keyword) !== -1))))
                     );
-                    var html = '';
-                    for (var i = 0; i < filtered.length; i++) {
-                        html += renderSkinCard(filtered[i], i);
-                    }
+                    var html = ''; for (var i = 0; i < filtered.length; i++) { html += renderSkinCard(filtered[i], i); }
                     document.getElementById('encyclopediaContainer').innerHTML = html;
-                    var cards = document.getElementById('encyclopediaContainer').querySelectorAll('.encyclopedia-card');
-                    for (var j = 0; j < cards.length; j++) {
-                        cards[j].classList.add('visible');
-                    }
+                    var cards = document.getElementById('encyclopediaContainer').querySelectorAll('.encyclopedia-card'); for (var j = 0; j < cards.length; j++) { cards[j].classList.add('visible'); }
+                }
+            });
+        }
+
+        // 艾比百科搜索
+        var abbySearch2 = document.getElementById('abbySearchInput');
+        if (abbySearch2) {
+            abbySearch2.addEventListener('input', function(e) {
+                var keyword = e.target.value.toLowerCase().trim();
+                if (currentTab === 'abby') {
+                    var filtered = encyclopediaData.filter(item => 
+                        item.type === 'abby' && 
+                        (item.name.toLowerCase().indexOf(keyword) !== -1 || (item.idNum && item.idNum.indexOf(keyword) !== -1))
+                    );
+                    var html = ''; for (var i = 0; i < filtered.length; i++) { html += renderAbbyCard(filtered[i], i); }
+                    document.getElementById('abbyGridContainer').innerHTML = html;
+                    var cards = document.getElementById('abbyGridContainer').querySelectorAll('.abby-card'); for (var j = 0; j < cards.length; j++) { cards[j].classList.add('visible'); }
                 }
             });
         }
 
         var footerFloat = document.getElementById('footerFloat');
-        window.addEventListener('scroll', function() {
-            var st = window.pageYOffset || document.documentElement.scrollTop;
-            var wh = window.innerHeight;
-            var dh = document.documentElement.scrollHeight;
-            if (st + wh >= dh - 100) footerFloat.classList.add('show');
-            else footerFloat.classList.remove('show');
-        });
-
+        window.addEventListener('scroll', function() { var st = window.pageYOffset || document.documentElement.scrollTop; var wh = window.innerHeight; var dh = document.documentElement.scrollHeight; if (st + wh >= dh - 100) footerFloat.classList.add('show'); else footerFloat.classList.remove('show'); });
         var backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) backToTop.classList.add('visible');
-            else backToTop.classList.remove('visible');
-        });
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        document.getElementById('hamburger').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('open');
-        });
-
-        window.closeTrialPopup = function() {
-            document.getElementById('trialPopup').classList.add('hide');
-        };
-        setTimeout(function() {
-            document.getElementById('trialPopup').classList.add('hide');
-        }, 5000);
-
-        window.closeModal = function() {
-            var m = document.getElementById('videoModal');
-            m.style.display = 'none';
-            document.getElementById('modalVideo').pause();
-            document.getElementById('modalVideo').src = '';
-        };
-        window.onclick = function(e) {
-            if (e.target === document.getElementById('videoModal')) closeModal();
-        };
+        window.addEventListener('scroll', function() { if (window.pageYOffset > 300) backToTop.classList.add('visible'); else backToTop.classList.remove('visible'); });
+        backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        document.getElementById('hamburger').addEventListener('click', function() { document.getElementById('navMenu').classList.toggle('open'); });
+        window.closeTrialPopup = function() { document.getElementById('trialPopup').classList.add('hide'); };
+        setTimeout(function() { document.getElementById('trialPopup').classList.add('hide'); }, 5000);
+        window.closeModal = function() { var m = document.getElementById('videoModal'); m.style.display = 'none'; document.getElementById('modalVideo').pause(); document.getElementById('modalVideo').src = ''; };
+        window.onclick = function(e) { if (e.target === document.getElementById('videoModal')) closeModal(); };
 
         async function performSearch(query) {
-            if (encyclopediaData.length === 0) {
-                await fetchEncyclopediaData();
-            }
-            var trimmed = query.trim();
-            var resultsArea = document.getElementById('searchResultsArea');
-            var resultGrid = document.getElementById('searchResultGrid');
-            if (!trimmed) {
-                resultsArea.classList.remove('active');
-                return;
-            }
+            if (encyclopediaData.length === 0) { await fetchEncyclopediaData(); }
+            var trimmed = query.trim(); var resultsArea = document.getElementById('searchResultsArea'); var resultGrid = document.getElementById('searchResultGrid');
+            if (!trimmed) { resultsArea.classList.remove('active'); return; }
             var t = texts[currentLang];
-
-            var yearMatch = null;
-            for (var i = 0; i < easterEggs.length; i++) {
-                if (trimmed.indexOf(easterEggs[i].keyword) !== -1) {
-                    yearMatch = easterEggs[i];
-                    break;
-                }
-            }
-            if (yearMatch) {
-                var cardHtml = '<div class="anniversary-card" style="margin:0;max-width:700px;margin:0 auto;">' +
-                    '<div class="card-title">' + yearMatch.title + '</div>' +
-                    '<div class="card-sub">' + yearMatch.content + '</div>' +
-                    '<img class="anniversary-photo" src="' + yearMatch.img + '" alt="' + yearMatch.title +
-                    '" onerror="this.src=\'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20' +
-                    yearMatch.keyword + '%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E\'">' +
-                    '</div>';
-                resultGrid.innerHTML = cardHtml;
-                resultsArea.classList.add('active');
-                return;
-            }
-
+            var yearMatch = null; for (var i = 0; i < easterEggs.length; i++) { if (trimmed.indexOf(easterEggs[i].keyword) !== -1) { yearMatch = easterEggs[i]; break; } }
+            if (yearMatch) { var cardHtml = '<div class="anniversary-card" style="margin:0;max-width:700px;margin:0 auto;"><div class="card-title">' + yearMatch.title + '</div><div class="card-sub">' + yearMatch.content + '</div><img class="anniversary-photo" src="' + yearMatch.img + '" alt="' + yearMatch.title + '" onerror="this.src=\'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23ffd93d%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23ff6b6b%22%3E🎂%20' + yearMatch.keyword + '%20🎂%3C%2Ftext%3E%3C%2Fsvg%3E\'"></div>'; resultGrid.innerHTML = cardHtml; resultsArea.classList.add('active'); return; }
             var results = [];
-            for (var j = 0; j < normalVideos.length; j++) {
-                var v = normalVideos[j];
-                if (v.title.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1 || v.description.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) {
-                    results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName });
-                }
-            }
+            for (var j = 0; j < normalVideos.length; j++) { var v = normalVideos[j]; if (v.title.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1 || v.description.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1) { results.push({ type: '🎬 赛季动画', title: v.title, desc: v.description, fileName: v.fileName }); } }
             if (encyclopediaData.length > 0) {
                 for (var k = 0; k < encyclopediaData.length; k++) {
                     var item = encyclopediaData[k];
-                    if (item.name.indexOf(trimmed) !== -1 || (item.nameEn && item.nameEn.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) {
-                        results.push({ type: item.type === 'skin' ? '📖 赛季百科' : '🏝️ 艾比百科', title: item.name, desc: item.summary ? item.summary.substring(0, 50) + '...' : '', id: item.id, typeVal: item.type });
-                    }
-                    if (item.type === 'skin' && item.characters) {
-                        for (var c = 0; c < item.characters.length; c++) {
-                            var char = item.characters[c];
-                            if (char.cn.indexOf(trimmed) !== -1 || (char.en && char.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) {
-                                results.push({ type: '📖 赛季角色', title: char.cn, desc: item.name + ' · ' + char.en, id: item.id, typeVal: 'skin', seasonName: item.name });
-                            }
-                        }
-                    }
+                    if (item.name.indexOf(trimmed) !== -1 || (item.nameEn && item.nameEn.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) { results.push({ type: item.type === 'skin' ? '📖 赛季百科' : '🏝️ 艾比百科', title: item.name, desc: item.summary ? item.summary.substring(0, 50) + '...' : '', id: item.id, typeVal: item.type }); }
+                    if (item.type === 'skin' && item.characters) { for (var c = 0; c < item.characters.length; c++) { var char = item.characters[c]; if (char.cn.indexOf(trimmed) !== -1 || (char.en && char.en.toLowerCase().indexOf(trimmed.toLowerCase()) !== -1)) { results.push({ type: '📖 赛季角色', title: char.cn, desc: item.name + ' · ' + char.en, id: item.id, typeVal: 'skin', seasonName: item.name }); } } }
                 }
             }
-
-            var seen = {};
-            var uniqueResults = [];
-            for (var m = 0; m < results.length; m++) {
-                var key = results[m].title + results[m].type;
-                if (!seen[key]) {
-                    seen[key] = true;
-                    uniqueResults.push(results[m]);
-                }
-            }
-            if (!uniqueResults.length) {
-                resultGrid.innerHTML = '<div class="no-result">😭 没有找到与“' + escapeHtml(trimmed) + '”相关的内容</div>';
-                resultsArea.classList.add('active');
-                return;
-            }
-            var html = '';
-            var maxShow = Math.min(uniqueResults.length, 12);
-            for (var n = 0; n < maxShow; n++) {
-                var r = uniqueResults[n];
-                html += '<div class="result-item" data-type="' + r.type + '" data-title="' + escapeHtml(r.title) +
-                    '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '" data-id="' + (r.id || '') + '" data-typeval="' + (r.typeVal || '') + '">' +
-                    '<div class="r-type">' + r.type + '</div>' +
-                    '<div class="r-title">' + escapeHtml(r.title) + '</div>' +
-                    '<div class="r-desc">' + escapeHtml(r.desc) + '</div></div>';
-            }
-            resultGrid.innerHTML = html;
-            resultsArea.classList.add('active');
+            var seen = {}; var uniqueResults = [];
+            for (var m = 0; m < results.length; m++) { var key = results[m].title + results[m].type; if (!seen[key]) { seen[key] = true; uniqueResults.push(results[m]); } }
+            if (!uniqueResults.length) { resultGrid.innerHTML = '<div class="no-result">😭 没有找到与“' + escapeHtml(trimmed) + '”相关的内容</div>'; resultsArea.classList.add('active'); return; }
+            var html = ''; var maxShow = Math.min(uniqueResults.length, 12);
+            for (var n = 0; n < maxShow; n++) { var r = uniqueResults[n]; html += '<div class="result-item" data-type="' + r.type + '" data-title="' + escapeHtml(r.title) + '" data-file="' + (r.fileName || '') + '" data-season="' + (r.seasonName || '') + '" data-id="' + (r.id || '') + '" data-typeval="' + (r.typeVal || '') + '"><div class="r-type">' + r.type + '</div><div class="r-title">' + escapeHtml(r.title) + '</div><div class="r-desc">' + escapeHtml(r.desc) + '</div></div>'; }
+            resultGrid.innerHTML = html; resultsArea.classList.add('active');
             var items = resultGrid.querySelectorAll('.result-item');
             for (var p = 0; p < items.length; p++) {
                 items[p].addEventListener('click', function() {
-                    var type = this.getAttribute('data-type');
-                    var title = this.getAttribute('data-title');
-                    var fileName = this.getAttribute('data-file');
-                    var id = this.getAttribute('data-id');
-                    var typeVal = this.getAttribute('data-typeval');
-                    if (type.indexOf('赛季动画') !== -1 && fileName) {
-                        showPage('season');
-                        var searchInput = document.getElementById('seasonSearchInput');
-                        if (searchInput) {
-                            searchInput.value = title;
-                            currentSeasonFilter = title;
-                            renderSeasonVideos();
-                            document.getElementById('seasonPage').scrollIntoView({ behavior: 'smooth' });
-                        }
-                    } else if (type.indexOf('百科') !== -1 && id) {
-                        showPage('encyclopedia');
-                        switchEncyclopediaTab(typeVal === 'skin' ? 'skin' : 'abby');
-                        setTimeout(function() {
-                            openDetailModal(id);
-                        }, 500);
-                    }
+                    var type = this.getAttribute('data-type'); var title = this.getAttribute('data-title'); var fileName = this.getAttribute('data-file'); var id = this.getAttribute('data-id'); var typeVal = this.getAttribute('data-typeval');
+                    if (type.indexOf('赛季动画') !== -1 && fileName) { showPage('season'); var searchInput = document.getElementById('seasonSearchInput'); if (searchInput) { searchInput.value = title; currentSeasonFilter = title; renderSeasonVideos(); document.getElementById('seasonPage').scrollIntoView({ behavior: 'smooth' }); } }
+                    else if (type.indexOf('百科') !== -1 && id) { showPage('encyclopedia'); switchEncyclopediaTab(typeVal === 'skin' ? 'skin' : 'abby'); setTimeout(function() { openDetailModal(id); }, 500); }
                 });
             }
         }
 
         (function init() {
-            var savedLang = localStorage.getItem('lang');
-            if (savedLang === 'zh-TW') currentLang = 'zh-TW';
-            else currentLang = 'zh-CN';
-
-            applyLanguage();
-            showPage('home');
-            // 预加载百科数据，避免搜索时等待
-            fetchEncyclopediaData();
+            var savedLang = localStorage.getItem('lang'); if (savedLang === 'zh-TW') currentLang = 'zh-TW'; else currentLang = 'zh-CN';
+            applyLanguage(); showPage('home'); fetchEncyclopediaData();
         })();
     </script>
 </body>
