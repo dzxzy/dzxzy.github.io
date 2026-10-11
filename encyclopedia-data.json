@@ -342,26 +342,94 @@
     "id": "skin_s27",
     "type": "skin",
     "name": "织梦寻星",
-    "nameEn": "",
+    "nameEn": "Dreamweaver, Star-Seeker",
     "summary": "点亮通往幸福的星图",
     "characters": [
-      { "cn": "命运星使薇", "en": "", "link": null },
-      { "cn": "风铃星语刹那", "en": "", "link": null },
-      { "cn": "玫瑰星缘芙蕾", "en": "", "link": null },
-      { "cn": "织梦星灵莎尔", "en": "", "link": null }
+      { "cn": "命运星使薇", "en": "Destiny Envoy V", "link": null },
+      { "cn": "风铃星语刹那", "en": "Wind Chime Star Whisper Ksana", "link": null },
+      { "cn": "玫瑰星缘芙蕾", "en": "Rose Star Fate Furei", "link": null },
+      { "cn": "织梦星灵莎尔", "en": "Dreamweaving Star Spirit Shaer", "link": null }
     ]
   },
   {
     "id": "skin_s28",
     "type": "skin",
     "name": "奇迹大马戏",
-    "nameEn": "",
+    "nameEn": "Wonderscape Circus",
     "summary": "爱是最伟大的奇迹",
     "characters": [
-      { "cn": "大魔术师梨嘉", "en": "", "link": null },
-      { "cn": "马戏乐手咻咻", "en": "", "link": null },
-      { "cn": "魔术助手KK", "en": "", "link": null },
-      { "cn": "大戏法师艾洛", "en": "", "link": null }
+      { "cn": "大魔术师梨嘉", "en": "Grand Magician Lika", "link": null },
+      { "cn": "马戏乐手咻咻", "en": "Circus Musician Sweesher", "link": null },
+      { "cn": "魔术助手KK", "en": "Magic Assistant KK", "link": null },
+      { "cn": "大戏法师艾洛", "en": "Grand Illusionist Arlo", "link": null }
+    ]
+  },
+  {
+    "id": "skin_heartbeat_magic",
+    "type": "skin",
+    "name": "心动魔法",
+    "nameEn": "",
+    "summary": "泪与魔法，华丽变身",
+    "characters": [
+      { "cn": "心锁少女露丝", "en": "", "link": null },
+      { "cn": "调香师薇洛", "en": "", "link": null },
+      { "cn": "结缘仙灵铃音", "en": "", "link": null },
+      { "cn": "心狐丘珀", "en": "", "link": null }
+    ]
+  },
+  {
+    "id": "skin_energy_snacks",
+    "type": "skin",
+    "name": "元气零食",
+    "nameEn": "",
+    "summary": "一口零食，元气满满",
+    "characters": [
+      { "cn": "炸鸡三宝", "en": "", "link": null },
+      { "cn": "汉堡狗安格丝", "en": "", "link": null },
+      { "cn": "火鸡面辣仔", "en": "", "link": null },
+      { "cn": "海鲜泡面辛子", "en": "", "link": null }
+    ]
+  },
+  {
+    "id": "skin_west_lake_reverie",
+    "type": "skin",
+    "name": "西湖寻缘",
+    "nameEn": "West Lake Reverie",
+    "summary": "寻缘断桥上，相逢烟雨中",
+    "characters": [
+      { "cn": "断桥仙子白素", "en": "Broken Bridge Fairy Baisu", "link": null },
+      { "cn": "灵芯汪汪", "en": "Witty Woofie", "link": null },
+      { "cn": "风荷少女芙泽", "en": "Lotfy Maiden Fuze", "link": null },
+      { "cn": "西湖灵君青隐", "en": "West Lake Deity Qingyin", "link": null },
+      { "cn": "真海", "en": "Zhenhai", "link": null },
+      { "cn": "西湖醋鱼", "en": "West Lake Fish", "link": null },
+      { "cn": "龙井", "en": "Longjing", "link": null }
+    ]
+  },
+  {
+    "id": "skin_fright_fest",
+    "type": "skin",
+    "name": "惊魂盛典",
+    "nameEn": "Fright Fest",
+    "summary": "欢迎参加惊魂明星云集的晚宴",
+    "characters": [
+      { "cn": "天鹅之梦", "en": "Swan Dream", "link": null },
+      { "cn": "丧心护士海瑟", "en": "Deranged Nurse Heather", "link": null },
+      { "cn": "画中女郎贝琳达", "en": "Belinda, the Lady in the Painting", "link": null },
+      { "cn": "哑女斯黛拉", "en": "Mute Girl Stella", "link": null }
+    ]
+  },
+  {
+    "id": "skin_forest_fairy_tale",
+    "type": "skin",
+    "name": "森林童话",
+    "nameEn": "Forest Fairy Tale",
+    "summary": "童话故事，在此上演",
+    "characters": [
+      { "cn": "童话王子莱奥", "en": "Fairy-Tale Prince Leo", "link": null },
+      { "cn": "森林女孩芳妮", "en": "Forest Girl Faunie", "link": null },
+      { "cn": "菇菇喵喵", "en": "Shroomy Meowie", "link": null },
+      { "cn": "雾野森灵", "en": "Fogwood Fairy", "link": null }
     ]
   },
   {
